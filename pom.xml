@@ -57,9 +57,30 @@
             <artifactId>jstl</artifactId>
             <version>1.2</version>
         </dependency>
+
+        <!-- Dépendance UI - web interface -->
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>bootstrap</artifactId>
+            <version>4.0.0-beta-1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>jquery</artifactId>
+            <version>3.2.1</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>font-awesome</artifactId>
+            <version>4.7.0</version>
+        </dependency>
+
     </dependencies>
 
-    <!-- besoins de Java EE 1.7 -->
+    <!-- Besoins de Java EE 1.7 -->
     <build>
         <plugins>
             <plugin>
