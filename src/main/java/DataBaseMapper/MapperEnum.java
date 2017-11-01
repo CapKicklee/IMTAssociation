@@ -1,16 +1,18 @@
-package DataBaseMap;
+package DataBaseMapper;
 
 import Bean.Adherent;
 import Bean.Adresse;
 import Bean.Article;
 import Bean.Pays;
+import Bean.Bean;
+import DAO.DAO;
 
 import java.util.Arrays;
 import java.util.List;
 
 /**
- * Enumération des types de paramètres pouvant être affectés à un EG
- * @author Chloé GUILBAUD, Léo PARIS, Kendall FOREST, Mathieu GUYOT
+ * Enumération liant les Bean à leur DAO et inversement
+ * @author Juliette FRETAY, Kendall FOREST, Chloé GUILBAUD
  */
 public enum MapperEnum {
 
@@ -33,6 +35,15 @@ public enum MapperEnum {
 
     // Constructeur
 
+    /**
+     * Constructeur de {@link MapperEnum}
+     * @param beanClassName nom de la classe {@link Bean}
+     * @param beanImplementationClass classe d'implémentation du {@link Bean}
+     * @param beanConstructorTypes types des paramètres de constructeur du {@link Bean}
+     * @param daoClassName nom de la classe {@link DAO}
+     * @param daoImplementationClass classe d'implémentation du {@link DAO}
+     * @param daoConstructorTypes types des paramètres de constructeur du {@link DAO}
+     */
     MapperEnum(String beanClassName, Class<?> beanImplementationClass, Class[] beanConstructorTypes, String daoClassName, Class<?> daoImplementationClass, Class[] daoConstructorTypes) {
         this.beanClassName = beanClassName;
         this.beanImplementationClass = beanImplementationClass;
@@ -46,7 +57,7 @@ public enum MapperEnum {
     // Services
 
     /**
-     * Permet la récupération du {@link ParamTypes} à partir de son libellé.
+     * Permet la récupération du {@link Bean} à partir de son libellé.
      * Note : la recherche du libellé se fait en ignorant la case
      *
      * @param lab le libellé de l'objet recherché
@@ -57,6 +68,14 @@ public enum MapperEnum {
         return valuesAsList().stream().filter(m -> m.getBeanClassName().equalsIgnoreCase(lab)).findAny().orElse(null);
     }
 
+    /**
+     * Permet la récupération du {@link DAO} à partir de son libellé.
+     * Note : la recherche du libellé se fait en ignorant la case
+     *
+     * @param lab le libellé de l'objet recherché
+     * @return l'objet de l'énumération correspondant au libellé fournit ou null
+     * si le libellé est inconnu
+     */
     public static MapperEnum fromDaoClassName(String lab) {
         return valuesAsList().stream().filter(m -> m.getDaoClassName().equalsIgnoreCase(lab)).findAny().orElse(null);
     }
@@ -89,16 +108,15 @@ public enum MapperEnum {
 
     /**
      * Permet d'obtenir une liste des valeurs de l'énumération
-     * {@link ParamTypes}.
+     * {@link MapperEnum}.
      *
-     * @return la liste des valeurs de l'énumération {@link ParamTypes}
+     * @return la liste des valeurs de l'énumération {@link MapperEnum}
      */
     public static List<MapperEnum> valuesAsList() {
         return Arrays.asList(values());
     }
 
     // Accesseurs
-
 
     public String getBeanClassName() {
         return beanClassName;

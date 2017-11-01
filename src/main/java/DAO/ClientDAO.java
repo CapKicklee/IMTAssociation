@@ -1,4 +1,4 @@
-package Entity;
+package DAO;
 
-public class ClientEntity {
+public class ClientDAO {
 }
