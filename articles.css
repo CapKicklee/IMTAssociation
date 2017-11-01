@@ -1,0 +1,15 @@
+.ajout {
+    background-color: #AFCB37;
+    color: white;
+}
+
+.card-body {
+    margin: auto;
+}
+
+
+.article img {
+    height: 250px;
+    width: 250px;
+    margin: auto;
+}
