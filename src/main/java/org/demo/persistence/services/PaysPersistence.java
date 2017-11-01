@@ -12,7 +12,7 @@ import org.demo.bean.jpa.PaysEntity;
 /**
  * Basic persistence operations for entity "Pays"
  * 
- * This Bean has a basic Primary Key : String
+ * This database.bean has a basic Primary Key : String
  *
  * @author Telosys Tools Generator
  *

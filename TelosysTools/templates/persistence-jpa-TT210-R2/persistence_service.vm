@@ -17,10 +17,10 @@ import ${ENTITY_PKG}.jpa.${entity.name}Entity;
  * 
 #if ( $entity.hasCompositePrimaryKey() )
 #set( $primaryKeyType = "${entity.name}EntityKey" )
- * This Bean has a composite Primary Key : $primaryKeyType
+ * This database.bean has a composite Primary Key : $primaryKeyType
 #else 
 #set( $primaryKeyType = $entity.keyAttributes[0].type )
- * This Bean has a basic Primary Key : $primaryKeyType
+ * This database.bean has a basic Primary Key : $primaryKeyType
 #end
  *
  * @author Telosys Tools Generator

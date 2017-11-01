@@ -10,7 +10,7 @@
 			<version>3.2.6.RELEASE</version>
 		</dependency>
 		
-		<!-- Bean validation -->
+		<!-- database.bean validation -->
 		<dependency>
 			<groupId>javax.validation</groupId>
 			<artifactId>validation-api</artifactId>

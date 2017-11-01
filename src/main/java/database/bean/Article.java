@@ -1,4 +1,4 @@
-package Bean;
+package database.bean;
 
 public class Article implements Bean {
 
@@ -58,7 +58,7 @@ public class Article implements Bean {
 
     @Override
     public String toString() {
-        return "Article{" +
+        return "BEAN - Article{" +
                 "code='" + code + '\'' +
                 ", nom='" + nom + '\'' +
                 ", prix='" + prix + '\'' +

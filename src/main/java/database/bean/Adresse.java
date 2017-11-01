@@ -1,4 +1,4 @@
-package Bean;
+package database.bean;
 
 public class Adresse implements Bean {
 
@@ -58,7 +58,7 @@ public class Adresse implements Bean {
 
     @Override
     public String toString() {
-        return "Adresse{" +
+        return "BEAN - Adresse{" +
                 "id='" + id + '\'' +
                 ", rue='" + rue + '\'' +
                 ", codePostale='" + codePostale + '\'' +

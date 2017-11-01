@@ -1,6 +1,6 @@
-package Bean;
+package database.bean;
 
-public class Adherent implements Bean{
+public class Adherent implements Bean {
 
     private String login;
     private String motDePasse;
@@ -58,7 +58,7 @@ public class Adherent implements Bean{
 
     @Override
     public String toString() {
-        return "Adherent{" +
+        return "BEAN - Adherent{" +
                 "login='" + login + '\'' +
                 ", motDePasse='" + motDePasse + '\'' +
                 ", nom='" + nom + '\'' +

@@ -16,10 +16,10 @@
  */
 ## IF COMPOSITE PRIMARY KEY : GENERATE A JAVA CLASS FOR THIS COMPOSITE KEY
 #if ( $entity.hasCompositePrimaryKey() )
-// This Bean has a composite Primary Key  
+// This database.bean has a composite Primary Key
 $generator.generate($target.entityName ,  "${entity.name}Key.java", $target.folder, "jpa_bean_pk.vm"  )
 #else 
-// This Bean has a basic Primary Key (not composite) 
+// This database.bean has a basic Primary Key (not composite)
 #end
 ##--- @Transient usage count ( number of xxxToMany links ) 
 #set ( $TRANSIENT_COUNT = 0 )

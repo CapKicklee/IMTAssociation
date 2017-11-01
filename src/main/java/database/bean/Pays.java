@@ -1,4 +1,4 @@
-package Bean;
+package database.bean;
 
 public class Pays implements Bean {
 
@@ -28,7 +28,7 @@ public class Pays implements Bean {
 
     @Override
     public String toString() {
-        return "Pays{" +
+        return "BEAN - Pays{" +
                 "code='" + code + '\'' +
                 ", nom='" + nom + '\'' +
                 '}';

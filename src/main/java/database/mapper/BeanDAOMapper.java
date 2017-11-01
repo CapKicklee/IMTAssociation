@@ -1,7 +1,7 @@
-package DataBaseMapper;
+package database.mapper;
 
-import Bean.Bean;
-import DAO.DAO;
+import database.bean.Bean;
+import database.dao.DAO;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -13,10 +13,10 @@ import java.lang.reflect.InvocationTargetException;
 public class BeanDAOMapper {
 
     /**
-     * Permet l'instanciation d'un DAO à partir d'un {@link Bean}
+     * Permet l'instanciation d'un dao à partir d'un {@link Bean}
      *
      * @param bean le {@link Bean} à partir duquel on veux créer un {@link DAO}
-     * @return un DAO crée à partir des informations du Bean
+     * @return un dao crée à partir des informations du database.bean
      */
     public static DAO mapBeanToDAO(Bean bean) {
 
@@ -32,7 +32,7 @@ public class BeanDAOMapper {
     }
 
     /**
-     * Permet l'instanciation d'un Bean à partir d'un {@link DAO}
+     * Permet l'instanciation d'un database.bean à partir d'un {@link DAO}
      *
      * @param dao le dao à partir duquel on veux créer un {@link Bean}
      * @return un {@link Bean} crée à partir des informations du {@link DAO}
@@ -56,7 +56,7 @@ public class BeanDAOMapper {
 
         try {
 
-            // Nouvelle instance de la classe dao correspondante au bean fournit
+            // Nouvelle instance de la classe dao correspondante au database.bean fournit
             Object o = classe.newInstance();
 
             //Récupération du constructeur

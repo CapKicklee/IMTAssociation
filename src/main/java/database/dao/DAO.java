@@ -1,6 +1,6 @@
-package DAO;
+package database.dao;
 
-import DataBaseMapper.Mappable;
+import database.mapper.Mappable;
 
 /**
  * Représentation objet de la base de données

@@ -12,7 +12,7 @@ import org.demo.bean.jpa.AdresseEntity;
 /**
  * Basic persistence operations for entity "Adresse"
  * 
- * This Bean has a basic Primary Key : Integer
+ * This database.bean has a basic Primary Key : Integer
  *
  * @author Telosys Tools Generator
  *

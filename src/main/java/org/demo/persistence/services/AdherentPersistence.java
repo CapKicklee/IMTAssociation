@@ -12,7 +12,7 @@ import org.demo.bean.jpa.AdherentEntity;
 /**
  * Basic persistence operations for entity "Adherent"
  * 
- * This Bean has a basic Primary Key : String
+ * This database.bean has a basic Primary Key : String
  *
  * @author Telosys Tools Generator
  *

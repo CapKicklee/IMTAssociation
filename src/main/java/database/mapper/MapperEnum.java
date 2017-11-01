@@ -1,29 +1,29 @@
-package DataBaseMapper;
+package database.mapper;
 
-import Bean.Adherent;
-import Bean.Adresse;
-import Bean.Article;
-import Bean.Pays;
-import Bean.Bean;
-import DAO.DAO;
+import database.bean.Adherent;
+import database.bean.Adresse;
+import database.bean.Article;
+import database.bean.Pays;
+import database.bean.Bean;
+import database.dao.DAO;
 
 import java.util.Arrays;
 import java.util.List;
 
 /**
- * Enumération liant les Bean à leur DAO et inversement
+ * Enumération liant les database.bean à leur dao et inversement
  * @author Juliette FRETAY, Kendall FOREST, Chloé GUILBAUD
  */
 public enum MapperEnum {
 
-    ADHERENT("Bean.Adherent", Adherent.class, new Class[]{String.class, String.class, String.class, String.class, Adresse.class},
-            "DAO.Adherent", String.class, new Class[]{}),
-    ADRESSE("Bean.Adresse", Adresse.class, new Class[]{String.class, String.class, String.class, String.class, Pays.class},
-            "DAO.Adresse", String.class, new Class[]{}),
-    ARTICLE("Bean.Article", Article.class, new Class[]{String.class, String.class, String.class, String.class, String.class},
-            "DAO.Article", String.class, new Class[]{}),
-    PAYS("Bean.Pays", Pays.class, new Class[]{String.class, String.class},
-            "DAO.Pays", String.class, new Class[]{});
+    ADHERENT("database.bean.Adherent", Adherent.class, new Class[]{String.class, String.class, String.class, String.class, Adresse.class},
+            "dao.Adherent", String.class, new Class[]{}),
+    ADRESSE("database.bean.Adresse", Adresse.class, new Class[]{String.class, String.class, String.class, String.class, Pays.class},
+            "dao.Adresse", String.class, new Class[]{}),
+    ARTICLE("database.bean.Article", Article.class, new Class[]{String.class, String.class, String.class, String.class, String.class},
+            "dao.Article", String.class, new Class[]{}),
+    PAYS("database.bean.Pays", Pays.class, new Class[]{String.class, String.class},
+            "dao.Pays", String.class, new Class[]{});
 
     // Attributs
     private String beanClassName;
