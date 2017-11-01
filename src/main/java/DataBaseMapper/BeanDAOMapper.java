@@ -1,4 +1,4 @@
-package DataBaseMap;
+package DataBaseMapper;
 
 import Bean.Bean;
 import DAO.DAO;
@@ -6,22 +6,46 @@ import DAO.DAO;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
+/**
+ * Mapper permettant de passer objet {@link DAO} à un {@link Bean} et inversement
+ * @author Juliette FRETAY, Kendall FOREST, Chloé GUILBAUD
+ */
 public class BeanDAOMapper {
 
-    public static DAO mapBeanToDAO(String beanClasseName, Object[] values) {
+    /**
+     * Permet l'instanciation d'un DAO à partir d'un {@link Bean}
+     *
+     * @param bean le {@link Bean} à partir duquel on veux créer un {@link DAO}
+     * @return un DAO crée à partir des informations du Bean
+     */
+    public static DAO mapBeanToDAO(Bean bean) {
 
-            MapperEnum mapperEnum = MapperEnum.fromBeanClassName(beanClasseName);
-            Class<?> daoClass = mapperEnum.getDaoImplementationClass();
-            Class[] constructorDaoTypes = mapperEnum.getDaoConstructorTypes();
+        String beanClasseName = bean.getClass().getName();
+        Object[] values = bean.getObjectValues();
+
+        MapperEnum mapperEnum = MapperEnum.fromBeanClassName(beanClasseName);
+        Class<?> daoClass = mapperEnum.getDaoImplementationClass();
+        Class[] constructorDaoTypes = mapperEnum.getDaoConstructorTypes();
+
         return (DAO) instantiate(daoClass, constructorDaoTypes, values);
 
     }
 
-    public static Bean mapDAOToBean(String beanClasseName, Object[] values) {
+    /**
+     * Permet l'instanciation d'un Bean à partir d'un {@link DAO}
+     *
+     * @param dao le dao à partir duquel on veux créer un {@link Bean}
+     * @return un {@link Bean} crée à partir des informations du {@link DAO}
+     */
+    public static Bean mapDAOToBean(DAO dao) {
 
-        MapperEnum mapperEnum = MapperEnum.fromDaoClassName(beanClasseName);
+        String daoClasseName = dao.getClass().getName();
+        Object[] values = dao.getObjectValues();
+
+        MapperEnum mapperEnum = MapperEnum.fromDaoClassName(daoClasseName);
         Class<?> daoClass = mapperEnum.getBeanImplementationClass();
         Class[] constructorBeanTypes = mapperEnum.getBeanConstructorTypes();
+
         return (Bean) instantiate(daoClass, constructorBeanTypes, values);
 
     }
@@ -35,10 +59,10 @@ public class BeanDAOMapper {
             // Nouvelle instance de la classe dao correspondante au bean fournit
             Object o = classe.newInstance();
 
-            //On récupère le constructeur avec les deux paramètres
+            //Récupération du constructeur
             Constructor ct = classe.getConstructor(constructorTypes);
 
-            //On instancie l'objet avec le constructeur surchargé !
+            // Instanciation de l'objet
             object = ct.newInstance(params);
 
         } catch (SecurityException e) {
