@@ -57,7 +57,7 @@ public class AdherentPersistenceJPA extends GenericJpaService<AdherentDAO, Strin
 		JpaOperation operation = new JpaOperation() {
 			@Override
 			public Object exectue(EntityManager em) throws PersistenceException {
-				Query query = em.createNamedQuery("AdherentEntity.countAll");
+				Query query = em.createNamedQuery("AdherentDAO.countAll");
 				return query.getSingleResult() ;
 			}
 		} ;

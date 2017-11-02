@@ -1,12 +1,15 @@
 package database.dao;
 
 import database.bean.Adresse;
-import database.mapper.DatabaseMapper;
-import org.hibernate.boot.model.relational.Database;
+import database.mapper.BeanDaoMapper;
 
 import java.io.Serializable;
 import javax.persistence.*;
 
+/**
+ * Table ADHERENT de la base de données.
+ * @author Juliette FRETAY, Kendall FOREST, Chloé GUILBAUD
+ */
 @Entity
 @Table(name = "ADHERENT", schema = "APP")
 @NamedQueries({
@@ -47,7 +50,7 @@ public class AdherentDAO implements Serializable, DAO {
         this.mdp = mdp;
         this.nom = nom;
         this.prenom = prenom;
-        this.adresse = (AdresseDAO) DatabaseMapper.mapBeanToDAO(adresse).get();
+        this.adresse = (AdresseDAO) BeanDaoMapper.mapBeanToDAO(adresse).get();
     }
 
     public AdherentDAO(String login, String mdp, String nom, String prenom, AdresseDAO adresse) {

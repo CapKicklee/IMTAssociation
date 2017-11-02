@@ -1,10 +1,12 @@
 package database.bean;
 
 import database.dao.PaysDAO;
-import database.mapper.DatabaseMapper;
+import database.mapper.BeanDaoMapper;
 
-import java.util.List;
-
+/**
+ * Représentation objet de la table ADRESSE de la base de données.
+ * @author Juliette FRETAY, Kendall FOREST, Chloé GUILBAUD
+ */
 public class Adresse implements Bean {
 
     private Integer id;
@@ -23,7 +25,7 @@ public class Adresse implements Bean {
     }
 
     public Adresse(Integer id, String rue, Integer codePostale, String ville, PaysDAO paysDAO) {
-        this(id, rue, codePostale, ville, (Pays) DatabaseMapper.mapDAOToBean(paysDAO).get());
+        this(id, rue, codePostale, ville, (Pays) BeanDaoMapper.mapDAOToBean(paysDAO).get());
     }
 
     public Integer getId() {

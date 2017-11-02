@@ -54,7 +54,7 @@ public class AdressePersistenceJPA extends GenericJpaService<AdresseDAO, Integer
 		JpaOperation operation = new JpaOperation() {
 			@Override
 			public Object exectue(EntityManager em) throws PersistenceException {
-				Query query = em.createNamedQuery("AdresseEntity.countAll");
+				Query query = em.createNamedQuery("AdresseDAO.countAll");
 				return query.getSingleResult() ;
 			}
 		} ;

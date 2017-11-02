@@ -1,7 +1,9 @@
 package database.bean;
 
-import javax.persistence.criteria.CriteriaBuilder;
-
+/**
+ * Représentation objet de la table ARTICLE de la base de données.
+ * @author Juliette FRETAY, Kendall FOREST, Chloé GUILBAUD
+ */
 public class Article implements Bean {
 
     private String code;

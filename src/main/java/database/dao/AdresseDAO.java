@@ -1,17 +1,19 @@
 package database.dao;
 
 import database.bean.Pays;
-import database.mapper.DatabaseMapper;
+import database.mapper.BeanDaoMapper;
 
 import java.io.Serializable;
 
 //import javax.validation.constraints.* ;
 //import org.hibernate.validator.constraints.* ;
 
-import java.util.List;
-
 import javax.persistence.*;
 
+/**
+ * Table ADRESSE de la base de données.
+ * @author Juliette FRETAY, Kendall FOREST, Chloé GUILBAUD
+ */
 @Entity
 @Table(name = "ADRESSE", schema = "APP")
 @NamedQueries({
@@ -54,7 +56,7 @@ public class AdresseDAO implements Serializable, DAO {
         this.rue = rue;
         this.cp = cp;
         this.ville = ville;
-        this.pays = (PaysDAO) DatabaseMapper.mapBeanToDAO(pays).get();
+        this.pays = (PaysDAO) BeanDaoMapper.mapBeanToDAO(pays).get();
     }
 
     public AdresseDAO(Integer id, String rue, Integer cp, String ville, PaysDAO pays) {

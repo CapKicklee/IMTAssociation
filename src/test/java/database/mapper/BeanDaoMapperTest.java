@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import java.util.Optional;
 
-public class DatabaseMapperTest {
+public class BeanDaoMapperTest {
 
     private final Pays paysBean = new Pays("FR", "France");
     private final PaysDAO paysDAO = new PaysDAO("FR","France");
@@ -24,7 +24,7 @@ public class DatabaseMapperTest {
     @Test
     public void mapBeanToDAO_Pays() {
 
-        Optional<DAO> paysDAOOp = DatabaseMapper.mapBeanToDAO(paysBean);
+        Optional<DAO> paysDAOOp = BeanDaoMapper.mapBeanToDAO(paysBean);
         Assert.assertEquals(paysDAO, paysDAOOp.get());
 
     }
@@ -32,7 +32,7 @@ public class DatabaseMapperTest {
     @Test
     public void mapBeanToDAO_Adherent() {
 
-        Optional<DAO> adh = DatabaseMapper.mapBeanToDAO(adherentBean);
+        Optional<DAO> adh = BeanDaoMapper.mapBeanToDAO(adherentBean);
         Assert.assertEquals(adherentDAO, adh.get());
 
     }
@@ -40,7 +40,7 @@ public class DatabaseMapperTest {
     @Test
     public void mapBeanToDAO_Adresse() {
 
-        Optional<DAO> ad = DatabaseMapper.mapBeanToDAO(adresseBean);
+        Optional<DAO> ad = BeanDaoMapper.mapBeanToDAO(adresseBean);
         Assert.assertEquals(adresseDAO, ad.get());
 
     }
@@ -48,7 +48,7 @@ public class DatabaseMapperTest {
     @Test
     public void mapBeanToDAO_Article() {
 
-        Optional<DAO> ar = DatabaseMapper.mapBeanToDAO(articleBean);
+        Optional<DAO> ar = BeanDaoMapper.mapBeanToDAO(articleBean);
         Assert.assertEquals(articleDAO, ar.get());
 
     }
@@ -56,7 +56,7 @@ public class DatabaseMapperTest {
     @Test
     public void mapDAOToBean_Adherent() {
 
-        Optional<Bean> adh = DatabaseMapper.mapDAOToBean(adherentDAO);
+        Optional<Bean> adh = BeanDaoMapper.mapDAOToBean(adherentDAO);
         Assert.assertEquals(adherentBean, adh.get());
 
     }
@@ -64,7 +64,7 @@ public class DatabaseMapperTest {
     @Test
     public void mapDAOToBean_Adresse() {
 
-        Optional<Bean> adr = DatabaseMapper.mapDAOToBean(adresseDAO);
+        Optional<Bean> adr = BeanDaoMapper.mapDAOToBean(adresseDAO);
         Assert.assertEquals(adresseBean, adr.get());
 
     }
@@ -72,7 +72,7 @@ public class DatabaseMapperTest {
     @Test
     public void mapDAOToBean_Article() {
 
-        Optional<Bean> adr = DatabaseMapper.mapDAOToBean(articleDAO);
+        Optional<Bean> adr = BeanDaoMapper.mapDAOToBean(articleDAO);
         Assert.assertEquals(articleBean, adr.get());
 
     }
@@ -80,7 +80,7 @@ public class DatabaseMapperTest {
     @Test
     public void mapDAOToBean_Pays() {
 
-        Optional<Bean> adr = DatabaseMapper.mapDAOToBean(paysDAO);
+        Optional<Bean> adr = BeanDaoMapper.mapDAOToBean(paysDAO);
         Assert.assertEquals(paysBean, adr.get());
 
     }

@@ -6,6 +6,10 @@ import java.sql.Blob;
 
 import javax.persistence.*;
 
+/**
+ * Table ARTICLE de la base de données.
+ * @author Juliette FRETAY, Kendall FOREST, Chloé GUILBAUD
+ */
 @Entity
 @Table(name = "ARTICLE", schema = "APP")
 @NamedQueries({

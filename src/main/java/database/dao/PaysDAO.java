@@ -2,10 +2,12 @@ package database.dao;
 
 import java.io.Serializable;
 
-import java.util.List;
-
 import javax.persistence.*;
 
+/**
+ * Table PAYS de la base de données.
+ * @author Juliette FRETAY, Kendall FOREST, Chloé GUILBAUD
+ */
 @Entity
 @Table(name = "PAYS", schema = "APP")
 @NamedQueries({

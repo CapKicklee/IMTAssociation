@@ -1,5 +1,9 @@
 package database.bean;
 
+/**
+ * Représentation objet de la table PAYS de la base de données.
+ * @author Juliette FRETAY, Kendall FOREST, Chloé GUILBAUD
+ */
 public class Pays implements Bean {
 
     private String code;

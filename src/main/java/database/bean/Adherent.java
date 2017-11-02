@@ -1,8 +1,12 @@
 package database.bean;
 
 import database.dao.AdresseDAO;
-import database.mapper.DatabaseMapper;
+import database.mapper.BeanDaoMapper;
 
+/**
+ * Représentation objet de la table ADHERENT de la base de données.
+ * @author Juliette FRETAY, Kendall FOREST, Chloé GUILBAUD
+ */
 public class Adherent implements Bean {
 
     private String login;
@@ -20,7 +24,7 @@ public class Adherent implements Bean {
     }
 
     public Adherent(String login, String motDePasse, String nom, String prenom, AdresseDAO adressesDao) {
-        this(login, motDePasse, nom, prenom, (Adresse) DatabaseMapper.mapDAOToBean(adressesDao).get());
+        this(login, motDePasse, nom, prenom, (Adresse) BeanDaoMapper.mapDAOToBean(adressesDao).get());
     }
 
     public String getLogin() {

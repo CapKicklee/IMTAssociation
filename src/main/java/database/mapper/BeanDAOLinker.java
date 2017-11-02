@@ -12,11 +12,11 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Enumération liant les database.bean à leur dao et inversement
+ * Enumération liant les {@link Bean} à leur {@link DAO} et inversement
  *
  * @author Juliette FRETAY, Kendall FOREST, Chloé GUILBAUD
  */
-public enum MapperEnum {
+public enum BeanDAOLinker {
 
     ADHERENT("database.bean.Adherent", Adherent.class, new Class[]{String.class, String.class, String.class, String.class, AdresseDAO.class},
             "database.dao.AdherentDAO", AdherentDAO.class, new Class[]{String.class, String.class, String.class, String.class, Adresse.class}),
@@ -38,7 +38,7 @@ public enum MapperEnum {
     // Constructeur
 
     /**
-     * Constructeur de {@link MapperEnum}
+     * Constructeur de {@link BeanDAOLinker}
      *
      * @param beanClassName           nom de la classe {@link Bean}
      * @param beanImplementationClass classe d'implémentation du {@link Bean}
@@ -47,7 +47,7 @@ public enum MapperEnum {
      * @param daoImplementationClass  classe d'implémentation du {@link DAO}
      * @param daoConstructorTypes     types des paramètres de constructeur du {@link DAO}
      */
-    MapperEnum(String beanClassName, Class<?> beanImplementationClass, Class[] beanConstructorTypes, String daoClassName, Class<?> daoImplementationClass, Class[] daoConstructorTypes) {
+    BeanDAOLinker(String beanClassName, Class<?> beanImplementationClass, Class[] beanConstructorTypes, String daoClassName, Class<?> daoImplementationClass, Class[] daoConstructorTypes) {
         this.beanClassName = beanClassName;
         this.beanImplementationClass = beanImplementationClass;
         this.beanConstructorTypes = beanConstructorTypes;
@@ -65,7 +65,7 @@ public enum MapperEnum {
      * @return l'objet de l'énumération correspondant au libellé fournit ou null
      * si le libellé est inconnu
      */
-    public static MapperEnum fromBeanClassName(String lab) {
+    public static BeanDAOLinker fromBeanClassName(String lab) {
         return valuesAsList().stream().filter(m -> m.getBeanClassName().equalsIgnoreCase(lab)).findAny().orElse(null);
     }
 
@@ -77,7 +77,7 @@ public enum MapperEnum {
      * @return l'objet de l'énumération correspondant au libellé fournit ou null
      * si le libellé est inconnu
      */
-    public static MapperEnum fromDaoClassName(String lab) {
+    public static BeanDAOLinker fromDaoClassName(String lab) {
         return valuesAsList().stream().filter(m -> m.getDaoClassName().equalsIgnoreCase(lab)).findAny().orElse(null);
     }
 
@@ -88,7 +88,7 @@ public enum MapperEnum {
      * @return la classe d'implémentation correspondant au type de paramètre fourni
      */
     public static Class<?> getClassForBeanClassName(String paramName) throws ClassNotFoundException {
-        Class<?> implementationClass = MapperEnum.fromBeanClassName(paramName).getClass();
+        Class<?> implementationClass = BeanDAOLinker.fromBeanClassName(paramName).getClass();
         if (implementationClass == null) {
             throw new ClassNotFoundException();
         }
@@ -102,7 +102,7 @@ public enum MapperEnum {
      * @return la classe d'implémentation correspondant au type de paramètre fourni
      */
     public static Class<?> getClassForDaoClassName(String paramName) throws ClassNotFoundException {
-        Class<?> implementationClass = MapperEnum.fromDaoClassName(paramName).getClass();
+        Class<?> implementationClass = BeanDAOLinker.fromDaoClassName(paramName).getClass();
         if (implementationClass == null) {
             throw new ClassNotFoundException();
         }
@@ -111,11 +111,11 @@ public enum MapperEnum {
 
     /**
      * Permet d'obtenir une liste des valeurs de l'énumération
-     * {@link MapperEnum}.
+     * {@link BeanDAOLinker}.
      *
-     * @return la liste des valeurs de l'énumération {@link MapperEnum}
+     * @return la liste des valeurs de l'énumération {@link BeanDAOLinker}
      */
-    public static List<MapperEnum> valuesAsList() {
+    public static List<BeanDAOLinker> valuesAsList() {
         return Arrays.asList(values());
     }
 

@@ -11,7 +11,7 @@ import java.util.Optional;
  * Mapper permettant de passer objet {@link DAO} à un {@link Bean} et inversement
  * @author Juliette FRETAY, Kendall FOREST, Chloé GUILBAUD
  */
-public class DatabaseMapper {
+public class BeanDaoMapper {
 
     /**
      * Permet l'instanciation d'un dao à partir d'un {@link Bean}
@@ -24,9 +24,9 @@ public class DatabaseMapper {
         String beanClasseName = bean.getClass().getName();
         Object[] values = bean.getObjectValues();
 
-        MapperEnum mapperEnum = MapperEnum.fromBeanClassName(beanClasseName);
-        Class<?> daoClass = mapperEnum.getDaoImplementationClass();
-        Class[] constructorDaoTypes = mapperEnum.getDaoConstructorTypes();
+        BeanDAOLinker beanDAOLinker = BeanDAOLinker.fromBeanClassName(beanClasseName);
+        Class<?> daoClass = beanDAOLinker.getDaoImplementationClass();
+        Class[] constructorDaoTypes = beanDAOLinker.getDaoConstructorTypes();
 
         DAO dao = (DAO) instantiate(daoClass, constructorDaoTypes, values).get();
         return Optional.of(dao);
@@ -44,9 +44,9 @@ public class DatabaseMapper {
         String daoClasseName = dao.getClass().getName();
         Object[] values = dao.getObjectValues();
 
-        MapperEnum mapperEnum = MapperEnum.fromDaoClassName(daoClasseName);
-        Class<?> daoClass = mapperEnum.getBeanImplementationClass();
-        Class[] constructorBeanTypes = mapperEnum.getBeanConstructorTypes();
+        BeanDAOLinker beanDAOLinker = BeanDAOLinker.fromDaoClassName(daoClasseName);
+        Class<?> daoClass = beanDAOLinker.getBeanImplementationClass();
+        Class[] constructorBeanTypes = beanDAOLinker.getBeanConstructorTypes();
 
         Bean bean = (Bean) instantiate(daoClass, constructorBeanTypes, values).get();
         return Optional.of(bean);
