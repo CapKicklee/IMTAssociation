@@ -1,0 +1,21 @@
+.ajout {
+    background-color: #AFCB37;
+    color: white;
+    float: right;
+}
+
+.ajout:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+.card-body {
+    margin: auto;
+}
+
+
+.article img {
+    height: 250px;
+    width: 250px;
+    margin: auto;
+}

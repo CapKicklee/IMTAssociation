@@ -3,12 +3,13 @@
 	xmlns="http://java.sun.com/xml/ns/javaee"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	version="3.0">
-	
+
 	<!-- http://localhost:8081/tdweb/ -->
 	<display-name>tdweb</display-name>
-	
+
 	<!-- Liste des fichiers d'acceuil de l'application -->
-	<!-- Si trouve pas un fichier prend le suivant qui est répertorié dans cette liste -->
+	<!-- Si trouve pas un fichier prend le suivant qui est répertorié dans cette 
+		liste -->
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 		<welcome-file>index.htm</welcome-file>
@@ -25,7 +26,7 @@
 		<servlet-class>td.servlet.Hello</servlet-class>
 	</servlet>
 
-	<!-- Mapping servlet Hello-->
+	<!-- Mapping servlet Hello -->
 	<servlet-mapping>
 		<servlet-name>Hello</servlet-name>
 		<url-pattern>/Hello</url-pattern>
@@ -34,7 +35,7 @@
 		<servlet-name>Hello</servlet-name>
 		<url-pattern>/Hello/*</url-pattern>
 	</servlet-mapping>
-	
+
 	<!-- Déclaration de la servlet HelloConfig -->
 	<servlet>
 		<servlet-name>HelloConfig</servlet-name>
@@ -44,8 +45,8 @@
 			<param-value>fr</param-value>
 		</init-param>
 	</servlet>
-	
-	<!-- Mapping servlet HelloConfig-->
+
+	<!-- Mapping servlet HelloConfig -->
 	<servlet-mapping>
 		<servlet-name>HelloConfig</servlet-name>
 		<url-pattern>/HelloConfig</url-pattern>
@@ -53,6 +54,25 @@
 	<servlet-mapping>
 		<servlet-name>HelloConfig</servlet-name>
 		<url-pattern>/HelloConfig/*</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>default</servlet-name>
+		<url-pattern>/css/*</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>default</servlet-name>
+		<url-pattern>/js/*</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>default</servlet-name>
+		<url-pattern>/img/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>default</servlet-name>
+		<url-pattern>/webjars/*</url-pattern>
 	</servlet-mapping>
 
 </web-app>
