@@ -12,7 +12,7 @@ import javax.persistence.*;
 @NamedQueries({
         @NamedQuery(name = "AdherentDAO.countAll", query = "SELECT COUNT(x) FROM AdherentDAO x")
 })
-public class AdherentDAO implements Serializable, DAO{
+public class AdherentDAO implements Serializable, DAO {
 
     private static final long serialVersionUID = 1L;
 
