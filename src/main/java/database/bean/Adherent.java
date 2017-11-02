@@ -1,5 +1,8 @@
 package database.bean;
 
+import database.dao.AdresseDAO;
+import database.mapper.DatabaseMapper;
+
 public class Adherent implements Bean {
 
     private String login;
@@ -14,6 +17,10 @@ public class Adherent implements Bean {
         this.nom = nom;
         this.prenom = prenom;
         this.adresse = adresse;
+    }
+
+    public Adherent(String login, String motDePasse, String nom, String prenom, AdresseDAO adressesDao) {
+        this(login, motDePasse, nom, prenom, (Adresse) DatabaseMapper.mapDAOToBean(adressesDao).get());
     }
 
     public String getLogin() {
@@ -65,6 +72,20 @@ public class Adherent implements Bean {
                 ", prenom='" + prenom + '\'' +
                 ", adresse=" + adresse +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Adherent adherent = (Adherent) o;
+
+        if (login != null ? !login.equals(adherent.login) : adherent.login != null) return false;
+        if (motDePasse != null ? !motDePasse.equals(adherent.motDePasse) : adherent.motDePasse != null) return false;
+        if (nom != null ? !nom.equals(adherent.nom) : adherent.nom != null) return false;
+        if (prenom != null ? !prenom.equals(adherent.prenom) : adherent.prenom != null) return false;
+        return adresse != null ? adresse.equals(adherent.adresse) : adherent.adresse == null;
     }
 
     @Override

@@ -25,12 +25,17 @@ public class PaysDAO implements Serializable, DAO {
     private String name;
 
     // Relations
-    @OneToMany(mappedBy = "pays2", targetEntity = AdresseDAO.class)
-    private List<AdresseDAO> listAdresse;
+    //@OneToMany(mappedBy = "pays", targetEntity = AdresseDAO.class)
+    //private List<AdresseDAO> listAdresse;
 
 
     public PaysDAO() {
         super();
+    }
+
+    public PaysDAO(String code, String name) {
+        this.code = code;
+        this.name = name;
     }
 
     public void setCode(String code) {
@@ -49,26 +54,28 @@ public class PaysDAO implements Serializable, DAO {
         return this.name;
     }
 
-    public void setListAdresse(List<AdresseDAO> listAdresse) {
-        this.listAdresse = listAdresse;
-    }
-
-    public List<AdresseDAO> getListAdresse() {
-        return this.listAdresse;
-    }
-
     @Override
     public String toString() {
         return "DAO - PaysDAO{" +
                 "code='" + code + '\'' +
                 ", name='" + name + '\'' +
-                ", listAdresse=" + listAdresse +
                 '}';
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        PaysDAO paysDAO = (PaysDAO) o;
+
+        if (code != null ? !code.equals(paysDAO.code) : paysDAO.code != null) return false;
+        return name != null ? name.equals(paysDAO.name) : paysDAO.name == null;
+    }
+
+    @Override
     public Object[] getObjectValues() {
-        return new Object[]{code, name, listAdresse};
+        return new Object[]{code, name};
     }
 
 }

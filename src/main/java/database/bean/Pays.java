@@ -35,6 +35,17 @@ public class Pays implements Bean {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Pays pays = (Pays) o;
+
+        if (code != null ? !code.equals(pays.code) : pays.code != null) return false;
+        return nom != null ? nom.equals(pays.nom) : pays.nom == null;
+    }
+
+    @Override
     public Object[] getObjectValues() {
         return new Object[]{getCode(), getNom()};
     }

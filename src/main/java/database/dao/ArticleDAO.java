@@ -40,6 +40,14 @@ public class ArticleDAO implements Serializable, DAO {
         super();
     }
 
+    public ArticleDAO(String code, String nom, Double prix, Integer stock, Blob image) {
+        this.code = code;
+        this.nom = nom;
+        this.prix = prix;
+        this.stock = stock;
+        this.image = image;
+    }
+
     public void setCode(String code) {
         this.code = code;
     }
@@ -89,6 +97,20 @@ public class ArticleDAO implements Serializable, DAO {
                 ", stock=" + stock +
                 ", image=" + image +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ArticleDAO that = (ArticleDAO) o;
+
+        if (code != null ? !code.equals(that.code) : that.code != null) return false;
+        if (nom != null ? !nom.equals(that.nom) : that.nom != null) return false;
+        if (prix != null ? !prix.equals(that.prix) : that.prix != null) return false;
+        if (stock != null ? !stock.equals(that.stock) : that.stock != null) return false;
+        return image != null ? image.equals(that.image) : that.image == null;
     }
 
     @Override

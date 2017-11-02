@@ -5,25 +5,27 @@ import database.bean.Adresse;
 import database.bean.Article;
 import database.bean.Pays;
 import database.bean.Bean;
-import database.dao.DAO;
+import database.dao.*;
 
+import java.sql.Blob;
 import java.util.Arrays;
 import java.util.List;
 
 /**
  * Enumération liant les database.bean à leur dao et inversement
+ *
  * @author Juliette FRETAY, Kendall FOREST, Chloé GUILBAUD
  */
 public enum MapperEnum {
 
-    ADHERENT("database.bean.Adherent", Adherent.class, new Class[]{String.class, String.class, String.class, String.class, Adresse.class},
-            "dao.Adherent", String.class, new Class[]{}),
-    ADRESSE("database.bean.Adresse", Adresse.class, new Class[]{String.class, String.class, String.class, String.class, Pays.class},
-            "dao.Adresse", String.class, new Class[]{}),
-    ARTICLE("database.bean.Article", Article.class, new Class[]{String.class, String.class, String.class, String.class, String.class},
-            "dao.Article", String.class, new Class[]{}),
+    ADHERENT("database.bean.Adherent", Adherent.class, new Class[]{String.class, String.class, String.class, String.class, AdresseDAO.class},
+            "database.dao.AdherentDAO", AdherentDAO.class, new Class[]{String.class, String.class, String.class, String.class, Adresse.class}),
+    ADRESSE("database.bean.Adresse", Adresse.class, new Class[]{Integer.class, String.class, Integer.class, String.class, PaysDAO.class},
+            "database.dao.AdresseDAO", AdresseDAO.class, new Class[]{Integer.class, String.class, Integer.class, String.class, Pays.class}),
+    ARTICLE("database.bean.Article", Article.class, new Class[]{String.class, String.class, Double.class, Integer.class, String.class},
+            "database.dao.ArticleDAO", ArticleDAO.class, new Class[]{String.class, String.class, Double.class, Integer.class, Blob.class}),
     PAYS("database.bean.Pays", Pays.class, new Class[]{String.class, String.class},
-            "dao.Pays", String.class, new Class[]{});
+            "database.dao.PaysDAO", PaysDAO.class, new Class[]{String.class, String.class});
 
     // Attributs
     private String beanClassName;
@@ -37,12 +39,13 @@ public enum MapperEnum {
 
     /**
      * Constructeur de {@link MapperEnum}
-     * @param beanClassName nom de la classe {@link Bean}
+     *
+     * @param beanClassName           nom de la classe {@link Bean}
      * @param beanImplementationClass classe d'implémentation du {@link Bean}
-     * @param beanConstructorTypes types des paramètres de constructeur du {@link Bean}
-     * @param daoClassName nom de la classe {@link DAO}
-     * @param daoImplementationClass classe d'implémentation du {@link DAO}
-     * @param daoConstructorTypes types des paramètres de constructeur du {@link DAO}
+     * @param beanConstructorTypes    types des paramètres de constructeur du {@link Bean}
+     * @param daoClassName            nom de la classe {@link DAO}
+     * @param daoImplementationClass  classe d'implémentation du {@link DAO}
+     * @param daoConstructorTypes     types des paramètres de constructeur du {@link DAO}
      */
     MapperEnum(String beanClassName, Class<?> beanImplementationClass, Class[] beanConstructorTypes, String daoClassName, Class<?> daoImplementationClass, Class[] daoConstructorTypes) {
         this.beanClassName = beanClassName;
@@ -52,8 +55,6 @@ public enum MapperEnum {
         this.daoImplementationClass = daoImplementationClass;
         this.daoConstructorTypes = daoConstructorTypes;
     }
-
-
     // Services
 
     /**
@@ -82,6 +83,7 @@ public enum MapperEnum {
 
     /**
      * Permet de récupérer la classe d'implémentation pour le nom de paramètre fourni.
+     *
      * @param paramName nom du paramètre dont on souhaite récupérer la classe d'implémentation
      * @return la classe d'implémentation correspondant au type de paramètre fourni
      */
@@ -95,6 +97,7 @@ public enum MapperEnum {
 
     /**
      * Permet de récupérer la classe d'implémentation pour le nom de paramètre fourni.
+     *
      * @param paramName nom du paramètre dont on souhaite récupérer la classe d'implémentation
      * @return la classe d'implémentation correspondant au type de paramètre fourni
      */

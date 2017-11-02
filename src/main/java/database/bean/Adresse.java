@@ -1,14 +1,20 @@
 package database.bean;
 
+import database.dao.PaysDAO;
+import database.mapper.DatabaseMapper;
+
+import java.util.List;
+
 public class Adresse implements Bean {
 
-    private String id;
+    private Integer id;
     private String rue;
-    private String codePostale;
+    private Integer codePostale;
     private String ville;
     private Pays pays;
+    //private List<Adherent> listAdherent;
 
-    public Adresse(String id, String rue, String codePostale, String ville, Pays pays) {
+    public Adresse(Integer id, String rue, Integer codePostale, String ville, Pays pays) {
         this.id = id;
         this.rue = rue;
         this.codePostale = codePostale;
@@ -16,11 +22,15 @@ public class Adresse implements Bean {
         this.pays = pays;
     }
 
-    public String getId() {
+    public Adresse(Integer id, String rue, Integer codePostale, String ville, PaysDAO paysDAO) {
+        this(id, rue, codePostale, ville, (Pays) DatabaseMapper.mapDAOToBean(paysDAO).get());
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -32,11 +42,11 @@ public class Adresse implements Bean {
         this.rue = rue;
     }
 
-    public String getCodePostale() {
+    public Integer getCodePostale() {
         return codePostale;
     }
 
-    public void setCodePostale(String codePostale) {
+    public void setCodePostale(Integer codePostale) {
         this.codePostale = codePostale;
     }
 
@@ -65,6 +75,20 @@ public class Adresse implements Bean {
                 ", ville='" + ville + '\'' +
                 ", pays=" + pays +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Adresse adresse = (Adresse) o;
+
+        if (id != null ? !id.equals(adresse.id) : adresse.id != null) return false;
+        if (rue != null ? !rue.equals(adresse.rue) : adresse.rue != null) return false;
+        if (codePostale != null ? !codePostale.equals(adresse.codePostale) : adresse.codePostale != null) return false;
+        if (ville != null ? !ville.equals(adresse.ville) : adresse.ville != null) return false;
+        return pays != null ? pays.equals(adresse.pays) : adresse.pays == null;
     }
 
     @Override
