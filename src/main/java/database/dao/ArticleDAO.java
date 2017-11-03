@@ -27,6 +27,9 @@ public class ArticleDAO implements Serializable, DAO {
     // Attributs
     @Column(name = "NOM", nullable = false, length = 30)
     private String nom;
+    
+    @Column(name = "DESCRIPTION", nullable = false, length = 60)
+    private String description;
 
     @Column(name = "PRIX", nullable = false)
     private Double prix;
@@ -44,9 +47,10 @@ public class ArticleDAO implements Serializable, DAO {
         super();
     }
 
-    public ArticleDAO(String code, String nom, Double prix, Integer stock, Blob image) {
+    public ArticleDAO(String code, String nom, String description, Double prix, Integer stock, Blob image) {
         this.code = code;
         this.nom = nom;
+        this.description=description;
         this.prix = prix;
         this.stock = stock;
         this.image = image;
@@ -66,6 +70,14 @@ public class ArticleDAO implements Serializable, DAO {
 
     public String getNom() {
         return this.nom;
+    }
+    
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getDescription() {
+        return this.description;
     }
 
     public void setPrix(Double prix) {
@@ -97,6 +109,7 @@ public class ArticleDAO implements Serializable, DAO {
         return "DAO - ArticleDAO{" +
                 "code='" + code + '\'' +
                 ", nom='" + nom + '\'' +
+                ", description='" + description + '\'' +
                 ", prix=" + prix +
                 ", stock=" + stock +
                 ", image=" + image +
@@ -112,6 +125,7 @@ public class ArticleDAO implements Serializable, DAO {
 
         if (code != null ? !code.equals(that.code) : that.code != null) return false;
         if (nom != null ? !nom.equals(that.nom) : that.nom != null) return false;
+        if (description != null ? !description.equals(that.description) : that.description != null) return false;
         if (prix != null ? !prix.equals(that.prix) : that.prix != null) return false;
         if (stock != null ? !stock.equals(that.stock) : that.stock != null) return false;
         return image != null ? image.equals(that.image) : that.image == null;
@@ -119,7 +133,7 @@ public class ArticleDAO implements Serializable, DAO {
 
     @Override
     public Object[] getObjectValues() {
-        return new Object[]{code, nom, prix, stock, image};
+        return new Object[]{code, nom, description, prix, stock, image};
     }
 
 }

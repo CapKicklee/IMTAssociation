@@ -27,3 +27,4 @@ hs_err_pid*
 *.iml
 /.idea/
 /.metadata/
+/src/main/resources/DATABASE/JEEIMTADB_db-derby-10.14.1.0-bin/bin/jeeimtadb/seg0/
