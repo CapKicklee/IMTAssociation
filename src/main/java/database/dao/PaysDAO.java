@@ -25,7 +25,7 @@ public class PaysDAO implements Serializable, DAO {
     private String name;
 
     // Relations
-    @OneToMany(mappedBy = "pays2", targetEntity = AdresseDAO.class)
+    @OneToMany(mappedBy = "pays", targetEntity = AdresseDAO.class)
     private List<AdresseDAO> listAdresse;
 
 
