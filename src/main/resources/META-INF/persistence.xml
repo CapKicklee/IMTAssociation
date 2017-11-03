@@ -5,16 +5,21 @@
 
 	<persistence-unit name="persistence-unit1"
 		transaction-type="RESOURCE_LOCAL">
-		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		<class>database.dao.AdherentDAO</class>
 		<class>database.dao.AdresseDAO</class>
 		<class>database.dao.ArticleDAO</class>
 		<class>database.dao.PaysDAO</class>
 		<properties>
-			<property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.ClientDriver" />
-			<property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/jeeimtadb" />
-			<property name="javax.persistence.jdbc.user" value="root" />
-			<property name="javax.persistence.jdbc.password" value="admin" />
+		<!-- Database configuration -->
+			<property name="hibernate.connection.driver_class"  value="org.apache.derby.jdbc.ClientDriver"/>
+			<property name="hibernate.connection.url"           value="jdbc:derby://localhost:1527/jeeimtadb"/>
+			<property name="hibernate.connection.username"      value="root"/>
+			<property name="hibernate.connection.password"      value="admin"/>
+			<property name="hibernate.dialect"                  value="org.hibernate.dialect.DerbyDialect"/>
+			<!-- Hibernate configuration -->
+			<property name="hibernate.hbm2ddl.auto"       value="none"/>
+			<property name="hibernate.show_sql"           value="true"/>
 
 		</properties>
 	</persistence-unit>
