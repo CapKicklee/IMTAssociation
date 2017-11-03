@@ -1,6 +1,7 @@
 package database.dao;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -27,8 +28,9 @@ public class PaysDAO implements Serializable, DAO {
     private String name;
 
     // Relations
-    //@OneToMany(mappedBy = "pays", targetEntity = AdresseDAO.class)
-    //private List<AdresseDAO> listAdresse;
+
+    @OneToMany(mappedBy = "pays", targetEntity = AdresseDAO.class)
+    private List<AdresseDAO> listAdresse;
 
 
     public PaysDAO() {

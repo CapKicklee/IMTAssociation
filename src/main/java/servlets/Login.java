@@ -36,7 +36,7 @@ public class Login extends HttpServlet {
 	
 	private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO
-		RequestDispatcher rd = request.getRequestDispatcher("jsp/login.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/login.jsp");
 		rd.forward(request, response);
 	}
 
