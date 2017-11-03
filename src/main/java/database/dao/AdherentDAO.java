@@ -1,8 +1,15 @@
 package database.dao;
 
+import database.bean.Adresse;
+import database.mapper.BeanDaoMapper;
+
 import java.io.Serializable;
 import javax.persistence.*;
 
+/**
+ * Table ADHERENT de la base de données.
+ * @author Juliette FRETAY, Kendall FOREST, Chloé GUILBAUD
+ */
 @Entity
 @Table(name = "ADHERENT", schema = "APP")
 @NamedQueries({
@@ -36,6 +43,22 @@ public class AdherentDAO implements Serializable, DAO {
 
     public AdherentDAO() {
         super();
+    }
+
+    public AdherentDAO(String login, String mdp, String nom, String prenom, Adresse adresse) {
+        this.login = login;
+        this.mdp = mdp;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.adresse = (AdresseDAO) BeanDaoMapper.mapBeanToDAO(adresse).get();
+    }
+
+    public AdherentDAO(String login, String mdp, String nom, String prenom, AdresseDAO adresse) {
+        this.login = login;
+        this.mdp = mdp;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.adresse = adresse;
     }
 
     public void setLogin(String login) {
@@ -90,8 +113,22 @@ public class AdherentDAO implements Serializable, DAO {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        AdherentDAO that = (AdherentDAO) o;
+
+        if (login != null ? !login.equals(that.login) : that.login != null) return false;
+        if (mdp != null ? !mdp.equals(that.mdp) : that.mdp != null) return false;
+        if (nom != null ? !nom.equals(that.nom) : that.nom != null) return false;
+        if (prenom != null ? !prenom.equals(that.prenom) : that.prenom != null) return false;
+        return adresse != null ? adresse.equals(that.adresse) : that.adresse == null;
+    }
+
+    @Override
     public Object[] getObjectValues() {
-        return new Object[]{login, mdp, nom, prenom};
+        return new Object[]{login, mdp, nom, prenom, adresse};
     }
 
 }

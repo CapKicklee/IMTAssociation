@@ -1,5 +1,9 @@
 package database.bean;
 
+/**
+ * Représentation objet de la table PAYS de la base de données.
+ * @author Juliette FRETAY, Kendall FOREST, Chloé GUILBAUD
+ */
 public class Pays implements Bean {
 
     private String code;
@@ -32,6 +36,17 @@ public class Pays implements Bean {
                 "code='" + code + '\'' +
                 ", nom='" + nom + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Pays pays = (Pays) o;
+
+        if (code != null ? !code.equals(pays.code) : pays.code != null) return false;
+        return nom != null ? nom.equals(pays.nom) : pays.nom == null;
     }
 
     @Override

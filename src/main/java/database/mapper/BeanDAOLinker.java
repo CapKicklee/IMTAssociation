@@ -5,25 +5,27 @@ import database.bean.Adresse;
 import database.bean.Article;
 import database.bean.Pays;
 import database.bean.Bean;
-import database.dao.DAO;
+import database.dao.*;
 
+import java.sql.Blob;
 import java.util.Arrays;
 import java.util.List;
 
 /**
- * Enumération liant les database.bean à leur dao et inversement
+ * Enumération liant les {@link Bean} à leur {@link DAO} et inversement
+ *
  * @author Juliette FRETAY, Kendall FOREST, Chloé GUILBAUD
  */
-public enum MapperEnum {
+public enum BeanDAOLinker {
 
-    ADHERENT("database.bean.Adherent", Adherent.class, new Class[]{String.class, String.class, String.class, String.class, Adresse.class},
-            "dao.Adherent", String.class, new Class[]{}),
-    ADRESSE("database.bean.Adresse", Adresse.class, new Class[]{String.class, String.class, String.class, String.class, Pays.class},
-            "dao.Adresse", String.class, new Class[]{}),
-    ARTICLE("database.bean.Article", Article.class, new Class[]{String.class, String.class, String.class, String.class, String.class},
-            "dao.Article", String.class, new Class[]{}),
+    ADHERENT("database.bean.Adherent", Adherent.class, new Class[]{String.class, String.class, String.class, String.class, AdresseDAO.class},
+            "database.dao.AdherentDAO", AdherentDAO.class, new Class[]{String.class, String.class, String.class, String.class, Adresse.class}),
+    ADRESSE("database.bean.Adresse", Adresse.class, new Class[]{Integer.class, String.class, Integer.class, String.class, PaysDAO.class},
+            "database.dao.AdresseDAO", AdresseDAO.class, new Class[]{Integer.class, String.class, Integer.class, String.class, Pays.class}),
+    ARTICLE("database.bean.Article", Article.class, new Class[]{String.class, String.class, Double.class, Integer.class, String.class},
+            "database.dao.ArticleDAO", ArticleDAO.class, new Class[]{String.class, String.class, Double.class, Integer.class, Blob.class}),
     PAYS("database.bean.Pays", Pays.class, new Class[]{String.class, String.class},
-            "dao.Pays", String.class, new Class[]{});
+            "database.dao.PaysDAO", PaysDAO.class, new Class[]{String.class, String.class});
 
     // Attributs
     private String beanClassName;
@@ -36,15 +38,16 @@ public enum MapperEnum {
     // Constructeur
 
     /**
-     * Constructeur de {@link MapperEnum}
-     * @param beanClassName nom de la classe {@link Bean}
+     * Constructeur de {@link BeanDAOLinker}
+     *
+     * @param beanClassName           nom de la classe {@link Bean}
      * @param beanImplementationClass classe d'implémentation du {@link Bean}
-     * @param beanConstructorTypes types des paramètres de constructeur du {@link Bean}
-     * @param daoClassName nom de la classe {@link DAO}
-     * @param daoImplementationClass classe d'implémentation du {@link DAO}
-     * @param daoConstructorTypes types des paramètres de constructeur du {@link DAO}
+     * @param beanConstructorTypes    types des paramètres de constructeur du {@link Bean}
+     * @param daoClassName            nom de la classe {@link DAO}
+     * @param daoImplementationClass  classe d'implémentation du {@link DAO}
+     * @param daoConstructorTypes     types des paramètres de constructeur du {@link DAO}
      */
-    MapperEnum(String beanClassName, Class<?> beanImplementationClass, Class[] beanConstructorTypes, String daoClassName, Class<?> daoImplementationClass, Class[] daoConstructorTypes) {
+    BeanDAOLinker(String beanClassName, Class<?> beanImplementationClass, Class[] beanConstructorTypes, String daoClassName, Class<?> daoImplementationClass, Class[] daoConstructorTypes) {
         this.beanClassName = beanClassName;
         this.beanImplementationClass = beanImplementationClass;
         this.beanConstructorTypes = beanConstructorTypes;
@@ -52,8 +55,6 @@ public enum MapperEnum {
         this.daoImplementationClass = daoImplementationClass;
         this.daoConstructorTypes = daoConstructorTypes;
     }
-
-
     // Services
 
     /**
@@ -64,7 +65,7 @@ public enum MapperEnum {
      * @return l'objet de l'énumération correspondant au libellé fournit ou null
      * si le libellé est inconnu
      */
-    public static MapperEnum fromBeanClassName(String lab) {
+    public static BeanDAOLinker fromBeanClassName(String lab) {
         return valuesAsList().stream().filter(m -> m.getBeanClassName().equalsIgnoreCase(lab)).findAny().orElse(null);
     }
 
@@ -76,17 +77,18 @@ public enum MapperEnum {
      * @return l'objet de l'énumération correspondant au libellé fournit ou null
      * si le libellé est inconnu
      */
-    public static MapperEnum fromDaoClassName(String lab) {
+    public static BeanDAOLinker fromDaoClassName(String lab) {
         return valuesAsList().stream().filter(m -> m.getDaoClassName().equalsIgnoreCase(lab)).findAny().orElse(null);
     }
 
     /**
      * Permet de récupérer la classe d'implémentation pour le nom de paramètre fourni.
+     *
      * @param paramName nom du paramètre dont on souhaite récupérer la classe d'implémentation
      * @return la classe d'implémentation correspondant au type de paramètre fourni
      */
     public static Class<?> getClassForBeanClassName(String paramName) throws ClassNotFoundException {
-        Class<?> implementationClass = MapperEnum.fromBeanClassName(paramName).getClass();
+        Class<?> implementationClass = BeanDAOLinker.fromBeanClassName(paramName).getClass();
         if (implementationClass == null) {
             throw new ClassNotFoundException();
         }
@@ -95,11 +97,12 @@ public enum MapperEnum {
 
     /**
      * Permet de récupérer la classe d'implémentation pour le nom de paramètre fourni.
+     *
      * @param paramName nom du paramètre dont on souhaite récupérer la classe d'implémentation
      * @return la classe d'implémentation correspondant au type de paramètre fourni
      */
     public static Class<?> getClassForDaoClassName(String paramName) throws ClassNotFoundException {
-        Class<?> implementationClass = MapperEnum.fromDaoClassName(paramName).getClass();
+        Class<?> implementationClass = BeanDAOLinker.fromDaoClassName(paramName).getClass();
         if (implementationClass == null) {
             throw new ClassNotFoundException();
         }
@@ -108,11 +111,11 @@ public enum MapperEnum {
 
     /**
      * Permet d'obtenir une liste des valeurs de l'énumération
-     * {@link MapperEnum}.
+     * {@link BeanDAOLinker}.
      *
-     * @return la liste des valeurs de l'énumération {@link MapperEnum}
+     * @return la liste des valeurs de l'énumération {@link BeanDAOLinker}
      */
-    public static List<MapperEnum> valuesAsList() {
+    public static List<BeanDAOLinker> valuesAsList() {
         return Arrays.asList(values());
     }
 

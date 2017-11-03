@@ -1,14 +1,18 @@
 package database.bean;
 
+/**
+ * Représentation objet de la table ARTICLE de la base de données.
+ * @author Juliette FRETAY, Kendall FOREST, Chloé GUILBAUD
+ */
 public class Article implements Bean {
 
     private String code;
     private String nom;
-    private String prix;
-    private String stock;
+    private Double prix;
+    private Integer stock;
     private String image;
 
-    public Article(String code, String nom, String prix, String stock, String image) {
+    public Article(String code, String nom, Double prix, Integer stock, String image) {
         this.code = code;
         this.nom = nom;
         this.prix = prix;
@@ -32,19 +36,19 @@ public class Article implements Bean {
         this.nom = nom;
     }
 
-    public String getPrix() {
+    public Double getPrix() {
         return prix;
     }
 
-    public void setPrix(String prix) {
+    public void setPrix(Double prix) {
         this.prix = prix;
     }
 
-    public String getStock() {
+    public Integer getStock() {
         return stock;
     }
 
-    public void setStock(String stock) {
+    public void setStock(Integer stock) {
         this.stock = stock;
     }
 
@@ -65,6 +69,20 @@ public class Article implements Bean {
                 ", stock='" + stock + '\'' +
                 ", image='" + image + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Article article = (Article) o;
+
+        if (code != null ? !code.equals(article.code) : article.code != null) return false;
+        if (nom != null ? !nom.equals(article.nom) : article.nom != null) return false;
+        if (prix != null ? !prix.equals(article.prix) : article.prix != null) return false;
+        if (stock != null ? !stock.equals(article.stock) : article.stock != null) return false;
+        return image != null ? image.equals(article.image) : article.image == null;
     }
 
     @Override

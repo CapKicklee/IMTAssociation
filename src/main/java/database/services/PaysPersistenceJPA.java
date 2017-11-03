@@ -54,7 +54,7 @@ public class PaysPersistenceJPA extends GenericJpaService<PaysDAO, String> imple
 		JpaOperation operation = new JpaOperation() {
 			@Override
 			public Object exectue(EntityManager em) throws PersistenceException {
-				Query query = em.createNamedQuery("PaysEntity.countAll");
+				Query query = em.createNamedQuery("PaysDAO.countAll");
 				return query.getSingleResult() ;
 			}
 		} ;
