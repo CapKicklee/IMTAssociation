@@ -1,8 +1,8 @@
-package database.mapper;
+package database.mapper.classes;
 
 import database.bean.Bean;
 
-class MaBeanClasse implements Bean {
+public class MaBeanClasse implements Bean {
 
     private String attr1;
     private Integer attr2;
