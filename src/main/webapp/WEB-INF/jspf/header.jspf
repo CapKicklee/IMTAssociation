@@ -1,5 +1,5 @@
 <nav class="navbar nav-fill navbar-expand-lg navbar-dark navig">
-	<a class="navbar-brand" href="#"><img src="img/logo.png" width="100" height="30"/></a>
+	<a class="navbar-brand" href="#"><img src="img/logo_white.png" width="100" height="30"/></a>
 	<button class="navbar-toggler" type="button" data-toggle="collapse"
 		data-target="#navbarSupportedContent"
 		aria-controls="navbarSupportedContent" aria-expanded="false"
