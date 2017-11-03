@@ -50,7 +50,7 @@ public class AdherentDAO implements Serializable, DAO {
         this.mdp = mdp;
         this.nom = nom;
         this.prenom = prenom;
-        this.adresse = (AdresseDAO) BeanDaoMapper.mapBeanToDAO(adresse).get();
+        this.adresse = (AdresseDAO) BeanDaoMapper.mapBeanToDAO(adresse).getMapped().get();
     }
 
     public AdherentDAO(String login, String mdp, String nom, String prenom, AdresseDAO adresse) {

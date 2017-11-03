@@ -56,7 +56,7 @@ public class AdresseDAO implements Serializable, DAO {
         this.rue = rue;
         this.cp = cp;
         this.ville = ville;
-        this.pays = (PaysDAO) BeanDaoMapper.mapBeanToDAO(pays).get();
+        this.pays = (PaysDAO) BeanDaoMapper.mapBeanToDAO(pays).getMapped().get();
     }
 
     public AdresseDAO(Integer id, String rue, Integer cp, String ville, PaysDAO pays) {

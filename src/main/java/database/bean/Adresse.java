@@ -25,7 +25,7 @@ public class Adresse implements Bean {
     }
 
     public Adresse(Integer id, String rue, Integer codePostale, String ville, PaysDAO paysDAO) {
-        this(id, rue, codePostale, ville, (Pays) BeanDaoMapper.mapDAOToBean(paysDAO).get());
+        this(id, rue, codePostale, ville, (Pays) BeanDaoMapper.mapDAOToBean(paysDAO).getMapped().get());
     }
 
     public Integer getId() {

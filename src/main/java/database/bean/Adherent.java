@@ -24,7 +24,7 @@ public class Adherent implements Bean {
     }
 
     public Adherent(String login, String motDePasse, String nom, String prenom, AdresseDAO adressesDao) {
-        this(login, motDePasse, nom, prenom, (Adresse) BeanDaoMapper.mapDAOToBean(adressesDao).get());
+        this(login, motDePasse, nom, prenom, (Adresse) BeanDaoMapper.mapDAOToBean(adressesDao).getMapped().get());
     }
 
     public String getLogin() {
