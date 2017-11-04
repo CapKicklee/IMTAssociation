@@ -7,6 +7,7 @@ public class JPAResult {
 
     private Optional<Object> result;
     private List<JPAErrorTypes> jpaErrors;
+    
 
     public Optional<Object> getResult() {
         return result;

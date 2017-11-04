@@ -1,4 +1,4 @@
-﻿package db.mapper;
+package db.mapper;
 
 import db.bean.Bean;
 import db.dao.DAO;

@@ -1,4 +1,4 @@
-﻿package db.manager;
+package db.manager;
 
 import db.mapper.MapperResult;
 import db.services.results.JPAErrorTypes;
