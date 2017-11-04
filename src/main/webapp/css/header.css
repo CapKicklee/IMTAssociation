@@ -1,11 +1,11 @@
 .navig {
-    background-color: rgb(0, 188, 215);
+	background-color: rgb(0, 188, 215);
 }
 
 .inactive {
-    opacity: 0.75;
+	opacity: 0.75;
 }
 
 .inactive:hover {
-    opacity: 0.90;
+	opacity: 0.90;
 }

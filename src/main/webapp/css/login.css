@@ -4,7 +4,7 @@
 }
 
 .connect {
-	background-color: rgb(0,188,215);
+	background-color: rgb(0, 188, 215);
 	color: white;
 }
 
@@ -14,9 +14,9 @@
 }
 
 .sub {
-	background-color: rgb(0,188,215);
-    color: white;
-    float:right;
+	background-color: rgb(0, 188, 215);
+	color: white;
+	float: right;
 }
 
 .sub:hover {
