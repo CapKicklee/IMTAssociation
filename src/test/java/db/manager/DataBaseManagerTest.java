@@ -2,6 +2,8 @@ package db.manager;
 
 import org.junit.Test;
 
+import db.manager.DataBaseManager;
+
 import static org.junit.Assert.*;
 
 public class DataBaseManagerTest {

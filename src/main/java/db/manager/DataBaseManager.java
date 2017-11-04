@@ -27,7 +27,7 @@ public class DataBaseManager {
     public static DataBaseQueryResult loadAllAdherents() {
 
         // Requête de la base de données
-        JPAResult jpaResult = jpaAdherent.loadAll();
+        JPAResult jpaResult = (JPAResult) jpaAdherent.loadAll();
         Optional<Object> adherentDAOOp = jpaResult.getResult();
 
         // Enregistrement du résultat
@@ -52,7 +52,7 @@ public class DataBaseManager {
     public static DataBaseQueryResult loadAllAdresses() {
 
         // Requête de la base de données
-        JPAResult jpaResult = jpaAdresse.loadAll();
+        JPAResult jpaResult = (JPAResult) jpaAdresse.loadAll();
         Optional<Object> adresseDAOOp = jpaResult.getResult();
 
         // Enregistrement du résultat

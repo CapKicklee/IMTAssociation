@@ -1,10 +1,10 @@
 
-package database.services.interfaces;
+package db.services.interfaces;
 
 import java.util.List;
 import java.util.Map;
 
-import database.dao.ArticleDAO;
+import db.dao.ArticleDAO;
 
 
 

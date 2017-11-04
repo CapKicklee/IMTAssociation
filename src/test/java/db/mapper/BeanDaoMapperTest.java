@@ -2,6 +2,9 @@ package db.mapper;
 
 import db.bean.*;
 import db.dao.*;
+import db.mapper.BeanDaoMapper;
+import db.mapper.MapperErrorType;
+import db.mapper.MapperResult;
 import db.mapper.classes.MaAbstractBeanClasse;
 import db.mapper.classes.MaBeanClasse;
 import db.mapper.classes.MaExceptionContructorBeanClasse;
