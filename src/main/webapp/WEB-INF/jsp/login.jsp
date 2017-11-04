@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<%@ page import="db.bean.Pays" %>
+<%@ page import="db.bean.Pays"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -30,12 +30,12 @@ $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 <body>
 	<!-- <%@ include file="/WEB-INF/jspf/header.jspf"%> -->
 	<div class="container">
-		<br/>
+		<br />
 		<div class="d-flex justify-content-center">
 			<img class="logo center-block" src="img/logo.png"
 				alt="Logo de l'IMTAssociation" />
 		</div>
-		<br/>
+		<br />
 		<div class="card text-center">
 			<div class="card-header">
 				<ul id="myTab" role="tablist" class="nav nav-tabs card-header-tabs">
@@ -70,7 +70,8 @@ $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 				</div>
 				<div class="tab-pane fade" id="subscribe" role="tabpanel"
 					aria-labelledby="subscribe-tab">
-					<form method="POST" action="/login/create" class="col-md-9 offset-md-2">
+					<form method="POST" action="/login/create"
+						class="col-md-9 offset-md-2">
 						<h3 class="text-muted">Rejoignez-nous !</h3>
 						<br />
 						<div class="form-group row">
@@ -158,7 +159,7 @@ $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 			</div>
 		</div>
 	</div>
-	<br/>
+	<br />
 	<%@ include file="/WEB-INF/jspf/footer.jspf"%>
 </body>
 </html>
