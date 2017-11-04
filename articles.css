@@ -1,6 +1,12 @@
 .ajout {
     background-color: #AFCB37;
     color: white;
+    float: right;
+}
+
+.ajout:hover {
+    background-color: #ddd;
+    color: black;
 }
 
 .card-body {
@@ -9,7 +15,6 @@
 
 
 .article img {
-    height: 250px;
-    width: 250px;
+    height: 200px;
     margin: auto;
 }
