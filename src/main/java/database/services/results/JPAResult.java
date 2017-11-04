@@ -1,4 +1,4 @@
-package database.services.results;
+package db.services.results;
 
 import java.util.List;
 import java.util.Optional;

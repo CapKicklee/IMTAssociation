@@ -1,10 +1,10 @@
-package database.mapper;
+package db.mapper;
 
-import database.bean.*;
-import database.dao.*;
-import database.mapper.classes.MaAbstractBeanClasse;
-import database.mapper.classes.MaBeanClasse;
-import database.mapper.classes.MaExceptionContructorBeanClasse;
+import db.bean.*;
+import db.dao.*;
+import db.mapper.classes.MaAbstractBeanClasse;
+import db.mapper.classes.MaBeanClasse;
+import db.mapper.classes.MaExceptionContructorBeanClasse;
 import org.junit.Assert;
 import org.junit.Test;
 

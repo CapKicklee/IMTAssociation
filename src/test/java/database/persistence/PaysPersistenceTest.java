@@ -1,4 +1,4 @@
-package database.persistence;
+package db.persistence;
 
 import static org.junit.Assert.*;
 

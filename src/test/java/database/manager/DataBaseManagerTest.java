@@ -1,4 +1,4 @@
-package database.manager;
+package db.manager;
 
 import org.junit.Test;
 

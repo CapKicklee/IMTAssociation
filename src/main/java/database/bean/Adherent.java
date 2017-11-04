@@ -1,7 +1,7 @@
-package database.bean;
+package db.bean;
 
-import database.dao.AdresseDAO;
-import database.mapper.BeanDaoMapper;
+import db.dao.AdresseDAO;
+import db.mapper.BeanDaoMapper;
 
 /**
  * Représentation objet de la table ADHERENT de la base de données.

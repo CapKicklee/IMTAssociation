@@ -1,4 +1,4 @@
-package database.bean;
+package db.bean;
 
 /**
  * Représentation objet de la table ARTICLE de la base de données.

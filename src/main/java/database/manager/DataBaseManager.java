@@ -1,16 +1,16 @@
-package database.manager;
+﻿package db.manager;
 
-import database.bean.Adresse;
-import database.dao.AdherentDAO;
-import database.dao.AdresseDAO;
-import database.dao.DAO;
-import database.mapper.BeanDaoMapper;
-import database.mapper.MapperResult;
-import database.services.commons.GenericJpaService;
-import database.services.interfaces.AdressePersistence;
-import database.services.persistenceJPA.AdherentPersistenceJPA;
-import database.services.persistenceJPA.AdressePersistenceJPA;
-import database.services.results.JPAResult;
+import db.bean.Adresse;
+import db.dao.AdherentDAO;
+import db.dao.AdresseDAO;
+import db.dao.DAO;
+import db.mapper.BeanDaoMapper;
+import db.mapper.MapperResult;
+import db.services.commons.GenericJpaService;
+import db.services.interfaces.AdressePersistence;
+import db.services.persistenceJPA.AdherentPersistenceJPA;
+import db.services.persistenceJPA.AdressePersistenceJPA;
+import db.services.results.JPAResult;
 
 import java.util.ArrayList;
 import java.util.List;

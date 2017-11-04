@@ -1,7 +1,7 @@
-package database.mapper;
+﻿package db.mapper;
 
-import database.bean.Bean;
-import database.dao.DAO;
+import db.bean.Bean;
+import db.dao.DAO;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -46,7 +46,7 @@ public class BeanDaoMapper {
     }
 
     /**
-     * Permet l'instanciation d'un database.bean à partir d'un {@link DAO}
+     * Permet l'instanciation d'un db.bean à partir d'un {@link DAO}
      *
      * @param dao le dao à partir duquel on veux créer un {@link Bean}
      * @return un résultat de mapping comprenant le {@link Bean} résultat et les éventuelles erreurs de traitement

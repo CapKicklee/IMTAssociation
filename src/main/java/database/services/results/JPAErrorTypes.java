@@ -1,4 +1,4 @@
-package database.services.results;
+package db.services.results;
 
 public enum JPAErrorTypes {
 }

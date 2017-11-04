@@ -6,10 +6,10 @@
 	<persistence-unit name="persistence-unit1"
 		transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
-		<class>database.dao.AdherentDAO</class>
-		<class>database.dao.AdresseDAO</class>
-		<class>database.dao.ArticleDAO</class>
-		<class>database.dao.PaysDAO</class>
+		<class>db.dao.AdherentDAO</class>
+		<class>db.dao.AdresseDAO</class>
+		<class>db.dao.ArticleDAO</class>
+		<class>db.dao.PaysDAO</class>
 		<properties>
 		<!-- Database configuration -->
 			<property name="hibernate.connection.driver_class"  value="org.apache.derby.jdbc.ClientDriver"/>

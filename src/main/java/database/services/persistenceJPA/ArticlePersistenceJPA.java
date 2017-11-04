@@ -1,4 +1,4 @@
-package database.services.persistenceJPA;
+package db.services.persistenceJPA;
 
 import java.util.List;
 import java.util.Map;
@@ -7,10 +7,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 
-import database.dao.ArticleDAO;
-import database.services.commons.GenericJpaService;
-import database.services.commons.JpaOperation;
-import database.services.interfaces.ArticlePersistence;
+import db.dao.ArticleDAO;
+import db.services.commons.GenericJpaService;
+import db.services.commons.JpaOperation;
+import db.services.interfaces.ArticlePersistence;
 
 /**
  * JPA implementation for basic persistence operations ( entity "Adherent" )

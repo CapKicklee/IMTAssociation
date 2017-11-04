@@ -1,10 +1,10 @@
-package database.dao;
-
-import database.bean.Adresse;
-import database.mapper.BeanDaoMapper;
+package db.dao;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import db.bean.Adresse;
+import db.mapper.BeanDaoMapper;
 
 /**
  * Table ADHERENT de la base de données.

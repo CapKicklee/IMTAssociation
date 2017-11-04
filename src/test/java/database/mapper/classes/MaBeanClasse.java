@@ -1,6 +1,6 @@
-package database.mapper.classes;
+package db.mapper.classes;
 
-import database.bean.Bean;
+import db.bean.Bean;
 
 public class MaBeanClasse implements Bean {
 

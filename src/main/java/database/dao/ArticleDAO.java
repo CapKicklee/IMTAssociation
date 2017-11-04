@@ -1,4 +1,4 @@
-package database.dao;
+package db.dao;
 
 import java.io.Serializable;
 

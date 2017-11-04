@@ -1,9 +1,9 @@
-package database.persistence;
+package db.persistence;
 
-import database.services.persistenceJPA.AdherentPersistenceJPA;
-import database.services.persistenceJPA.AdressePersistenceJPA;
-import database.services.persistenceJPA.ArticlePersistenceJPA;
-import database.services.persistenceJPA.PaysPersistenceJPA;
+import db.services.persistenceJPA.AdherentPersistenceJPA;
+import db.services.persistenceJPA.AdressePersistenceJPA;
+import db.services.persistenceJPA.ArticlePersistenceJPA;
+import db.services.persistenceJPA.PaysPersistenceJPA;
 
 public class TestPersistence {
 

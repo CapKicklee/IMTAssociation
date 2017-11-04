@@ -1,11 +1,11 @@
-package database.mapper;
+﻿package db.mapper;
 
-import database.bean.Adherent;
-import database.bean.Adresse;
-import database.bean.Article;
-import database.bean.Pays;
-import database.bean.Bean;
-import database.dao.*;
+import db.bean.Adherent;
+import db.bean.Adresse;
+import db.bean.Article;
+import db.bean.Pays;
+import db.bean.Bean;
+import db.dao.*;
 
 import java.sql.Blob;
 import java.util.Arrays;
@@ -19,14 +19,14 @@ import java.util.Optional;
  */
 enum BeanDAOLinker {
 
-    ADHERENT("database.bean.Adherent", Adherent.class, new Class[]{String.class, String.class, String.class, String.class, AdresseDAO.class},
-            "database.dao.AdherentDAO", AdherentDAO.class, new Class[]{String.class, String.class, String.class, String.class, Adresse.class}),
-    ADRESSE("database.bean.Adresse", Adresse.class, new Class[]{Integer.class, String.class, Integer.class, String.class, PaysDAO.class},
-            "database.dao.AdresseDAO", AdresseDAO.class, new Class[]{Integer.class, String.class, Integer.class, String.class, Pays.class}),
-    ARTICLE("database.bean.Article", Article.class, new Class[]{String.class, String.class, Double.class, Integer.class, String.class},
-            "database.dao.ArticleDAO", ArticleDAO.class, new Class[]{String.class, String.class, Double.class, Integer.class, Blob.class}),
-    PAYS("database.bean.Pays", Pays.class, new Class[]{String.class, String.class},
-            "database.dao.PaysDAO", PaysDAO.class, new Class[]{String.class, String.class});
+    ADHERENT("db.bean.Adherent", Adherent.class, new Class[]{String.class, String.class, String.class, String.class, AdresseDAO.class},
+            "db.dao.AdherentDAO", AdherentDAO.class, new Class[]{String.class, String.class, String.class, String.class, Adresse.class}),
+    ADRESSE("db.bean.Adresse", Adresse.class, new Class[]{Integer.class, String.class, Integer.class, String.class, PaysDAO.class},
+            "db.dao.AdresseDAO", AdresseDAO.class, new Class[]{Integer.class, String.class, Integer.class, String.class, Pays.class}),
+    ARTICLE("db.bean.Article", Article.class, new Class[]{String.class, String.class, Double.class, Integer.class, String.class},
+            "db.dao.ArticleDAO", ArticleDAO.class, new Class[]{String.class, String.class, Double.class, Integer.class, Blob.class}),
+    PAYS("db.bean.Pays", Pays.class, new Class[]{String.class, String.class},
+            "db.dao.PaysDAO", PaysDAO.class, new Class[]{String.class, String.class});
 
     // Attributs
     private String beanClassName;

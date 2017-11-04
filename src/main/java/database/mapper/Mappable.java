@@ -1,7 +1,7 @@
-package database.mapper;
+﻿package db.mapper;
 
-import database.bean.Bean;
-import database.dao.DAO;
+import db.bean.Bean;
+import db.dao.DAO;
 
 /**
  * Interface utilisé pour les éléments possible de mapper ({@link Bean} et {@link DAO})

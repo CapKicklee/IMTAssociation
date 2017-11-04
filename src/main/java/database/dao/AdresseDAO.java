@@ -1,7 +1,7 @@
-package database.dao;
+package db.dao;
 
-import database.bean.Pays;
-import database.mapper.BeanDaoMapper;
+import db.bean.Pays;
+import db.mapper.BeanDaoMapper;
 
 import java.io.Serializable;
 

@@ -1,6 +1,6 @@
-package database.bean;
+package db.bean;
 
-import database.mapper.Mappable;
+import db.mapper.Mappable;
 
 /**
  * {@link Bean} représentation des données de la base de données.

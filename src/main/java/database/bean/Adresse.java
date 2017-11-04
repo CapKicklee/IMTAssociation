@@ -1,7 +1,7 @@
-package database.bean;
+package db.bean;
 
-import database.dao.PaysDAO;
-import database.mapper.BeanDaoMapper;
+import db.dao.PaysDAO;
+import db.mapper.BeanDaoMapper;
 
 /**
  * Représentation objet de la table ADRESSE de la base de données.

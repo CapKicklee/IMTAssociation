@@ -1,8 +1,8 @@
-package database.manager;
+﻿package db.manager;
 
-import database.mapper.MapperResult;
-import database.services.results.JPAErrorTypes;
-import database.services.results.JPAResult;
+import db.mapper.MapperResult;
+import db.services.results.JPAErrorTypes;
+import db.services.results.JPAResult;
 
 import java.util.List;
 import java.util.Optional;
