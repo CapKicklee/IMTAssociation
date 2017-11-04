@@ -1,4 +1,4 @@
-﻿package db.mapper.classes;
+package db.mapper.classes;
 
 public class MaExceptionContructorBeanClasse extends MaBeanClasse {
 

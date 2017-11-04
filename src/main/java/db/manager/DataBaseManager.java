@@ -1,4 +1,4 @@
-﻿package db.manager;
+package db.manager;
 
 import db.bean.Adresse;
 import db.dao.AdherentDAO;

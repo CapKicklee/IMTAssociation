@@ -1,4 +1,4 @@
-﻿package db.mapper;
+package db.mapper;
 
 import db.bean.Adherent;
 import db.bean.Adresse;
