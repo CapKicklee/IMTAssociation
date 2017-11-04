@@ -10,13 +10,14 @@ import database.dao.*;
 import java.sql.Blob;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Enumération liant les {@link Bean} à leur {@link DAO} et inversement
  *
  * @author Juliette FRETAY, Kendall FOREST, Chloé GUILBAUD
  */
-public enum BeanDAOLinker {
+enum BeanDAOLinker {
 
     ADHERENT("database.bean.Adherent", Adherent.class, new Class[]{String.class, String.class, String.class, String.class, AdresseDAO.class},
             "database.dao.AdherentDAO", AdherentDAO.class, new Class[]{String.class, String.class, String.class, String.class, Adresse.class}),
@@ -62,11 +63,11 @@ public enum BeanDAOLinker {
      * Note : la recherche du libellé se fait en ignorant la case
      *
      * @param lab le libellé de l'objet recherché
-     * @return l'objet de l'énumération correspondant au libellé fournit ou null
+     * @return l'objet de l'énumération correspondant au libellé fournit
      * si le libellé est inconnu
      */
-    public static BeanDAOLinker fromBeanClassName(String lab) {
-        return valuesAsList().stream().filter(m -> m.getBeanClassName().equalsIgnoreCase(lab)).findAny().orElse(null);
+    public static Optional<BeanDAOLinker> fromBeanClassName(String lab) {
+        return Optional.ofNullable(valuesAsList().stream().filter(m -> m.getBeanClassName().equalsIgnoreCase(lab)).findAny().orElse(null));
     }
 
     /**
@@ -74,11 +75,11 @@ public enum BeanDAOLinker {
      * Note : la recherche du libellé se fait en ignorant la case
      *
      * @param lab le libellé de l'objet recherché
-     * @return l'objet de l'énumération correspondant au libellé fournit ou null
+     * @return l'objet de l'énumération correspondant au libellé fournit
      * si le libellé est inconnu
      */
-    public static BeanDAOLinker fromDaoClassName(String lab) {
-        return valuesAsList().stream().filter(m -> m.getDaoClassName().equalsIgnoreCase(lab)).findAny().orElse(null);
+    public static Optional<BeanDAOLinker> fromDaoClassName(String lab) {
+        return Optional.ofNullable(valuesAsList().stream().filter(m -> m.getDaoClassName().equalsIgnoreCase(lab)).findAny().orElse(null));
     }
 
     /**

@@ -2,10 +2,11 @@ package database.mapper;
 
 import database.bean.*;
 import database.dao.*;
+import database.mapper.classes.MaAbstractBeanClasse;
+import database.mapper.classes.MaBeanClasse;
+import database.mapper.classes.MaExceptionContructorBeanClasse;
 import org.junit.Assert;
 import org.junit.Test;
-
-import java.util.Optional;
 
 public class BeanDaoMapperTest {
 
@@ -24,65 +25,139 @@ public class BeanDaoMapperTest {
     @Test
     public void mapBeanToDAO_Pays() {
 
-        Optional<DAO> paysDAOOp = BeanDaoMapper.mapBeanToDAO(paysBean);
-        Assert.assertEquals(paysDAO, paysDAOOp.get());
+        MapperResult paysDAOMapRes = BeanDaoMapper.mapBeanToDAO(paysBean);
+        Assert.assertEquals(paysDAO, paysDAOMapRes.getMapped().get());
+        Assert.assertTrue(paysDAOMapRes.getMapperErrors().isEmpty());
 
     }
 
     @Test
     public void mapBeanToDAO_Adherent() {
 
-        Optional<DAO> adh = BeanDaoMapper.mapBeanToDAO(adherentBean);
-        Assert.assertEquals(adherentDAO, adh.get());
+        MapperResult adhMapRes = BeanDaoMapper.mapBeanToDAO(adherentBean);
+        Assert.assertEquals(adherentDAO, adhMapRes.getMapped().get());
+        Assert.assertTrue(adhMapRes.getMapperErrors().isEmpty());
 
     }
 
     @Test
     public void mapBeanToDAO_Adresse() {
 
-        Optional<DAO> ad = BeanDaoMapper.mapBeanToDAO(adresseBean);
-        Assert.assertEquals(adresseDAO, ad.get());
+        MapperResult adMapRes = BeanDaoMapper.mapBeanToDAO(adresseBean);
+        Assert.assertEquals(adresseDAO, adMapRes.getMapped().get());
+        Assert.assertTrue(adMapRes.getMapperErrors().isEmpty());
 
     }
 
     @Test
     public void mapBeanToDAO_Article() {
 
-        Optional<DAO> ar = BeanDaoMapper.mapBeanToDAO(articleBean);
-        Assert.assertEquals(articleDAO, ar.get());
+        MapperResult arMapRes = BeanDaoMapper.mapBeanToDAO(articleBean);
+        Assert.assertEquals(articleDAO, arMapRes.getMapped().get());
+        Assert.assertTrue(arMapRes.getMapperErrors().isEmpty());
 
     }
 
     @Test
     public void mapDAOToBean_Adherent() {
 
-        Optional<Bean> adh = BeanDaoMapper.mapDAOToBean(adherentDAO);
-        Assert.assertEquals(adherentBean, adh.get());
+        MapperResult adhMapRes = BeanDaoMapper.mapDAOToBean(adherentDAO);
+        Assert.assertEquals(adherentBean, adhMapRes.getMapped().get());
+        Assert.assertTrue(adhMapRes.getMapperErrors().isEmpty());
 
     }
 
     @Test
     public void mapDAOToBean_Adresse() {
 
-        Optional<Bean> adr = BeanDaoMapper.mapDAOToBean(adresseDAO);
-        Assert.assertEquals(adresseBean, adr.get());
+        MapperResult adrMapRes = BeanDaoMapper.mapDAOToBean(adresseDAO);
+        Assert.assertEquals(adresseBean, adrMapRes.getMapped().get());
+        Assert.assertTrue(adrMapRes.getMapperErrors().isEmpty());
 
     }
 
     @Test
     public void mapDAOToBean_Article() {
 
-        Optional<Bean> adr = BeanDaoMapper.mapDAOToBean(articleDAO);
-        Assert.assertEquals(articleBean, adr.get());
+        MapperResult adrMapRes = BeanDaoMapper.mapDAOToBean(articleDAO);
+        Assert.assertEquals(articleBean, adrMapRes.getMapped().get());
+        Assert.assertTrue(adrMapRes.getMapperErrors().isEmpty());
 
     }
 
     @Test
     public void mapDAOToBean_Pays() {
 
-        Optional<Bean> adr = BeanDaoMapper.mapDAOToBean(paysDAO);
-        Assert.assertEquals(paysBean, adr.get());
+        MapperResult adrMapRes = BeanDaoMapper.mapDAOToBean(paysDAO);
+        Assert.assertEquals(paysBean, adrMapRes.getMapped().get());
+        Assert.assertTrue(adrMapRes.getMapperErrors().isEmpty());
 
     }
+
+    @Test
+    public void mapBeanToDAO_BEAN_DAO_LINKER_EXCEPTION() {
+
+        MapperResult arMapRes = BeanDaoMapper.mapBeanToDAO(new MaBeanClasse("hey", 0));
+        Assert.assertFalse(arMapRes.getMapperErrors().isEmpty());
+        Assert.assertEquals(1, arMapRes.getMapperErrors().size());
+        Assert.assertEquals(MapperErrorType.BEAN_DAO_LINKER_EXCEPTION, arMapRes.getMapperErrors().get(0).getMapperErrorType());
+
+        System.out.println(arMapRes);
+
+    }
+
+    @Test
+    public void mapDAOToBean_instantiate_ILLEGAL_ARGUMENT_EXCEPTION() {
+
+        MapperResult mapperResult = BeanDaoMapper.instantiate(MaBeanClasse.class, new Class[]{String.class, Integer.class}, new Object[]{"coucou", "coucou"});
+        Assert.assertFalse(mapperResult.getMapped().isPresent());
+        Assert.assertFalse(mapperResult.getMapperErrors().isEmpty());
+        Assert.assertEquals(1, mapperResult.getMapperErrors().size());
+        System.out.println(mapperResult);
+        Assert.assertEquals(MapperErrorType.ILLEGAL_ARGUMENT_EXCEPTION, mapperResult.getMapperErrors().get(0).getMapperErrorType());
+
+        System.out.println(mapperResult);
+
+    }
+
+    @Test
+    public void mapDAOToBean_instantiate_INSTANTIATION_EXCEPTION() {
+
+        MapperResult mapperResult = BeanDaoMapper.instantiate(MaAbstractBeanClasse.class, new Class[]{String.class, Integer.class}, new Object[]{"coucou", new Integer(2)});
+        Assert.assertFalse(mapperResult.getMapped().isPresent());
+        Assert.assertFalse(mapperResult.getMapperErrors().isEmpty());
+        Assert.assertEquals(1, mapperResult.getMapperErrors().size());
+        Assert.assertEquals(MapperErrorType.INSTANTIATION_EXCEPTION, mapperResult.getMapperErrors().get(0).getMapperErrorType());
+
+        System.out.println(mapperResult);
+
+    }
+
+    @Test
+    public void mapDAOToBean_instantiate_NO_SUCH_METHOD_EXCEPTION() {
+
+        MapperResult mapperResult = BeanDaoMapper.instantiate(MaBeanClasse.class, new Class[]{String.class, String.class}, new Object[]{"coucou", 2});
+        Assert.assertFalse(mapperResult.getMapped().isPresent());
+        Assert.assertFalse(mapperResult.getMapperErrors().isEmpty());
+        Assert.assertEquals(1, mapperResult.getMapperErrors().size());
+        Assert.assertEquals(MapperErrorType.NO_SUCH_METHOD_EXCEPTION, mapperResult.getMapperErrors().get(0).getMapperErrorType());
+
+        System.out.println(mapperResult);
+
+    }
+
+    @Test
+    public void mapDAOToBean_instantiate_INVOCATION_TARGET_EXCEPTION() {
+
+        MapperResult mapperResult = BeanDaoMapper.instantiate(MaExceptionContructorBeanClasse.class, new Class[]{String.class, Integer.class}, new Object[]{"coucou", 2});
+        Assert.assertFalse(mapperResult.getMapped().isPresent());
+        Assert.assertFalse(mapperResult.getMapperErrors().isEmpty());
+        Assert.assertEquals(1, mapperResult.getMapperErrors().size());
+        Assert.assertEquals(MapperErrorType.INVOCATION_TARGET_EXCEPTION, mapperResult.getMapperErrors().get(0).getMapperErrorType());
+
+        System.out.println(mapperResult);
+
+    }
+
 
 }
