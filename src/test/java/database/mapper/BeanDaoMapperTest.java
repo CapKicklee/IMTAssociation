@@ -20,7 +20,7 @@ public class BeanDaoMapperTest {
     private final AdherentDAO adherentDAO = new AdherentDAO("unLog", "unMdp", "unName", "unPrenom", adresseDAO);
 
     private final Article articleBean = new Article("unCode", "unNom", new Double(4578), 78, null);
-    private final ArticleDAO articleDAO = new ArticleDAO("unCode", "unNom", new Double(4578), 78, null);
+    private final ArticleDAO articleDAO = new ArticleDAO("unCode", "unNom", "uneDescription",new Double(4578), 78, null);
 
     @Test
     public void mapBeanToDAO_Pays() {

@@ -50,4 +50,7 @@ public class MapperResult {
                 '}';
     }
 
+    public boolean hasErrors() {
+        return !mapperErrors.isEmpty();
+    }
 }

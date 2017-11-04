@@ -4,21 +4,14 @@
  */
 package database.services.commons;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
 
-import database.services.PersistenceConfig;
+import database.services.persistenceJPA.PersistenceConfig;
 
 /**
  * Generic JPA service operations <br>
