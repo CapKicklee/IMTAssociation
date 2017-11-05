@@ -4,6 +4,7 @@
  */
 package db.services.commons;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -12,6 +13,7 @@ import javax.persistence.Query;
 import javax.persistence.criteria.Predicate;
 
 import db.services.persistenceJPA.PersistenceConfig;
+import org.hibernate.exception.SQLGrammarException;
 
 /**
  * Generic JPA service operations <br>
@@ -101,7 +103,13 @@ public abstract class GenericJpaService<T, PK extends java.io.Serializable> {
 			@Override
 			public Object exectue(EntityManager em) throws PersistenceException {
 				final Query query = em.createQuery("from " + persistentClass.getName());
-				return query.getResultList();
+                /*List res = new ArrayList();
+				try {
+                    res = query.getResultList();
+                } catch (SQLGrammarException exception) {
+
+                }*/
+                return query.getResultList();
 			}
 		} ;
 		// JPA operation execution 
