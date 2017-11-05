@@ -32,7 +32,7 @@
 			<tbody>
 				<%
            
-            List<ArticleDAO> attribut = (List<ArticleDAO>)request.getAttribute("ListeArticle");         
+            List<ArticleDAO> attribut = (List<ArticleDAO>)session.getAttribute("ListeArticle");         
                 
             for(int i = 0; i < attribut.size(); i++)
             {
