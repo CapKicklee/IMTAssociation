@@ -2,9 +2,6 @@ package db.mapper;
 
 import db.bean.*;
 import db.dao.*;
-import db.mapper.BeanDaoMapper;
-import db.mapper.MapperErrorType;
-import db.mapper.MapperResult;
 import db.mapper.classes.MaAbstractBeanClasse;
 import db.mapper.classes.MaBeanClasse;
 import db.mapper.classes.MaExceptionContructorBeanClasse;
@@ -13,13 +10,13 @@ import org.junit.Test;
 
 public class BeanDaoMapperTest {
 
-    private final Pays paysBean = new Pays("FR", "France");
+    private final PaysBean paysBeanBean = new PaysBean("FR", "France");
     private final PaysDAO paysDAO = new PaysDAO("FR","France");
 
-    private final Adresse adresseBean = new Adresse(156646578, "uneRue", 44000, "uneVille", paysBean);
+    private final AdresseBean adresseBeanBean = new AdresseBean(156646578, "uneRue", 44000, "uneVille", paysBeanBean);
     private final AdresseDAO adresseDAO = new AdresseDAO(156646578, "uneRue", 44000, "uneVille", paysDAO);
 
-    private final Adherent adherentBean = new Adherent("unLog", "unMdp", "unName", "unPrenom", adresseBean);
+    private final AdherentBean adherentBeanBean = new AdherentBean("unLog", "unMdp", "unName", "unPrenom", adresseBeanBean);
     private final AdherentDAO adherentDAO = new AdherentDAO("unLog", "unMdp", "unName", "unPrenom", adresseDAO);
 
     private final ArticleBean articleBean = new ArticleBean("unCode", "unNom", "uneDescription", new Double(4578), 78, null);
@@ -28,7 +25,7 @@ public class BeanDaoMapperTest {
     @Test
     public void mapBeanToDAO_Pays() {
 
-        MapperResult paysDAOMapRes = BeanDaoMapper.mapBeanToDAO(paysBean);
+        MapperResult paysDAOMapRes = BeanDaoMapper.mapBeanToDAO(paysBeanBean);
         Assert.assertEquals(paysDAO, paysDAOMapRes.getMapped().get());
         Assert.assertTrue(paysDAOMapRes.getMapperErrors().isEmpty());
 
@@ -37,7 +34,7 @@ public class BeanDaoMapperTest {
     @Test
     public void mapBeanToDAO_Adherent() {
 
-        MapperResult adhMapRes = BeanDaoMapper.mapBeanToDAO(adherentBean);
+        MapperResult adhMapRes = BeanDaoMapper.mapBeanToDAO(adherentBeanBean);
         Assert.assertEquals(adherentDAO, adhMapRes.getMapped().get());
         Assert.assertTrue(adhMapRes.getMapperErrors().isEmpty());
 
@@ -46,7 +43,7 @@ public class BeanDaoMapperTest {
     @Test
     public void mapBeanToDAO_Adresse() {
 
-        MapperResult adMapRes = BeanDaoMapper.mapBeanToDAO(adresseBean);
+        MapperResult adMapRes = BeanDaoMapper.mapBeanToDAO(adresseBeanBean);
         Assert.assertEquals(adresseDAO, adMapRes.getMapped().get());
         Assert.assertTrue(adMapRes.getMapperErrors().isEmpty());
 
@@ -65,7 +62,7 @@ public class BeanDaoMapperTest {
     public void mapDAOToBean_Adherent() {
 
         MapperResult adhMapRes = BeanDaoMapper.mapDAOToBean(adherentDAO);
-        Assert.assertEquals(adherentBean, adhMapRes.getMapped().get());
+        Assert.assertEquals(adherentBeanBean, adhMapRes.getMapped().get());
         Assert.assertTrue(adhMapRes.getMapperErrors().isEmpty());
 
     }
@@ -74,7 +71,7 @@ public class BeanDaoMapperTest {
     public void mapDAOToBean_Adresse() {
 
         MapperResult adrMapRes = BeanDaoMapper.mapDAOToBean(adresseDAO);
-        Assert.assertEquals(adresseBean, adrMapRes.getMapped().get());
+        Assert.assertEquals(adresseBeanBean, adrMapRes.getMapped().get());
         Assert.assertTrue(adrMapRes.getMapperErrors().isEmpty());
 
     }
@@ -92,7 +89,7 @@ public class BeanDaoMapperTest {
     public void mapDAOToBean_Pays() {
 
         MapperResult adrMapRes = BeanDaoMapper.mapDAOToBean(paysDAO);
-        Assert.assertEquals(paysBean, adrMapRes.getMapped().get());
+        Assert.assertEquals(paysBeanBean, adrMapRes.getMapped().get());
         Assert.assertTrue(adrMapRes.getMapperErrors().isEmpty());
 
     }

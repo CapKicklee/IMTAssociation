@@ -1,11 +1,9 @@
 package servlets;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Optional;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,15 +12,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import db.bean.Adherent;
+import db.bean.AdherentBean;
+import db.bean.AdresseBean;
 import db.bean.ArticleBean;
-import db.bean.Adresse;
-import db.bean.Pays;
+import db.bean.PaysBean;
 import db.dao.AdherentDAO;
 import db.dao.AdresseDAO;
 import db.dao.PaysDAO;
 import db.mapper.BeanDaoMapper;
-import db.mapper.Mappable;
 import db.mapper.MapperResult;
 import db.services.interfaces.AdherentPersistence;
 import db.services.interfaces.AdressePersistence;
@@ -69,8 +66,8 @@ public class Login extends HttpServlet {
 				MapperResult res = BeanDaoMapper.mapDAOToBean(adhDAO);
 				if (res.getMapped().isPresent()) {
 					String password = request.getParameter("password");
-					if (password.equals(((Adherent) (res.getMapped().get())).getMotDePasse())) {
-						request.getSession().setAttribute("user", (Adherent) res.getMapped().get());
+					if (password.equals(((AdherentBean) (res.getMapped().get())).getMotDePasse())) {
+						request.getSession().setAttribute("user", (AdherentBean) res.getMapped().get());
 						request.getSession().setAttribute("panier", new HashMap<ArticleBean, Integer>());
 						System.out.println("connected");
 						response.sendRedirect("/imt.association/accueil");
@@ -93,15 +90,15 @@ public class Login extends HttpServlet {
 
 	private void process(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		List<Pays> pays = new ArrayList<>();
+		List<PaysBean> pays = new ArrayList<>();
 		for (PaysDAO paysDAO : (List<PaysDAO>) paysJPA.loadAll()) {
 			MapperResult res = BeanDaoMapper.mapDAOToBean(paysDAO);
 			if (res.getMapped().isPresent()) {
-				pays.add((Pays) res.getMapped().get());
+				pays.add((PaysBean) res.getMapped().get());
 			}
 		}
 		request.getSession().setAttribute("paysListe", pays);
-		request.getSession().setAttribute("adherent", new Adherent());
+		request.getSession().setAttribute("adherent", new AdherentBean());
 		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/login.jsp");
 		rd.forward(request, response);
 	}
@@ -120,16 +117,16 @@ public class Login extends HttpServlet {
 				System.out.println("different passwords");
 				return false;
 			}
-			Adresse adresse = null;
+			AdresseBean adresseBean = null;
 			String rue = request.getParameter("rue");
 			if (!"".equals(rue)) {
 				Integer cp = Integer.getInteger(request.getParameter("cp"));
 				String ville = request.getParameter("ville");
-				Pays pays = (Pays) BeanDaoMapper.mapDAOToBean(paysJPA.load(request.getParameter("pays"))).getMapped()
+				PaysBean paysBean = (PaysBean) BeanDaoMapper.mapDAOToBean(paysJPA.load(request.getParameter("paysBean"))).getMapped()
 						.get();
 				Integer id = (int) (adresseJPA.countAll()) + 1;
-				adresse = new Adresse(id, rue, cp, ville, pays);
-				MapperResult res = BeanDaoMapper.mapBeanToDAO(adresse);
+				adresseBean = new AdresseBean(id, rue, cp, ville, paysBean);
+				MapperResult res = BeanDaoMapper.mapBeanToDAO(adresseBean);
 				if (res.getMapped().isPresent()) {
 					adresseJPA.insert((AdresseDAO) res.getMapped().get());
 					System.out.println("address created");
@@ -138,7 +135,7 @@ public class Login extends HttpServlet {
 					return false;
 				}
 			}
-			Adherent newAdh = new Adherent(login, password, nom, prenom, adresse);
+			AdherentBean newAdh = new AdherentBean(login, password, nom, prenom, adresseBean);
 			MapperResult adhRes = BeanDaoMapper.mapBeanToDAO(newAdh);
 			if (adhRes.getMapped().isPresent()) {
 				adherentJPA.insert((AdherentDAO) adhRes.getMapped().get());

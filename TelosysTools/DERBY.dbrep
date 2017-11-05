@@ -6,7 +6,7 @@
 <column dbComment="" dbDefaultValue="" dbName="MDP" dbNotNull="true" dbPosition="2" dbSize="30" dbTypeName="VARCHAR" inputType="text" javaName="mdp" javaType="java.lang.String" jdbcTypeCode="12" label="Mdp" maxLength="30" notEmpty="true" notNull="true" selected="true"/>
 <column dbComment="" dbDefaultValue="" dbName="NOM" dbNotNull="true" dbPosition="3" dbSize="30" dbTypeName="VARCHAR" inputType="text" javaName="nom" javaType="java.lang.String" jdbcTypeCode="12" label="Nom" maxLength="30" notEmpty="true" notNull="true" selected="true"/>
 <column dbComment="" dbDefaultValue="" dbName="PRENOM" dbNotNull="true" dbPosition="4" dbSize="30" dbTypeName="VARCHAR" inputType="text" javaName="prenom" javaType="java.lang.String" jdbcTypeCode="12" label="Prenom" maxLength="30" notEmpty="true" notNull="true" selected="true"/>
-<column dbComment="" dbDefaultValue="" dbForeignKey="true" dbName="ADRESSE" dbNotNull="false" dbPosition="5" dbSize="10" dbTypeName="INTEGER" inputType="number" javaName="adresse" javaType="java.lang.Integer" jdbcTypeCode="4" label="Adresse" notNull="false" selected="true"/>
+<column dbComment="" dbDefaultValue="" dbForeignKey="true" dbName="ADRESSE" dbNotNull="false" dbPosition="5" dbSize="10" dbTypeName="INTEGER" inputType="number" javaName="adresseBean" javaType="java.lang.Integer" jdbcTypeCode="4" label="Adresse" notNull="false" selected="true"/>
 <fk name="SQL171101155116711">
 <fkcol colname="ADRESSE" colref="ID" deferrable="7" deleterule="3" sequence="1" tablename="ADHERENT" tableref="ADRESSE" updaterule="3"/>
 </fk>
@@ -21,7 +21,7 @@
 <column dbComment="" dbDefaultValue="" dbName="RUE" dbNotNull="false" dbPosition="2" dbSize="50" dbTypeName="VARCHAR" inputType="text" javaName="rue" javaType="java.lang.String" jdbcTypeCode="12" label="Rue" maxLength="50" notNull="false" selected="true"/>
 <column dbComment="" dbDefaultValue="" dbName="CP" dbNotNull="false" dbPosition="3" dbSize="10" dbTypeName="INTEGER" inputType="number" javaName="cp" javaType="java.lang.Integer" jdbcTypeCode="4" label="Cp" notNull="false" selected="true"/>
 <column dbComment="" dbDefaultValue="" dbName="VILLE" dbNotNull="false" dbPosition="4" dbSize="30" dbTypeName="VARCHAR" inputType="text" javaName="ville" javaType="java.lang.String" jdbcTypeCode="12" label="Ville" maxLength="30" notNull="false" selected="true"/>
-<column dbComment="" dbDefaultValue="" dbForeignKey="true" dbName="PAYS" dbNotNull="false" dbPosition="5" dbSize="2" dbTypeName="VARCHAR" inputType="text" javaName="pays" javaType="java.lang.String" jdbcTypeCode="12" label="Pays" maxLength="2" notNull="false" selected="true"/>
+<column dbComment="" dbDefaultValue="" dbForeignKey="true" dbName="PAYS" dbNotNull="false" dbPosition="5" dbSize="2" dbTypeName="VARCHAR" inputType="text" javaName="paysBean" javaType="java.lang.String" jdbcTypeCode="12" label="Pays" maxLength="2" notNull="false" selected="true"/>
 <fk name="SQL171101155024841">
 <fkcol colname="PAYS" colref="CODE" deferrable="7" deleterule="3" sequence="1" tablename="ADRESSE" tableref="PAYS" updaterule="3"/>
 </fk>

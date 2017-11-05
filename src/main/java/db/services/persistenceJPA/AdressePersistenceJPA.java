@@ -16,7 +16,7 @@ import db.services.commons.JpaOperation;
 import db.services.interfaces.AdressePersistence;
 
 /**
- * JPA implementation for basic persistence operations ( entity "Adresse" )
+ * JPA implementation for basic persistence operations ( entity "AdresseBean" )
  * 
  * @author Telosys Tools Generator
  *

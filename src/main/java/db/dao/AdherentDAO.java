@@ -3,7 +3,7 @@ package db.dao;
 import java.io.Serializable;
 import javax.persistence.*;
 
-import db.bean.Adresse;
+import db.bean.AdresseBean;
 import db.mapper.BeanDaoMapper;
 
 /**
@@ -45,12 +45,12 @@ public class AdherentDAO implements Serializable, DAO {
         super();
     }
 
-    public AdherentDAO(String login, String mdp, String nom, String prenom, Adresse adresse) {
+    public AdherentDAO(String login, String mdp, String nom, String prenom, AdresseBean adresseBean) {
         this.login = login;
         this.mdp = mdp;
         this.nom = nom;
         this.prenom = prenom;
-        this.adresse = (AdresseDAO) BeanDaoMapper.mapBeanToDAO(adresse).getMapped().get();
+        this.adresse = (AdresseDAO) BeanDaoMapper.mapBeanToDAO(adresseBean).getMapped().get();
     }
 
     public AdherentDAO(String login, String mdp, String nom, String prenom, AdresseDAO adresse) {

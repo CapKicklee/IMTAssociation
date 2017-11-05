@@ -4,12 +4,12 @@ package db.bean;
  * Représentation objet de la table PAYS de la base de données.
  * @author Juliette FRETAY, Kendall FOREST, Chloé GUILBAUD
  */
-public class Pays implements Bean {
+public class PaysBean implements Bean {
 
     private String code;
     private String nom;
 
-    public Pays(String code, String nom) {
+    public PaysBean(String code, String nom) {
         this.code = code;
         this.nom = nom;
     }
@@ -32,7 +32,7 @@ public class Pays implements Bean {
 
     @Override
     public String toString() {
-        return "BEAN - Pays{" +
+        return "BEAN - PaysBean{" +
                 "code='" + code + '\'' +
                 ", nom='" + nom + '\'' +
                 '}';
@@ -43,10 +43,10 @@ public class Pays implements Bean {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Pays pays = (Pays) o;
+        PaysBean paysBean = (PaysBean) o;
 
-        if (code != null ? !code.equals(pays.code) : pays.code != null) return false;
-        return nom != null ? nom.equals(pays.nom) : pays.nom == null;
+        if (code != null ? !code.equals(paysBean.code) : paysBean.code != null) return false;
+        return nom != null ? nom.equals(paysBean.nom) : paysBean.nom == null;
     }
 
     @Override

@@ -12,7 +12,7 @@ import db.dao.AdherentDAO;
 
 
 /**
- * Basic persistence operations for entity "Adherent"
+ * Basic persistence operations for entity "AdherentBean"
  * 
  * This database.bean has a basic Primary Key : String
  *

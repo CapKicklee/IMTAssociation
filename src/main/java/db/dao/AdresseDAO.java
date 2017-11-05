@@ -1,6 +1,6 @@
 package db.dao;
 
-import db.bean.Pays;
+import db.bean.PaysBean;
 import db.mapper.BeanDaoMapper;
 
 import java.io.Serializable;
@@ -51,12 +51,12 @@ public class AdresseDAO implements Serializable, DAO {
         super();
     }
 
-    public AdresseDAO(Integer id, String rue, Integer cp, String ville, Pays pays) {
+    public AdresseDAO(Integer id, String rue, Integer cp, String ville, PaysBean paysBean) {
         this.id = id;
         this.rue = rue;
         this.cp = cp;
         this.ville = ville;
-        this.pays = (PaysDAO) BeanDaoMapper.mapBeanToDAO(pays).getMapped().get();
+        this.pays = (PaysDAO) BeanDaoMapper.mapBeanToDAO(paysBean).getMapped().get();
     }
 
     public AdresseDAO(Integer id, String rue, Integer cp, String ville, PaysDAO pays) {

@@ -10,7 +10,7 @@ import java.util.Map;
 import db.dao.PaysDAO;
 
 /**
- * Basic persistence operations for entity "Pays"
+ * Basic persistence operations for entity "PaysBean"
  * 
  * This database.bean has a basic Primary Key : String
  *
