@@ -17,6 +17,9 @@
 	href="webjars/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="webjars/jquery/3.2.1/jquery.min.js"></script>
+<script src="webjars/popper.js/1.12.3/dist/umd/popper.min.js"></script>
+<script src="webjars/bootstrap/4.0.0-beta-1/js/bootstrap.min.js"></script>
 <title>IMTAssociation - Commande</title>
 </head>
 
@@ -31,11 +34,12 @@
 					<th>Prix Total</th>
 					<th>Quantité</th>
 					<th></th>
+					<th></th>
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach var="artPanier" begin="0" end="${taillePanier -1}"
-					varStatus="i" items="${panier}">
+					varStatus="i" items="${panierValue}">
 					<tr>
 						<th scope="row">${artPanier.key.code}</th>
 						<td>${artPanier.key.nom}</td>
@@ -64,6 +68,14 @@
 									</form>
 								</div>
 							</div>
+						</td>
+						<td>
+							<form method="POST"
+								action="commande/remove/${artPanier.key.code}">
+								<button type="submit" class="btn btn-danger">
+									<i class="fa fa-trash-o"></i>
+								</button>
+							</form>
 						</td>
 
 					</tr>

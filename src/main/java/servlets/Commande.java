@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import javax.servlet.RequestDispatcher;
@@ -14,6 +15,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import org.hibernate.engine.transaction.jta.platform.internal.SynchronizationRegistryBasedSynchronizationStrategy;
 
 import db.bean.ArticleBean;
 import db.dao.ArticleDAO;
@@ -28,9 +31,9 @@ import db.services.persistenceJPA.ArticlePersistenceJPA;
 @WebServlet({"/commande", "/commande/*"})
 public class Commande extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
+
 	private ArticlePersistence articleJPA = new ArticlePersistenceJPA();
-       
+
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -45,35 +48,73 @@ public class Commande extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if (request.getRequestURI().contains("commande/plus")) {
-			ArticleDAO article=(ArticleDAO) articleJPA.load(request.getRequestURI().substring(request.getRequestURI().lastIndexOf('/')));
-			Article articlebean = (Article) BeanDaoMapper.mapDAOToBean(article).getMapped().get();
-			HashMap<Article,Integer> panier = (HashMap<Article, Integer>) request.getAttribute("panier");
-			panier.replace(articlebean, panier.get(articlebean) +1);
-			request.setAttribute("panier", panier);
-			RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/commande.jsp");
-			rd.forward(request, response);
+			String code = request.getRequestURI().substring(request.getRequestURI().lastIndexOf('/')+1);
+			System.out.println("Code : "+code);
+			if(code.length()==3){
+				HashMap<String,Integer> panier = (HashMap<String, Integer>) request.getSession().getAttribute("panier");
+				if(false){//Avec le +1 ça depasse le stock
+					//Ne rien faire sur la quantite
+					//Avertir l'utilisateur
+				}else{
+					panier.put(code, panier.get(code) +1);
+				}
+				request.getSession().setAttribute("panier", panier);
+				response.sendRedirect("/imt.association/commande");
+
+			}
+
 		}
-		
+
 		if (request.getRequestURI().contains("commande/minus")) {
-			ArticleDAO article=(ArticleDAO) articleJPA.load(request.getRequestURI().substring(request.getRequestURI().lastIndexOf('/')));
-			Article articlebean = (Article) BeanDaoMapper.mapDAOToBean(article).getMapped().get();
-			HashMap<Article,Integer> panier = (HashMap<Article, Integer>) request.getAttribute("panier");
-			panier.replace(articlebean, panier.get(articlebean) +1);
-			request.setAttribute("panier", panier);
-			RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/commande.jsp");
-			rd.forward(request, response);
+			String code = request.getRequestURI().substring(request.getRequestURI().lastIndexOf('/')+1);
+			System.out.println("Code : "+code);
+			if(code.length()==3){
+				HashMap<String,Integer> panier = (HashMap<String, Integer>) request.getSession().getAttribute("panier");
+				if(panier.get(code)-1 == 0){
+					panier.remove(code);
+				}else{
+					panier.put(code, panier.get(code) -1);
+				}
+
+				request.getSession().setAttribute("panier", panier);
+				response.sendRedirect("/imt.association/commande");
+			}
 		}
-		process(request, response);
+
+		if (request.getRequestURI().contains("commande/remove")) {
+			String code = request.getRequestURI().substring(request.getRequestURI().lastIndexOf('/')+1);
+			System.out.println("Code : "+code);
+			if(code.length()==3){
+				HashMap<String,Integer> panier = (HashMap<String, Integer>) request.getSession().getAttribute("panier");
+				panier.remove(code);
+
+				request.getSession().setAttribute("panier", panier);
+				response.sendRedirect("/imt.association/commande");
+			}
+		}
 	}
-	
+
 	private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//En attendant :
-		HashMap<ArticleBean,Integer> panier = new HashMap<ArticleBean,Integer>();
-		panier.put(new ArticleBean("PU1", "Article venant du code", "", 45.30, 56, ""),52);
-		panier.put(new ArticleBean("002", "Article venant du code 2", "", 20.0, 23, ""),1);
-		
-		request.setAttribute("panier", panier);
-		request.setAttribute("taillePanier",((HashMap) request.getAttribute("panier")).size());
+		if((HashMap) request.getSession().getAttribute("panier")==null){
+			System.out.println("Panier null");
+		}
+		HashMap<String, Integer> panier = (HashMap) request.getSession().getAttribute("panier");
+
+		HashMap<ArticleBean, Integer> panierValue = new HashMap<ArticleBean, Integer>();
+		for(Map.Entry<String, Integer> entry : panier.entrySet()) { 
+			String key = entry.getKey();
+			ArticleDAO article=(ArticleDAO) articleJPA.load(key);
+			ArticleBean articlebean = (ArticleBean) BeanDaoMapper.mapDAOToBean(article).getMapped().get();
+
+
+
+			Integer value = entry.getValue();
+			System.out.println("Création du panier : "+articlebean+" "+value);
+			panierValue.put(articlebean, value);
+
+		}
+		request.getSession().setAttribute("panierValue",panierValue);
+		request.getSession().setAttribute("taillePanier",((HashMap) request.getSession().getAttribute("panier")).size());
 		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/commande.jsp");
 		rd.forward(request, response);
 	}
