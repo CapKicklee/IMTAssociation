@@ -25,7 +25,7 @@ import db.services.persistenceJPA.ArticlePersistenceJPA;
 /**
  * Servlet implementation class Commande
  */
-@WebServlet("/commande")
+@WebServlet({"/commande", "/commande/*"})
 public class Commande extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -44,13 +44,34 @@ public class Commande extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		if (request.getRequestURI().contains("commande/plus")) {
+			ArticleDAO article=(ArticleDAO) articleJPA.load(request.getRequestURI().substring(request.getRequestURI().lastIndexOf('/')));
+			Article articlebean = (Article) BeanDaoMapper.mapDAOToBean(article).getMapped().get();
+			HashMap<Article,Integer> panier = (HashMap<Article, Integer>) request.getAttribute("panier");
+			panier.replace(articlebean, panier.get(articlebean) +1);
+			request.setAttribute("panier", panier);
+			RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/commande.jsp");
+			rd.forward(request, response);
+		}
+		
+		if (request.getRequestURI().contains("commande/minus")) {
+			ArticleDAO article=(ArticleDAO) articleJPA.load(request.getRequestURI().substring(request.getRequestURI().lastIndexOf('/')));
+			Article articlebean = (Article) BeanDaoMapper.mapDAOToBean(article).getMapped().get();
+			HashMap<Article,Integer> panier = (HashMap<Article, Integer>) request.getAttribute("panier");
+			panier.replace(articlebean, panier.get(articlebean) +1);
+			request.setAttribute("panier", panier);
+			RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/commande.jsp");
+			rd.forward(request, response);
+		}
 		process(request, response);
 	}
 	
 	private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//En attendant :
-		HashMap<Integer,Article> panier = new HashMap<Integer,Article>();
+		HashMap<Article,Integer> panier = new HashMap<Article,Integer>();
+		panier.put(new Article("PU1", "Article venant du code", "", 45.30, 56, ""),52);
+		panier.put(new Article("002", "Article venant du code 2", "", 20.0, 23, ""),1);
+		
 		request.setAttribute("panier", panier);
 		request.setAttribute("taillePanier",((HashMap) request.getAttribute("panier")).size());
 		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/commande.jsp");

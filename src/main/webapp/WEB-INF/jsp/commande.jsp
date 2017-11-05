@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@page import="java.util.List"%>
 <%@page import="db.bean.Article"%>
 
@@ -33,106 +34,44 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr:forEach var="artPanier" begin="0"
-					end "${taillePanier -1}" varStatus="i" items="${panier}">
+				<c:forEach var="artPanier" begin="0" end="${taillePanier -1}"
+					varStatus="i" items="${panier}">
 					<tr>
-						<th scope="row">${artPanier.value.code}</th>
-						<td>${artPanier.value.nom}</td>
-						<td>${artPanier.value.prix}€</td>
-						<td>${artPanier.key}</td>
+						<th scope="row">${artPanier.key.code}</th>
+						<td>${artPanier.key.nom}</td>
+						<td>${artPanier.key.prix}€</td>
+						<td>${artPanier.value}</td>
 						<td>
 							<div class="btn-toolbar" role="toolbar"
 								aria-label="Toolbar with button groups">
 
 								<div class="btn-group mr-2" role="group"
 									aria-label="First group">
-									<button type="button" class="btn btn-success">
-										<i class="fa fa-plus"></i>
-									</button>
+									<form method="POST"
+										action="commande/plus/${artPanier.key.code}">
+										<button type="submit" class="btn btn-success">
+											<i class="fa fa-plus"></i>
+										</button>
+									</form>
 								</div>
 								<div class="btn-group mr-2" role="group"
 									aria-label="Second group">
-									<button type="button" class="btn btn-danger">
-										<i class="fa fa-minus"></i>
-									</button>
+									<form method="POST"
+										action="commande/minus/${artPanier.key.code}">
+										<button type="submit" class="btn btn-danger">
+											<i class="fa fa-minus"></i>
+										</button>
+									</form>
 								</div>
 							</div>
 						</td>
 
 					</tr>
-				</tr:forEach>
-				<tr>
-					<th scope="row">001</th>
-					<td>Article 1</td>
-					<td>45€</td>
-					<td>1</td>
-					<td>
-						<div class="btn-toolbar" role="toolbar"
-							aria-label="Toolbar with button groups">
-							<div class="btn-group mr-2" role="group" aria-label="First group">
-								<button type="button" class="btn btn-success">
-									<i class="fa fa-plus"></i>
-								</button>
-							</div>
-							<div class="btn-group mr-2" role="group"
-								aria-label="Second group">
-								<button type="button" class="btn btn-danger">
-									<i class="fa fa-minus"></i>
-								</button>
-							</div>
-						</div>
-					</td>
-				</tr>
-				<tr>
-					<th scope="row">002</th>
-					<td>Article 2</td>
-					<td>45€</td>
-					<td>2</td>
-					<td>
-						<div class="btn-toolbar" role="toolbar"
-							aria-label="Toolbar with button groups">
-
-							<div class="btn-group mr-2" role="group" aria-label="First group">
-								<button type="button" class="btn btn-success">
-									<i class="fa fa-plus"></i>
-								</button>
-							</div>
-							<div class="btn-group mr-2" role="group"
-								aria-label="Second group">
-								<button type="button" class="btn btn-danger">
-									<i class="fa fa-minus"></i>
-								</button>
-							</div>
-						</div>
-					</td>
-				</tr>
-				<tr>
-					<th scope="row">003</th>
-					<td>Article 3</td>
-					<td>90€</td>
-					<td>1</td>
-					<td>
-						<div class="btn-toolbar" role="toolbar"
-							aria-label="Toolbar with button groups">
-
-							<div class="btn-group mr-2" role="group" aria-label="First group">
-								<button type="button" class="btn btn-success">
-									<i class="fa fa-plus"></i>
-								</button>
-							</div>
-							<div class="btn-group mr-2" role="group"
-								aria-label="Second group">
-								<button type="button" class="btn btn-danger">
-									<i class="fa fa-minus"></i>
-								</button>
-							</div>
-						</div>
-					</td>
-				</tr>
+				</c:forEach>
 			</tbody>
 		</table>
 	</div>
 	<%@ include file="/WEB-INF/jspf/footer.jspf"%>
 </body>
-
+</script>
 </html>
