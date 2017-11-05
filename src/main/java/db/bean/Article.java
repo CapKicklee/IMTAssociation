@@ -8,11 +8,12 @@ public class Article implements Bean {
 
     private String code;
     private String nom;
+    private String description;
     private Double prix;
     private Integer stock;
     private String image;
 
-    public Article(String code, String nom, Double prix, Integer stock, String image) {
+    public Article(String code, String nom, String description, Double prix, Integer stock, String image) {
         this.code = code;
         this.nom = nom;
         this.prix = prix;
@@ -34,6 +35,14 @@ public class Article implements Bean {
 
     public void setNom(String nom) {
         this.nom = nom;
+    }
+    
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Double getPrix() {
@@ -65,6 +74,7 @@ public class Article implements Bean {
         return "BEAN - Article{" +
                 "code='" + code + '\'' +
                 ", nom='" + nom + '\'' +
+                ", description='" + description + '\'' +
                 ", prix='" + prix + '\'' +
                 ", stock='" + stock + '\'' +
                 ", image='" + image + '\'' +
@@ -80,6 +90,7 @@ public class Article implements Bean {
 
         if (code != null ? !code.equals(article.code) : article.code != null) return false;
         if (nom != null ? !nom.equals(article.nom) : article.nom != null) return false;
+        if (description != null ? !nom.equals(article.description) : article.description != null) return false;
         if (prix != null ? !prix.equals(article.prix) : article.prix != null) return false;
         if (stock != null ? !stock.equals(article.stock) : article.stock != null) return false;
         return image != null ? image.equals(article.image) : article.image == null;

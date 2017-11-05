@@ -23,8 +23,8 @@ enum BeanDAOLinker {
             "db.dao.AdherentDAO", AdherentDAO.class, new Class[]{String.class, String.class, String.class, String.class, Adresse.class}),
     ADRESSE("db.bean.Adresse", Adresse.class, new Class[]{Integer.class, String.class, Integer.class, String.class, PaysDAO.class},
             "db.dao.AdresseDAO", AdresseDAO.class, new Class[]{Integer.class, String.class, Integer.class, String.class, Pays.class}),
-    ARTICLE("db.bean.Article", Article.class, new Class[]{String.class, String.class, Double.class, Integer.class, String.class},
-            "db.dao.ArticleDAO", ArticleDAO.class, new Class[]{String.class, String.class, Double.class, Integer.class, Blob.class}),
+    ARTICLE("db.bean.Article", Article.class, new Class[]{String.class, String.class, String.class, Double.class, Integer.class, String.class},
+            "db.dao.ArticleDAO", ArticleDAO.class, new Class[]{String.class, String.class, String.class, Double.class, Integer.class, Blob.class}),
     PAYS("db.bean.Pays", Pays.class, new Class[]{String.class, String.class},
             "db.dao.PaysDAO", PaysDAO.class, new Class[]{String.class, String.class});
 

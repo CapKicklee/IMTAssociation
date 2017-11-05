@@ -51,7 +51,7 @@ $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 				<div class="tab-pane fade active show" id="connect" role="tabpanel"
 					aria-labelledby="connect-tab">
 					<div class="row justify-content-md-center">
-						<form method="POST" action="/login/auth">
+						<form method="POST" action="login/auth">
 							<br /> <br />
 							<h4 class="h4 text-center">
 								<span class="text-muted">Veuillez vous authentifier </span>
@@ -59,18 +59,18 @@ $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 							<br />
 							<div class="form-group col-md-auto">
 								<input class="form-control" type="text"
-									placeholder="Nom d'utilisateur" /> <br /> <input
-									class="form-control" type="password" placeholder="Mot de passe" />
+									placeholder="Nom d'utilisateur" name="login" /> <br /> <input
+									class="form-control" type="password" placeholder="Mot de passe" name="password"/>
 							</div>
 							<div class="form-group d-flex justify-content-end">
-								<button class="btn connect" type="submit">Se connecter</button>
+								<a href="#"><button class="btn connect" type="submit">Se connecter</button></a>
 							</div>
 						</form>
 					</div>
 				</div>
 				<div class="tab-pane fade" id="subscribe" role="tabpanel"
 					aria-labelledby="subscribe-tab">
-					<form method="POST" action="/login/create"
+					<form method="POST" action="login/create"
 						class="col-md-9 offset-md-2">
 						<h3 class="text-muted">Rejoignez-nous !</h3>
 						<br />
@@ -79,7 +79,7 @@ $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 								d'utilisateur <span style="color: red">*</span>
 							</label>
 							<div class="col-sm-9">
-								<input type="text" class="form-control" id="login"
+								<input type="text" class="form-control" id="login" name="login"
 									placeholder="Nom d'utilisateur" required>
 							</div>
 						</div>
@@ -89,7 +89,7 @@ $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 							</label>
 							<div class="col-sm-9">
 								<input type="password" class="form-control" id="password"
-									placeholder="Mot de passe" required>
+									placeholder="Mot de passe" name="password" required>
 							</div>
 						</div>
 						<div class="form-group row">
@@ -98,7 +98,7 @@ $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 							</label>
 							<div class="col-sm-9">
 								<input type="password" class="form-control" id="password2"
-									placeholder="Confirmez votre mot de passe" required>
+									placeholder="Confirmez votre mot de passe" name="password2" required>
 							</div>
 						</div>
 						<div class="form-group row">
@@ -107,7 +107,7 @@ $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 							</label>
 							<div class="col-sm-9">
 								<input type="text" class="form-control" id="nom"
-									placeholder="Nom de famille" required>
+									placeholder="Nom de famille" name="nom" required>
 							</div>
 						</div>
 						<div class="form-group row">
@@ -116,35 +116,35 @@ $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 							</label>
 							<div class="col-sm-9">
 								<input type="text" class="form-control" id="prenom"
-									placeholder="Prénom" required>
+									placeholder="Prénom" name="prenom" required>
 							</div>
 						</div>
 						<div class="form-group row">
 							<label for="rue" class="col-sm-3 col-form-label">Adresse</label>
 							<div class="col-sm-9">
 								<input type="text" class="form-control" id="rue"
-									placeholder="Nom de rue">
+									placeholder="Nom de rue" name="rue" required>
 							</div>
 						</div>
 						<div class="form-group row">
 							<label for="cp" class="col-sm-3 col-form-label">Code
 								postal</label>
 							<div class="col-sm-9">
-								<input type="number" class="form-control" id="cp"
-									placeholder="Code postal">
+								<input type="text" class="form-control" id="cp"
+									placeholder="Code postal" name="cp" required>
 							</div>
 						</div>
 						<div class="form-group row">
 							<label for="ville" class="col-sm-3 col-form-label">Ville</label>
 							<div class="col-sm-9">
 								<input type="text" class="form-control" id="ville"
-									placeholder="Ville">
+									placeholder="Ville" name="ville" required>
 							</div>
 						</div>
 						<div class="form-group row">
 							<label for="pays" class="col-sm-3 col-form-label">Pays</label>
 							<div class="col-sm-9">
-								<select id="pays" class="form-control">
+								<select id="pays" class="form-control" name="pays">
 									<c:forEach var="pays" begin="0" items="${paysListe}">
 										<option value="${pays.code }">${pays.nom }</option>
 									</c:forEach>
