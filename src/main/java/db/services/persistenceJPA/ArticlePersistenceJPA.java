@@ -13,7 +13,7 @@ import db.services.commons.JpaOperation;
 import db.services.interfaces.ArticlePersistence;
 
 /**
- * JPA implementation for basic persistence operations ( entity "Adherent" )
+ * JPA implementation for basic persistence operations ( entity "AdherentBean" )
  * 
  *
  */

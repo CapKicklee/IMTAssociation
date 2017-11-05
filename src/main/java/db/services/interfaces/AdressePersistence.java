@@ -10,7 +10,7 @@ import java.util.Map;
 import db.dao.AdresseDAO;
 
 /**
- * Basic persistence operations for entity "Adresse"
+ * Basic persistence operations for entity "AdresseBean"
  * 
  * This database.bean has a basic Primary Key : Integer
  *

@@ -7,25 +7,25 @@ import db.mapper.BeanDaoMapper;
  * Représentation objet de la table ADRESSE de la base de données.
  * @author Juliette FRETAY, Kendall FOREST, Chloé GUILBAUD
  */
-public class Adresse implements Bean {
+public class AdresseBean implements Bean {
 
     private Integer id;
     private String rue;
     private Integer codePostale;
     private String ville;
-    private Pays pays;
-    //private List<Adherent> listAdherent;
+    private PaysBean paysBean;
+    //private List<AdherentBean> listAdherent;
 
-    public Adresse(Integer id, String rue, Integer codePostale, String ville, Pays pays) {
+    public AdresseBean(Integer id, String rue, Integer codePostale, String ville, PaysBean paysBean) {
         this.id = id;
         this.rue = rue;
         this.codePostale = codePostale;
         this.ville = ville;
-        this.pays = pays;
+        this.paysBean = paysBean;
     }
 
-    public Adresse(Integer id, String rue, Integer codePostale, String ville, PaysDAO paysDAO) {
-        this(id, rue, codePostale, ville, (Pays) BeanDaoMapper.mapDAOToBean(paysDAO).getMapped().get());
+    public AdresseBean(Integer id, String rue, Integer codePostale, String ville, PaysDAO paysDAO) {
+        this(id, rue, codePostale, ville, (PaysBean) BeanDaoMapper.mapDAOToBean(paysDAO).getMapped().get());
     }
 
     public Integer getId() {
@@ -60,22 +60,22 @@ public class Adresse implements Bean {
         this.ville = ville;
     }
 
-    public Pays getPays() {
-        return pays;
+    public PaysBean getPays() {
+        return paysBean;
     }
 
-    public void setPays(Pays pays) {
-        this.pays = pays;
+    public void setPays(PaysBean paysBean) {
+        this.paysBean = paysBean;
     }
 
     @Override
     public String toString() {
-        return "BEAN - Adresse{" +
+        return "BEAN - AdresseBean{" +
                 "id='" + id + '\'' +
                 ", rue='" + rue + '\'' +
                 ", codePostale='" + codePostale + '\'' +
                 ", ville='" + ville + '\'' +
-                ", pays=" + pays +
+                ", paysBean=" + paysBean +
                 '}';
     }
 
@@ -84,13 +84,13 @@ public class Adresse implements Bean {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Adresse adresse = (Adresse) o;
+        AdresseBean adresseBean = (AdresseBean) o;
 
-        if (id != null ? !id.equals(adresse.id) : adresse.id != null) return false;
-        if (rue != null ? !rue.equals(adresse.rue) : adresse.rue != null) return false;
-        if (codePostale != null ? !codePostale.equals(adresse.codePostale) : adresse.codePostale != null) return false;
-        if (ville != null ? !ville.equals(adresse.ville) : adresse.ville != null) return false;
-        return pays != null ? pays.equals(adresse.pays) : adresse.pays == null;
+        if (id != null ? !id.equals(adresseBean.id) : adresseBean.id != null) return false;
+        if (rue != null ? !rue.equals(adresseBean.rue) : adresseBean.rue != null) return false;
+        if (codePostale != null ? !codePostale.equals(adresseBean.codePostale) : adresseBean.codePostale != null) return false;
+        if (ville != null ? !ville.equals(adresseBean.ville) : adresseBean.ville != null) return false;
+        return paysBean != null ? paysBean.equals(adresseBean.paysBean) : adresseBean.paysBean == null;
     }
 
     @Override

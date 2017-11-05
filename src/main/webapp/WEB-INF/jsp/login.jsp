@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<%@ page import="db.bean.Pays"%>
+<%@ page import="db.bean.PaysBean"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -142,11 +142,11 @@ $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 							</div>
 						</div>
 						<div class="form-group row">
-							<label for="pays" class="col-sm-3 col-form-label">Pays</label>
+							<label for="paysBean" class="col-sm-3 col-form-label">Pays</label>
 							<div class="col-sm-9">
-								<select id="pays" class="form-control" name="pays">
-									<c:forEach var="pays" begin="0" items="${paysListe}">
-										<option value="${pays.code }">${pays.nom }</option>
+								<select id="paysBean" class="form-control" name="paysBean">
+									<c:forEach var="paysBean" begin="0" items="${paysListe}">
+										<option value="${paysBean.code }">${paysBean.nom }</option>
 									</c:forEach>
 								</select>
 							</div>

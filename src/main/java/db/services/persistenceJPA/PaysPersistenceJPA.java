@@ -16,7 +16,7 @@ import db.services.commons.JpaOperation;
 import db.services.interfaces.PaysPersistence;
 
 /**
- * JPA implementation for basic persistence operations ( entity "Pays" )
+ * JPA implementation for basic persistence operations ( entity "PaysBean" )
  * 
  * @author Telosys Tools Generator
  *

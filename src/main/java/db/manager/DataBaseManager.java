@@ -1,15 +1,11 @@
 package db.manager;
 
-import db.bean.Adresse;
 import db.dao.AdherentDAO;
 import db.dao.AdresseDAO;
 import db.dao.ArticleDAO;
-import db.dao.DAO;
 import db.dao.PaysDAO;
 import db.mapper.BeanDaoMapper;
 import db.mapper.MapperResult;
-import db.services.commons.GenericJpaService;
-import db.services.interfaces.AdressePersistence;
 import db.services.persistenceJPA.AdherentPersistenceJPA;
 import db.services.persistenceJPA.AdressePersistenceJPA;
 import db.services.persistenceJPA.ArticlePersistenceJPA;

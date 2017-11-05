@@ -19,7 +19,7 @@ import db.services.commons.JpaOperation;
 import db.services.interfaces.AdherentPersistence;
 
 /**
- * JPA implementation for basic persistence operations ( entity "Adherent" )
+ * JPA implementation for basic persistence operations ( entity "AdherentBean" )
  * 
  * @author Telosys Tools Generator
  *

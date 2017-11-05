@@ -7,27 +7,27 @@ import db.mapper.BeanDaoMapper;
  * Représentation objet de la table ADHERENT de la base de données.
  * @author Juliette FRETAY, Kendall FOREST, Chloé GUILBAUD
  */
-public class Adherent implements Bean {
+public class AdherentBean implements Bean {
 
     private String login;
     private String motDePasse;
     private String nom;
     private String prenom;
-    private Adresse adresse;
+    private AdresseBean adresseBean;
 
-    public Adherent(String login, String motDePasse, String nom, String prenom, Adresse adresse) {
+    public AdherentBean(String login, String motDePasse, String nom, String prenom, AdresseBean adresseBean) {
         this.login = login;
         this.motDePasse = motDePasse;
         this.nom = nom;
         this.prenom = prenom;
-        this.adresse = adresse;
+        this.adresseBean = adresseBean;
     }
 
-    public Adherent(String login, String motDePasse, String nom, String prenom, AdresseDAO adressesDao) {
-        this(login, motDePasse, nom, prenom, (Adresse) BeanDaoMapper.mapDAOToBean(adressesDao).getMapped().get());
+    public AdherentBean(String login, String motDePasse, String nom, String prenom, AdresseDAO adressesDao) {
+        this(login, motDePasse, nom, prenom, (AdresseBean) BeanDaoMapper.mapDAOToBean(adressesDao).getMapped().get());
     }
     
-    public Adherent() {
+    public AdherentBean() {
     	
     }
 
@@ -63,22 +63,22 @@ public class Adherent implements Bean {
         this.prenom = prenom;
     }
 
-    public Adresse getAdresse() {
-        return adresse;
+    public AdresseBean getAdresse() {
+        return adresseBean;
     }
 
-    public void setAdresse(Adresse adresse) {
-        this.adresse = adresse;
+    public void setAdresse(AdresseBean adresseBean) {
+        this.adresseBean = adresseBean;
     }
 
     @Override
     public String toString() {
-        return "BEAN - Adherent{" +
+        return "BEAN - AdherentBean{" +
                 "login='" + login + '\'' +
                 ", motDePasse='" + motDePasse + '\'' +
                 ", nom='" + nom + '\'' +
                 ", prenom='" + prenom + '\'' +
-                ", adresse=" + adresse +
+                ", adresseBean=" + adresseBean +
                 '}';
     }
 
@@ -87,13 +87,13 @@ public class Adherent implements Bean {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Adherent adherent = (Adherent) o;
+        AdherentBean adherentBean = (AdherentBean) o;
 
-        if (login != null ? !login.equals(adherent.login) : adherent.login != null) return false;
-        if (motDePasse != null ? !motDePasse.equals(adherent.motDePasse) : adherent.motDePasse != null) return false;
-        if (nom != null ? !nom.equals(adherent.nom) : adherent.nom != null) return false;
-        if (prenom != null ? !prenom.equals(adherent.prenom) : adherent.prenom != null) return false;
-        return adresse != null ? adresse.equals(adherent.adresse) : adherent.adresse == null;
+        if (login != null ? !login.equals(adherentBean.login) : adherentBean.login != null) return false;
+        if (motDePasse != null ? !motDePasse.equals(adherentBean.motDePasse) : adherentBean.motDePasse != null) return false;
+        if (nom != null ? !nom.equals(adherentBean.nom) : adherentBean.nom != null) return false;
+        if (prenom != null ? !prenom.equals(adherentBean.prenom) : adherentBean.prenom != null) return false;
+        return adresseBean != null ? adresseBean.equals(adherentBean.adresseBean) : adherentBean.adresseBean == null;
     }
 
     @Override
