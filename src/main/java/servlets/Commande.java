@@ -50,7 +50,8 @@ public class Commande extends HttpServlet {
 	
 	private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//En attendant :
-
+		HashMap<Integer,Article> panier = new HashMap<Integer,Article>();
+		request.setAttribute("panier", panier);
 		request.setAttribute("taillePanier",((HashMap) request.getAttribute("panier")).size());
 		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/commande.jsp");
 		rd.forward(request, response);
