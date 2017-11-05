@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import db.dao.ArticleDAO;
-import db.bean.Article;
+import db.bean.ArticleBean;
 import db.mapper.BeanDaoMapper;
 import db.mapper.Mappable;
 import db.services.interfaces.AdressePersistence;
@@ -44,19 +44,19 @@ public class Accueil extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if (request.getRequestURI().contains("accueil/article")) {
-			request.setAttribute("article", request.getRequestURI().substring(request.getRequestURI().lastIndexOf('/')));
-			RequestDispatcher rd = request.getRequestDispatcher("article");
-			rd.forward(request, response);
+			request.setAttribute("article", request.getRequestURI().substring(request.getRequestURI().lastIndexOf('/')+1));
+			response.sendRedirect("/imt.association/article/" + request.getRequestURI().substring(request.getRequestURI().lastIndexOf('/')+1));
+		} else {
+			process(request, response);
 		}
-		process(request, response);
 	}
 	
 	private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<Article> articles = new ArrayList<>();
+		List<ArticleBean> articles = new ArrayList<>();
 		for (ArticleDAO dao : articleJPA.loadAll()) {
 			Optional<Mappable> map = BeanDaoMapper.mapDAOToBean(dao).getMapped();
 			if (map.isPresent()) {
-				articles.add((Article) map.get()); 
+				articles.add((ArticleBean) map.get()); 
 			}
 		}
 		request.setAttribute("articles", articles);

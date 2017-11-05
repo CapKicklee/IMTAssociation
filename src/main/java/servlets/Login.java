@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import db.bean.Adherent;
+import db.bean.ArticleBean;
 import db.bean.Adresse;
 import db.bean.Pays;
 import db.dao.AdherentDAO;
@@ -48,8 +49,8 @@ public class Login extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		if (request.getSession().getAttribute("user") != null) {
-			RequestDispatcher rd = request.getRequestDispatcher("accueil");
-			rd.forward(request, response);
+			request.getSession().setAttribute("panier", new HashMap<ArticleBean, Integer>());
+			response.sendRedirect("/imt.association/accueil");
 		} else {
 			process(request, response);
 		}
@@ -70,10 +71,9 @@ public class Login extends HttpServlet {
 					String password = request.getParameter("password");
 					if (password.equals(((Adherent) (res.getMapped().get())).getMotDePasse())) {
 						request.getSession().setAttribute("user", (Adherent) res.getMapped().get());
-						request.getSession().setAttribute("panier", new HashMap<Article, Integer>());
+						request.getSession().setAttribute("panier", new HashMap<ArticleBean, Integer>());
 						System.out.println("connected");
-						RequestDispatcher rd = request.getRequestDispatcher("accueil");
-						rd.forward(request, response);
+						response.sendRedirect("/imt.association/accueil");
 					} else {
 						System.out.println("wrong password");
 					}
@@ -81,12 +81,11 @@ public class Login extends HttpServlet {
 					System.out.println("empty");
 				}
 			} else {
-				RequestDispatcher rd = request.getRequestDispatcher("login");
-				rd.forward(request, response);
+				response.sendRedirect("/imt.association/login");
 			}
 		} else if (request.getRequestURI().contains("create")) {
-			RequestDispatcher rd = request.getRequestDispatcher("login");
-			rd.forward(request, response);
+			create(request);
+			response.sendRedirect("/imt.association/login");
 		}
 
 		// process(request, response);

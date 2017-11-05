@@ -4,7 +4,7 @@ package db.bean;
  * Représentation objet de la table ARTICLE de la base de données.
  * @author Juliette FRETAY, Kendall FOREST, Chloé GUILBAUD
  */
-public class Article implements Bean {
+public class ArticleBean implements Bean {
 
     private String code;
     private String nom;
@@ -13,10 +13,9 @@ public class Article implements Bean {
     private Integer stock;
     private String image;
 
-    public Article(String code, String nom, String description, Double prix, Integer stock, String image) {
+    public ArticleBean(String code, String nom, String description, Double prix, Integer stock, String image) {
         this.code = code;
         this.nom = nom;
-        this.description=description;
         this.prix = prix;
         this.stock = stock;
         this.image = image;
@@ -87,7 +86,7 @@ public class Article implements Bean {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Article article = (Article) o;
+        ArticleBean article = (ArticleBean) o;
 
         if (code != null ? !code.equals(article.code) : article.code != null) return false;
         if (nom != null ? !nom.equals(article.nom) : article.nom != null) return false;

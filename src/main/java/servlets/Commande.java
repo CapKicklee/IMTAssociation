@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import db.bean.Article;
+import db.bean.ArticleBean;
 import db.dao.ArticleDAO;
 import db.mapper.BeanDaoMapper;
 import db.mapper.Mappable;
@@ -50,7 +50,7 @@ public class Commande extends HttpServlet {
 	
 	private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//En attendant :
-		HashMap<Integer,Article> panier = new HashMap<Integer,Article>();
+		HashMap<Integer,ArticleBean> panier = new HashMap<Integer,ArticleBean>();
 		request.setAttribute("panier", panier);
 		request.setAttribute("taillePanier",((HashMap) request.getAttribute("panier")).size());
 		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/commande.jsp");
