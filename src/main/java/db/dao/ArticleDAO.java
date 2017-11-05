@@ -37,9 +37,8 @@ public class ArticleDAO implements Serializable, DAO {
     @Column(name = "STOCK", nullable = false)
     private Integer stock;
 
-    @Lob
-    @Column(name = "IMAGE")
-    private Blob image;
+    @Column(name = "IMAGE",length=50)
+    private String image;
 
 
 
@@ -47,7 +46,7 @@ public class ArticleDAO implements Serializable, DAO {
         super();
     }
 
-    public ArticleDAO(String code, String nom, String description, Double prix, Integer stock, Blob image) {
+    public ArticleDAO(String code, String nom, String description, Double prix, Integer stock, String image) {
         this.code = code;
         this.nom = nom;
         this.description=description;
@@ -96,11 +95,11 @@ public class ArticleDAO implements Serializable, DAO {
         return this.stock;
     }
 
-    public void setImage(Blob image) {
+    public void setImage(String image) {
         this.image = image;
     }
 
-    public Blob getImage() {
+    public String getImage() {
         return this.image;
     }
 

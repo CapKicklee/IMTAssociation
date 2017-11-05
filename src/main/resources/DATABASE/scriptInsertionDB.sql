@@ -1,11 +1,7 @@
-INSERT INTO PAYS VALUES 
-    ('FR','FRANCE'),('AT','AUTRICHE'),('AR','ARGENTINE'),('BL','BELGIQUE'),('CH','SUISSE'),('ES','ESPAGNE'),('FI','FINLANDE'),('GB','GRANDE BRETAGNE'),('IT','ITALIE'),('NL','PAYS-BAS'),('NO','NORVEGE'),('PT','PORTUGAL'),('SE','SUEDE'),('US','ETATS UNIS');
-	
-INSERT INTO ADRESSE VALUES
-	(1,'RUE DU SAPIN',44300,'Nantes','FR');
-	
-INSERT INTO ADHERENT VALUES 
-	('DEDE1','mdpdelamort','Jean','Dédé',1);
+
 	
 INSERT INTO ARTICLE VALUES
-	('PU1','PULL EMN 1',25.50,56,NULL);
+	('PU1','PULL EMN',40.00,243,'Magnifique pull molletone avec le logo de l ecole des Mines de Nantes brode dessus','pull.jpg'),
+	('SA1','SAC EMN',25.50,56,'T as trop d affaires de l EMN a transporter ? Alors prend ce super sac !','sac.PNG'),
+	('JO1','JOGGING EMN',30.00,189,'Quoi de mieux qu un jogging aux couleurs de l EMN pour aller avec ton tout nouveau pull de l EMN ?','jog.PNG'),
+	('CA1','CASQUETTE EMN',25.50,32,'La super casquette de l EMN pour avoir le style en toute circonstance','casquette.jpg');

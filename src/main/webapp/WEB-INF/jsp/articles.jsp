@@ -33,7 +33,7 @@
 						<div class="card-deck">
 							<form method="POST" action="accueil/article/${art.code }">
 								<div class="card article">
-									<img class="card-img-top" src="${art.image }"
+									<img class="card-img-top" src="img/${art.image }"
 										alt="Card image cap">
 									<div class="card-body">
 										<h4 class="card-title">${art.nom }</h4>
@@ -57,7 +57,7 @@
 						<div class="card-deck">
 							<form method="POST" action="accueil/article/${art.code }">
 								<div class="card article">
-									<img class="card-img-top" src="${art.image }" alt="Card image cap">
+									<img class="card-img-top" src="img/${art.image }" alt="Card image cap">
 									<div class="card-body">
 										<h4 class="card-title">${art.nom }</h4>
 										<p class="card-text">${art.description }</p>
@@ -77,7 +77,7 @@
 				<c:if test="${i.index %3!=0}">
 					<form method="POST" action="accueil/article/${art.code }">
 						<div class="card article">
-							<img class="card-img-top" src="${art.image }"
+							<img class="card-img-top" src="img/${art.image }"
 								alt="Card image cap">
 							<div class="card-body">
 								<h4 class="card-title">${art.nom }</h4>

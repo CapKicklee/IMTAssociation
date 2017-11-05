@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import db.dao.ArticleDAO;
 import db.services.persistenceJPA.ArticlePersistenceJPA;
@@ -40,10 +41,12 @@ public class Commande extends HttpServlet {
 	}
 	
 	private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO
+		 /* Récupération de la session depuis la requête */
+        HttpSession session = request.getSession();
+        
 		ArticlePersistenceJPA jpa = new ArticlePersistenceJPA();
 		List<ArticleDAO> liste = jpa.loadAll();
-		request.setAttribute("ListeArticle", liste);
+		session.setAttribute("ListeArticle", liste);
 		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/commande.jsp");
 		rd.forward(request, response);
 	}
