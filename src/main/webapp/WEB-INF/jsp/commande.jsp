@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@page import="java.util.List"%>
-<%@page import="db.dao.ArticleDAO"%>
+<%@page import="db.bean.Article"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="fr">
@@ -30,17 +30,29 @@
 				</tr>
 			</thead>
 			<tbody>
-				<%
-           
-            List<ArticleDAO> attribut = (List<ArticleDAO>)session.getAttribute("ListeArticle");         
-                
-            for(int i = 0; i < attribut.size(); i++)
-            {
-              System.out.println("Article " + i + " = " + attribut.get(i));
-            }
-            
-             
-                    %>
+				<tr:forEach var="artPanier" begin="0"
+					end "${taillePanier -1}" varStatus="i" items="${panier}">
+					<tr>
+						<th scope="row">${artPanier.value.code} </th>
+						<td>${artPanier.value.nom}</td>
+						<td>${artPanier.value.prix} €</td>
+						<td>
+							<div class="btn-toolbar" role="toolbar"
+								aria-label="Toolbar with button groups">
+								${artPanier.key}
+								<div class="btn-group mr-2" role="group"
+									aria-label="First group">
+									<button type="button" class="btn btn-success">+</button>
+								</div>
+								<div class="btn-group mr-2" role="group"
+									aria-label="Second group">
+									<button type="button" class="btn btn-danger">-</button>
+								</div>
+							</div>
+
+						</td>
+					</tr>
+				</tr:forEach>
 				<tr>
 					<th scope="row">001</th>
 					<td>Article 1</td>

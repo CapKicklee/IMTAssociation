@@ -3,7 +3,9 @@ package servlets;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,7 +15,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import db.bean.Article;
 import db.dao.ArticleDAO;
+import db.mapper.BeanDaoMapper;
+import db.mapper.Mappable;
+import db.services.interfaces.ArticlePersistence;
 import db.services.persistenceJPA.ArticlePersistenceJPA;
 
 /**
@@ -22,6 +28,8 @@ import db.services.persistenceJPA.ArticlePersistenceJPA;
 @WebServlet("/commande")
 public class Commande extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	private ArticlePersistence articleJPA = new ArticlePersistenceJPA();
        
 
 	/**
@@ -41,12 +49,9 @@ public class Commande extends HttpServlet {
 	}
 	
 	private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		 /* Récupération de la session depuis la requête */
-        HttpSession session = request.getSession();
-        
-		ArticlePersistenceJPA jpa = new ArticlePersistenceJPA();
-		List<ArticleDAO> liste = jpa.loadAll();
-		session.setAttribute("ListeArticle", liste);
+		//En attendant :
+
+		request.setAttribute("taillePanier",((HashMap) request.getAttribute("panier")).size());
 		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/commande.jsp");
 		rd.forward(request, response);
 	}
