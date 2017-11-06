@@ -25,6 +25,9 @@
 	<%@ include file="/WEB-INF/jspf/header.jspf"%>
 	<br />
 	<div class="container-fluid">
+			<nav class="breadcrumb"> <a class="breadcrumb-item"
+			href="/imt.association/home">Home </a> <span
+			class="breadcrumb-item active">Articles </span> </nav>
 		<div class="row justify-content-md-center">
 			<div class="col-md-10">
 				<h3 class="text-center">Bienvenue à l'IMTAssociation</h3>

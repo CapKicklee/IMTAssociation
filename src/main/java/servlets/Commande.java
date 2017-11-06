@@ -1,9 +1,11 @@
 package servlets;
 
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.TreeMap;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -59,6 +61,9 @@ public class Commande extends HttpServlet {
 				}else{
 					panier.put(code, panier.get(code) +1);
 				}
+				
+				
+				
 				request.getSession().setAttribute("panier", panier);
 				response.sendRedirect("/imt.association/commande");
 

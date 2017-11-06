@@ -20,6 +20,7 @@
 
 <body>
 	<%@ include file="/WEB-INF/jspf/header.jspf"%>
+	<br />
 	<div class="container-fluid">
 		<nav class="breadcrumb"> <span class="breadcrumb-item active">Home
 		</span> </nav>
@@ -28,22 +29,29 @@
 			<img class="logo center-block" src="img/logo.png"
 				alt="Logo de l'IMTAssociation" />
 		</div>
-		<br /> <br />
+		<br />
 		<div class="">
-			<h3 class="text-center">Bienvenue à l'IMTAssociation</h3>
-			<p class="text-center text-muted">Vous trouverez sur ce site une
-				sélection d'articles pour embellir votre vie à l'IMT Atlantique.</p>
-			<ul class="fa-ul">
-				<li><i class="fa-li fa fa-check"></i>Voir la liste des articles
-					proposés <a href="/imt.association/accueil"><button
-							type="button" class="btn btn-info">Ici</button></a></li>
-				<li><i class="fa-li fa fa-check"></i>Voir mon panier d'articles
-					commandés <a href="/imt.association/commande"><button
-							type="button" class="btn btn-info">Là</button></a></li>
+			<h2 class="text-center">Bienvenue à l'IMTAssociation</h2>
+			</br>
+			<h4 class="text-center text-muted">Vous trouverez sur ce site
+				une sélection d'articles pour embellir votre vie à l'IMT Atlantique.</h4>
+			</br>
+			<ul class="fa-ul text-center">
+				<h5>
+					Voir la liste des articles proposés <a
+						href="/imt.association/accueil"><button type="button"
+							class="btn btn-info">Ici</button></a>
+				</h5>
+				</br>
+				<h5>
+					Voir mon panier d'articles commandés <a
+						href="/imt.association/commande"><button type="button"
+							class="btn btn-info">Là</button></a>
+				</h5>
 			</ul>
 		</div>
 
-		<br />
+		<img class="card-img-top" src="img/articles.png" alt="Card image cap">
 
 	</div>
 	<%@ include file="/WEB-INF/jspf/footer.jspf"%>
