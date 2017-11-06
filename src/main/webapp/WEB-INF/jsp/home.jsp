@@ -23,12 +23,19 @@
 <body>
 	<%@ include file="/WEB-INF/jspf/header.jspf"%>
 	<div class="container-fluid">
-		<nav class="breadcrumb">  <span
-			class="breadcrumb-item active">Home </span> </nav>
+		<nav class="breadcrumb"> <span class="breadcrumb-item active">Home
+		</span> </nav>
 		<br />
 		<div class="d-flex justify-content-center">
 			<img class="logo center-block" src="img/logo.png"
 				alt="Logo de l'IMTAssociation" />
+		</div>
+		<br />
+		<br />
+		<div class="">
+			<h3 class="text-center">Bienvenue à l'IMTAssociation</h3>
+			<p class="text-center text-muted">Vous trouverez sur ce site une
+				sélection d'articles pour embellir votre vie à l'IMT Atlantique.</p>
 		</div>
 		<br />
 	</div>
