@@ -13,54 +13,64 @@ import javax.persistence.Query;
 import db.dao.AdherentDAO;
 import db.services.jpa.JPAService;
 import db.services.jpa.JPAOperation;
+import db.services.results.JPAResult;
+
+import java.util.Optional;
 
 /**
  * JPA implementation for basic persistence operations ( entity "AdherentBean" )
- * 
- * @author Telosys Tools Generator
  *
+ * @author Telosys Tools Generator
  */
 public class AdherentJPAPersistence extends JPAService<AdherentDAO, String> implements JPAPersistence<AdherentDAO, String> {
 
-	/**
-	 * Constructor
-	 */
-	public AdherentJPAPersistence() {
-		super(AdherentDAO.class);
-	}
+    /**
+     * Constructor
+     */
+    public AdherentJPAPersistence() {
+        super(AdherentDAO.class);
+    }
 
-	@Override
-	public AdherentDAO load( String login ) {
-		return super.load( login );
-	}
+    @Override
+    public JPAResult<AdherentDAO> load(String login) {
+        return super.load(login);
+    }
 
-	@Override
-	public boolean delete( String login ) {
-		return super.delete( login );
-	}
+    @Override
+    public JPAResult<Boolean> delete(String login) {
+        return super.delete(login);
+    }
 
-	@Override
-	public boolean delete(AdherentDAO entity) {
-		if ( entity != null ) {
-			return super.delete( entity.getLogin() );
-		}
-		return false ;
-	}
+    @Override
+    public JPAResult<Boolean> delete(AdherentDAO entity) {
+        if (entity != null) {
+            return super.delete(entity.getLogin());
+        }
+        return new JPAResult<>(Optional.of(false));
+    }
 
-	@Override
-	public long countAll() {
-		// JPA operation definition 
-		JPAOperation operation = new JPAOperation() {
-			@Override
-			public Object exectue(EntityManager em) throws PersistenceException {
-				Query query = em.createNamedQuery("AdherentDAO.countAll");
-				return query.getSingleResult() ;
-			}
-		} ;
-		// JPA operation execution 
-		return (Long) execute(operation);
-	}
+    @Override
+    public JPAResult<Long> countAll() {
+        // JPA operation definition
+        JPAOperation operation = new JPAOperation() {
+            @Override
+            public Object exectue(EntityManager em) throws PersistenceException {
+                Query query = em.createNamedQuery("AdherentDAO.countAll");
+                return query.getSingleResult();
+            }
+        };
 
+        JPAResult jpaResult = new JPAResult();
+        try {
+            Long res = (Long) execute(operation);
+            jpaResult.setResult(Optional.of(res));
+        } catch (PersistenceException e) {
+            JPAService.saveError(jpaResult, e, "countAll Adherent");
+        }
+
+        // JPA operation execution
+        return jpaResult;
+    }
 
 
 }

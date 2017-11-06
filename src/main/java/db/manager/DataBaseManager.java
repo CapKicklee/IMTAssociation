@@ -1,16 +1,22 @@
 package db.manager;
 
+import db.bean.AdherentBean;
+import db.bean.ArticleBean;
+import db.bean.PaysBean;
 import db.dao.AdherentDAO;
 import db.dao.AdresseDAO;
 import db.dao.ArticleDAO;
 import db.dao.PaysDAO;
 import db.mapper.BeanDaoMapper;
+import db.mapper.Mappable;
 import db.mapper.MapperResult;
 import db.services.persistence.*;
 import db.services.persistence.AdherentJPAPersistence;
 import db.services.persistence.AdresseJPAPersistence;
 import db.services.results.JPAResult;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -30,11 +36,10 @@ public class DataBaseManager {
 	//---------------------------ADHERENT---------------------------------
 	//====================================================================
 
-	public static DataBaseQueryResult loadAllAdherents() {
+	/*public static DataBaseQueryResult loadAllAdherents() {
 
 		// Requête de la base de données
-		JPAResult jpaResult = (JPAResult) jpaAdherent.loadAll();
-		Optional<Object> adherentDAOOp = jpaResult.getResult();
+		JPAResult jpaResult = jpaAdherent.loadAll();
 
 		// Enregistrement du résultat
 		DataBaseQueryResult dataBaseQueryResult = new DataBaseQueryResult();
@@ -42,18 +47,18 @@ public class DataBaseManager {
 
 		// Si des erreurs sont recontrées au moment du requetage de la base de données
 		// le mapping ne peux pas se faire
+        Optional<Object> adherentDAOOp = jpaResult.getResult();
 		if (adherentDAOOp.isPresent()) {
 			List<MapperResult> beanAdherentList = new ArrayList();
-			for (AdherentDAO aderent : (List<AdherentDAO>) adherentDAOOp.get()) {
-				MapperResult mapperResult = BeanDaoMapper.mapDAOToBean(aderent);
+			for (AdherentDAO adherent : (List<AdherentDAO>) adherentDAOOp.get()) {
+				MapperResult mapperResult = BeanDaoMapper.mapDAOToBean(adherent);
 				beanAdherentList.add(mapperResult);
-				dataBaseQueryResult.setMapperResult(mapperResult);
 			}
+            //dataBaseQueryResult.setMapperResult(beanAdherentList);
 		}
-
 		return dataBaseQueryResult;
 
-	}
+	}*/
 
 	public static DataBaseQueryResult deleteAdherent(AdherentDAO adherent){
 		return null;
@@ -65,15 +70,20 @@ public class DataBaseManager {
 
 	}
 
-	public static DataBaseQueryResult insertAdherent(AdherentDAO adherent){
-		return null;
-
+	public static void insertAdherent(AdherentDAO adherent, HttpServletResponse response) throws IOException {
+        JPAResult<Object> res = jpaAdherent.insert(adherent);
+        if(!res.getResult().isPresent()) {
+            response.sendRedirect("/imt.association/erreurDB");
+        }
 	}
 
-	public static DataBaseQueryResult loadAdherent(String login){
-		return null;
+    public static void insertAdresse(AdresseDAO adresseDAO, HttpServletResponse response) throws IOException {
+        JPAResult<Object> res = jpaAdresse.insert(adresseDAO);
+        if(!res.getResult().isPresent()) {
+            response.sendRedirect("/imt.association/erreurDB");
+        }
+    }
 
-	}
 
 	public static DataBaseQueryResult saveAdherent(AdherentDAO adherent){
 		return null;
@@ -89,7 +99,7 @@ public class DataBaseManager {
 	//---------------------------ADRESSE----------------------------------
 	//====================================================================
 
-	public static DataBaseQueryResult loadAllAdresses() {
+	/*public static DataBaseQueryResult loadAllAdresses() {
 
 		// Requête de la base de données
 		JPAResult jpaResult = (JPAResult) jpaAdresse.loadAll();
@@ -112,7 +122,7 @@ public class DataBaseManager {
 
 		return dataBaseQueryResult;
 
-	}
+	}*/
 
 	public static DataBaseQueryResult deleteAdresse(AdresseDAO adresse){
 		return null;
@@ -148,7 +158,81 @@ public class DataBaseManager {
 	//---------------------------ARTICLE----------------------------------
 	//====================================================================
 
-	public static DataBaseQueryResult loadAllArticle() {
+    /**
+     *
+     * @param response
+     * @throws IOException problème de redirection
+     */
+    public static Optional<List<ArticleBean>> loadAllArticles(HttpServletResponse response) throws IOException {
+        List<ArticleBean> articles = null;
+        JPAResult<List<ArticleDAO>> jpaRes = jpaArticle.loadAll();
+        if(jpaRes.hasErrors()) {
+            response.sendRedirect("/imt.association/erreurDB");
+        } else if (jpaRes.getResult().isPresent()) {
+            articles = new ArrayList<>();
+            for (ArticleDAO dao : jpaRes.getResult().get()) {
+                MapperResult mapRes = BeanDaoMapper.mapDAOToBean(dao);
+                Optional<Mappable> map = mapRes.getMapped();
+                if(mapRes.hasErrors()) {
+                    response.sendRedirect("/imt.association/erreurDB");
+                } else if (map.isPresent()) {
+                    articles.add((ArticleBean) map.get());
+                }
+            }
+        }
+        return Optional.ofNullable(articles);
+    }
+
+    public static Optional<List<PaysBean>> loadAllPays(HttpServletResponse response) throws IOException {
+        List<PaysBean> paysBeans = null;
+        JPAResult<List<PaysDAO>> jpaRes = jpaPays.loadAll();
+        if(jpaRes.hasErrors()) {
+            response.sendRedirect("/imt.association/erreurDB");
+        } else if (jpaRes.getResult().isPresent()) {
+            paysBeans = new ArrayList<>();
+            for (PaysDAO dao : jpaRes.getResult().get()) {
+                MapperResult mapRes = BeanDaoMapper.mapDAOToBean(dao);
+                Optional<Mappable> map = mapRes.getMapped();
+                if(mapRes.hasErrors()) {
+                    response.sendRedirect("/imt.association/erreurDB");
+                } else if (map.isPresent()) {
+                    paysBeans.add((PaysBean) map.get());
+                }
+            }
+        }
+        return Optional.ofNullable(paysBeans);
+    }
+
+    public static Optional<Long> callAllArticles(HttpServletResponse response) throws IOException {
+        JPAResult<Long> jpaResCount = jpaArticle.countAll();
+        return callAll(response, jpaResCount);
+    }
+
+    public static Optional<Long> callAllAdresse(HttpServletResponse response) throws IOException {
+        JPAResult<Long> jpaResCount = jpaAdresse.countAll();
+        return callAll(response, jpaResCount);
+    }
+
+    public static Optional<Long> callAllPays(HttpServletResponse response) throws IOException {
+        JPAResult<Long> jpaResCount = jpaPays.countAll();
+        return callAll(response, jpaResCount);
+    }
+
+    public static Optional<Long> callAllAdherent(HttpServletResponse response) throws IOException {
+        JPAResult<Long> jpaResCount = jpaAdherent.countAll();
+        return callAll(response, jpaResCount);
+    }
+
+    private static Optional<Long> callAll(HttpServletResponse response, JPAResult<Long> jpaResCount) throws IOException {
+        if(jpaResCount.hasErrors()) {
+            response.sendRedirect("/imt.association/erreurDB");
+        } else {
+            return Optional.of(jpaResCount.getResult().get());
+        }
+        return Optional.empty();
+    }
+
+	/*public static DataBaseQueryResult loadAllArticle() {
 
 		// Requête de la base de données
 		JPAResult jpaResult = (JPAResult) jpaArticle.loadAll();
@@ -171,7 +255,7 @@ public class DataBaseManager {
 
 		return dataBaseQueryResult;
 
-	}
+	}*/
 
 	public static DataBaseQueryResult deleteArticle(ArticleDAO article){
 		return null;
@@ -188,10 +272,71 @@ public class DataBaseManager {
 
 	}
 
-	public static DataBaseQueryResult loadArticle(String code){
-		return null;
+	public static Optional<ArticleBean> loadArticle(String code, HttpServletResponse response) throws IOException {
+
+        JPAResult<ArticleDAO> jpaResultat = jpaArticle.load(code);
+
+        Optional<ArticleBean> articlebean = Optional.empty();
+
+        ArticleDAO article;
+        if(jpaResultat.hasErrors()) {
+            response.sendRedirect("/imt.association/erreurDB");
+        } else {
+            article = jpaResultat.getResult().get();
+            MapperResult resMap = BeanDaoMapper.mapDAOToBean(article);
+            if (resMap.hasErrors()) {
+                response.sendRedirect("/imt.association/erreurDB");
+            } else {
+                articlebean = Optional.of((ArticleBean) resMap.getMapped().get());
+            }
+        }
+		return articlebean;
 
 	}
+
+    public static Optional<AdherentBean> loadAdherent(String login, HttpServletResponse response) throws IOException {
+
+        JPAResult<AdherentDAO> jpaResultat = jpaAdherent.load(login);
+
+        Optional<AdherentBean> adherentBean = Optional.empty();
+
+        AdherentDAO adherentDAO;
+        if(jpaResultat.hasErrors()) {
+            response.sendRedirect("/imt.association/erreurDB");
+        } else {
+            adherentDAO = jpaResultat.getResult().get();
+            MapperResult resMap = BeanDaoMapper.mapDAOToBean(adherentDAO);
+            if (resMap.hasErrors()) {
+                response.sendRedirect("/imt.association/erreurDB");
+            } else {
+                adherentBean = Optional.of((AdherentBean) resMap.getMapped().get());
+            }
+        }
+        return adherentBean;
+
+    }
+
+    public static Optional<PaysBean> loadPays(String login, HttpServletResponse response) throws IOException {
+
+        JPAResult<PaysDAO> jpaResultat = jpaPays.load(login);
+
+        Optional<PaysBean> paysBean = Optional.empty();
+
+        PaysDAO paysDAO;
+        if(jpaResultat.hasErrors()) {
+            response.sendRedirect("/imt.association/erreurDB");
+        } else {
+            paysDAO = jpaResultat.getResult().get();
+            MapperResult resMap = BeanDaoMapper.mapDAOToBean(paysDAO);
+            if (resMap.hasErrors()) {
+                response.sendRedirect("/imt.association/erreurDB");
+            } else {
+                paysBean = Optional.of((PaysBean) resMap.getMapped().get());
+            }
+        }
+        return paysBean;
+
+    }
 
 	public static DataBaseQueryResult saveArticle(ArticleDAO article){
 		return null;
@@ -207,7 +352,7 @@ public class DataBaseManager {
 	//-----------------------------PAYS-----------------------------------
 	//====================================================================
 
-	public static DataBaseQueryResult loadAllPays() {
+	/*public static DataBaseQueryResult loadAllPays() {
 
 		// Requête de la base de données
 		JPAResult jpaResult = (JPAResult) jpaPays.loadAll();
@@ -230,7 +375,7 @@ public class DataBaseManager {
 
 		return dataBaseQueryResult;
 
-	}
+	}*/
 
 	public static DataBaseQueryResult deletePays(PaysDAO pays){
 		return null;
@@ -263,10 +408,5 @@ public class DataBaseManager {
 	}
 
 
-	public static void tes(JPAResult jpaResult) {
-
-
-
-	}
 
 }

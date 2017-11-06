@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
+import javax.jnlp.IntegrationService;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,6 +21,7 @@ import db.bean.PaysBean;
 import db.dao.AdherentDAO;
 import db.dao.AdresseDAO;
 import db.dao.PaysDAO;
+import db.manager.DataBaseManager;
 import db.mapper.BeanDaoMapper;
 import db.mapper.MapperResult;
 import db.services.persistence.JPAPersistence;
@@ -32,10 +35,6 @@ import db.services.persistence.PaysJPAPersistence;
 @WebServlet({ "/login", "/login/*" })
 public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-	private JPAPersistence<AdherentDAO, String> adherentJPA = new AdherentJPAPersistence();
-	private JPAPersistence<AdresseDAO, Integer> adresseJPA = new AdresseJPAPersistence();
-	private JPAPersistence<PaysDAO, String> paysJPA = new PaysJPAPersistence();
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
@@ -59,51 +58,51 @@ public class Login extends HttpServlet {
 			throws ServletException, IOException {
 		if (request.getRequestURI().contains("auth")) {
 			String login = request.getParameter("login");
-			AdherentDAO adhDAO = adherentJPA.load(login);
-			if (adhDAO != null) {
-				MapperResult res = BeanDaoMapper.mapDAOToBean(adhDAO);
-				if (res.getMapped().isPresent()) {
+
+            Optional<AdherentBean> adherentBeanOp = DataBaseManager.loadAdherent(login, response);
+
+			if (adherentBeanOp.isPresent()) {
+			    AdherentBean adherentBean = adherentBeanOp.get();
 					String password = request.getParameter("password");
-					if (password.equals(((AdherentBean) (res.getMapped().get())).getMotDePasse())) {
-						request.getSession().setAttribute("user", (AdherentBean) res.getMapped().get());
+					if (password.equals(adherentBean.getMotDePasse())) {
+						request.getSession().setAttribute("user", adherentBean);
 						request.getSession().setAttribute("panier", new HashMap<ArticleBean, Integer>());
 						System.out.println("connected");
 						response.sendRedirect("/imt.association/accueil");
 					} else {
 						System.out.println("wrong password");
 					}
-				} else {
-					System.out.println("empty");
-				}
 			} else {
 				response.sendRedirect("/imt.association/login");
 			}
 		} else if (request.getRequestURI().contains("create")) {
-			create(request);
+			create(request, response);
 			response.sendRedirect("/imt.association/login");
 		}
 
-		// process(request, response);
 	}
 
 	private void process(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		List<PaysBean> pays = new ArrayList<>();
-		for (PaysDAO paysDAO : (List<PaysDAO>) paysJPA.loadAll()) {
-			MapperResult res = BeanDaoMapper.mapDAOToBean(paysDAO);
-			if (res.getMapped().isPresent()) {
-				pays.add((PaysBean) res.getMapped().get());
-			}
-		}
-		request.getSession().setAttribute("paysListe", pays);
-		request.getSession().setAttribute("adherent", new AdherentBean());
-		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/login.jsp");
-		rd.forward(request, response);
+
+        Optional<List<PaysBean>> paysList = DataBaseManager.loadAllPays(response);
+        if (paysList.isPresent()) {
+            request.getSession().setAttribute("paysListe", paysList.get());
+            request.getSession().setAttribute("adherent", new AdherentBean());
+            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/login.jsp");
+            rd.forward(request, response);
+        }
+
 	}
 
-	private boolean create(HttpServletRequest request) {
-		String login = (String) request.getParameter("login");
-		if (adherentJPA.load(login) != null) {
+	private boolean create(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+
+	    String login = (String) request.getParameter("login");
+
+        Optional<AdherentBean> adherentOp = DataBaseManager.loadAdherent(login, response);
+
+		if (adherentOp.isPresent()) {
 			System.out.println("user already existing");
 			return false;
 		} else {
@@ -118,25 +117,41 @@ public class Login extends HttpServlet {
 			AdresseBean adresseBean = null;
 			String rue = request.getParameter("rue");
 			if (!"".equals(rue)) {
+
 				Integer cp = Integer.getInteger(request.getParameter("cp"));
 				String ville = request.getParameter("ville");
-				PaysBean paysBean = (PaysBean) BeanDaoMapper.mapDAOToBean(paysJPA.load(request.getParameter("paysBean"))).getMapped()
-						.get();
-				Integer id = (int) (adresseJPA.countAll()) + 1;
-				adresseBean = new AdresseBean(id, rue, cp, ville, paysBean);
-				MapperResult res = BeanDaoMapper.mapBeanToDAO(adresseBean);
-				if (res.getMapped().isPresent()) {
-					adresseJPA.insert((AdresseDAO) res.getMapped().get());
-					System.out.println("address created");
-				} else {
-					System.out.println("error while creating address");
-					return false;
-				}
+
+				Optional<PaysBean> paysBeanOp = DataBaseManager.loadPays(request.getParameter("paysBean"), response);
+
+				if (paysBeanOp.isPresent()) {
+
+				    PaysBean paysBean = paysBeanOp.get();
+
+				    Optional<Long> idOp = DataBaseManager.callAllAdresse(response);
+
+				    if (idOp.isPresent()) {
+
+                        Integer id = ((int) (long) idOp.get()) + 1;
+
+                        adresseBean = new AdresseBean(id, rue, cp, ville, paysBean);
+                        MapperResult res = BeanDaoMapper.mapBeanToDAO(adresseBean);
+
+                        if (res.getMapped().isPresent()) {
+                            DataBaseManager.insertAdresse((AdresseDAO) res.getMapped().get(), response);
+                            System.out.println("address created");
+                        } else {
+                            System.out.println("error while creating address");
+                            return false;
+                        }
+
+                    }
+                }
+
 			}
 			AdherentBean newAdh = new AdherentBean(login, password, nom, prenom, adresseBean);
 			MapperResult adhRes = BeanDaoMapper.mapBeanToDAO(newAdh);
 			if (adhRes.getMapped().isPresent()) {
-				adherentJPA.insert((AdherentDAO) adhRes.getMapped().get());
+                DataBaseManager.insertAdherent((AdherentDAO) adhRes.getMapped().get(), response);
 				System.out.println("user created");
 			} else {
 				System.out.println("error while creating user");

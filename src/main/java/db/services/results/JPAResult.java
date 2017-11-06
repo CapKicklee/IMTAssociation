@@ -7,11 +7,11 @@ import java.util.Optional;
 public class JPAResult<R> {
 
     private Optional<R> result;
-    private List<JPAErrorTypes> jpaErrors;
+    private List<JPAError> jpaErrors;
     
 
     public JPAResult ()  {
-        this.jpaErrors = new ArrayList<JPAErrorTypes>();
+        this.jpaErrors = new ArrayList<JPAError>();
     }
 
     public JPAResult (Optional<R> result) {
@@ -27,16 +27,28 @@ public class JPAResult<R> {
         this.result = result;
     }
 
-    public List<JPAErrorTypes> getJPAErrorTypes() {
+    public List<JPAError> getJPAErrorTypes() {
         return jpaErrors;
     }
 
-    public void setJPAErrorTypesTypes(List<JPAErrorTypes> JPAErrorTypesTypes) {
+    public void setJPAErrorTypesTypes(List<JPAError> JPAErrorTypesTypes) {
         this.jpaErrors = JPAErrorTypesTypes;
+    }
+
+    public void addJPAError(JPAError jpaError) {
+        this.jpaErrors.add(jpaError);
     }
 
     public boolean hasErrors() {
         return !jpaErrors.isEmpty();
+    }
+
+    @Override
+    public String toString() {
+        return "JPAResult{" +
+                "result=" + result +
+                ", jpaErrors=" + jpaErrors +
+                '}';
     }
 
 }

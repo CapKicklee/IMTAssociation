@@ -13,6 +13,9 @@ import javax.persistence.Query;
 import db.dao.AdresseDAO;
 import db.services.jpa.JPAService;
 import db.services.jpa.JPAOperation;
+import db.services.results.JPAResult;
+
+import java.util.Optional;
 
 /**
  * JPA implementation for basic persistence operations ( entity "AdresseBean" )
@@ -30,25 +33,25 @@ public class AdresseJPAPersistence extends JPAService<AdresseDAO, Integer> imple
 	}
 
 	@Override
-	public AdresseDAO load( Integer id ) {
+	public JPAResult<AdresseDAO> load(Integer id ) {
 		return super.load( id );
 	}
 
 	@Override
-	public boolean delete( Integer id ) {
+	public JPAResult<Boolean> delete( Integer id ) {
 		return super.delete( id );
 	}
 
 	@Override
-	public boolean delete(AdresseDAO entity) {
+	public JPAResult<Boolean> delete(AdresseDAO entity) {
 		if ( entity != null ) {
 			return super.delete( entity.getId() );
 		}
-		return false ;
+        return new JPAResult<>(Optional.of(false));
 	}
 
 	@Override
-	public long countAll() {
+	public JPAResult<Long> countAll() {
 		// JPA operation definition 
 		JPAOperation operation = new JPAOperation() {
 			@Override
@@ -57,8 +60,15 @@ public class AdresseJPAPersistence extends JPAService<AdresseDAO, Integer> imple
 				return query.getSingleResult() ;
 			}
 		} ;
-		// JPA operation execution 
-		return (Long) execute(operation);
+
+        JPAResult jpaResult = new JPAResult();
+        try {
+            Long res = (Long) execute(operation);
+            jpaResult.setResult(Optional.of(res));
+        } catch (PersistenceException e) {
+            JPAService.saveError(jpaResult, e, "countAll() AdresseJPA");
+        }
+        return jpaResult;
 	}
 
 }

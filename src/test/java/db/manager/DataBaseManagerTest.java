@@ -10,7 +10,7 @@ public class DataBaseManagerTest {
     @Test
     public void loadAllAdherents() throws Exception {
 
-        System.out.println(DataBaseManager.loadAllAdherents());
+        //System.out.println(DataBaseManager.loadAllAdherents());
 
     }
 
