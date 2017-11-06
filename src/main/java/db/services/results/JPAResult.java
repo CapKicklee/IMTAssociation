@@ -1,23 +1,33 @@
 package db.services.results;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class JPAResult {
+public class JPAResult<R> {
 
-    private Optional<Object> result;
+    private Optional<R> result;
     private List<JPAErrorTypes> jpaErrors;
     
 
-    public Optional<Object> getResult() {
-        return result;
+    public JPAResult ()  {
+        this.jpaErrors = new ArrayList<JPAErrorTypes>();
     }
 
-    public void setResult(Optional<Object> result) {
+    public JPAResult (Optional<R> result) {
+        this();
         this.result = result;
     }
 
-    public List<JPAErrorTypes> getJPAErrorTypesTypes() {
+    public Optional<R> getResult() {
+        return result;
+    }
+
+    public void setResult(Optional<R> result) {
+        this.result = result;
+    }
+
+    public List<JPAErrorTypes> getJPAErrorTypes() {
         return jpaErrors;
     }
 
