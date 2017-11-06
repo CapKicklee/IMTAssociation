@@ -26,6 +26,9 @@
 <body>
 	<%@ include file="/WEB-INF/jspf/header.jspf"%>
 	<div class="container-fluid">
+		<nav class="breadcrumb"> <a class="breadcrumb-item"
+			href="/imt.association/home">Home </a> <span
+			class="breadcrumb-item active">Panier </span> </nav>
 		<table class="table table-hover">
 			<thead>
 				<tr>
