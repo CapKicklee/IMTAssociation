@@ -38,7 +38,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach var="artPanier" begin="0" end="${taillePanier -1}"
+				<c:forEach var="artPanier" begin="0" end="${taillePanier}"
 					varStatus="i" items="${panierValue}">
 					<tr>
 						<th scope="row">${artPanier.key.code}</th>

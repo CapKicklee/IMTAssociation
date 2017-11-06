@@ -1,7 +1,5 @@
 
 	
 INSERT INTO ARTICLE VALUES
-	('PU1','PULL EMN',40.00,243,'Magnifique pull molletone avec le logo de l ecole des Mines de Nantes brode dessus','pull.jpg'),
-	('SA1','SAC EMN',25.50,56,'T as trop d affaires de l EMN a transporter ? Alors prend ce super sac !','sac.PNG'),
-	('JO1','JOGGING EMN',30.00,189,'Quoi de mieux qu un jogging aux couleurs de l EMN pour aller avec ton tout nouveau pull de l EMN ?','jog.PNG'),
-	('CA1','CASQUETTE EMN',25.50,32,'La super casquette de l EMN pour avoir le style en toute circonstance','casquette.jpg');
+	('PU3','PULL IMT',40.00,147,'Le sweatshirt capuche : un classique mais une valeur sure !','pull3.PNG'),
+	('PU2','PULL IMT COL ROND',35.50,301,'Le pull col rond : une nouveaute sur le campus certes, mais une nouveaute tchatcheuse !','pull2.PNG');
