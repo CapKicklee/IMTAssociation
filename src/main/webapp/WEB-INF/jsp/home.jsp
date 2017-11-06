@@ -12,8 +12,6 @@
 	href="webjars/bootstrap/4.0.0-beta-1/css/bootstrap.min.css">
 <link rel="stylesheet"
 	href="webjars/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="webjars/jquery/3.2.1/jquery.min.js"></script>
 <script src="webjars/popper.js/1.12.3/dist/umd/popper.min.js"></script>
 <script src="webjars/bootstrap/4.0.0-beta-1/js/bootstrap.min.js"></script>
@@ -30,14 +28,23 @@
 			<img class="logo center-block" src="img/logo.png"
 				alt="Logo de l'IMTAssociation" />
 		</div>
-		<br />
-		<br />
+		<br /> <br />
 		<div class="">
 			<h3 class="text-center">Bienvenue à l'IMTAssociation</h3>
 			<p class="text-center text-muted">Vous trouverez sur ce site une
 				sélection d'articles pour embellir votre vie à l'IMT Atlantique.</p>
+			<ul class="fa-ul">
+				<li><i class="fa-li fa fa-check"></i>Voir la liste des articles
+					proposés <a href="/imt.association/accueil"><button
+							type="button" class="btn btn-info">Ici</button></a></li>
+				<li><i class="fa-li fa fa-check"></i>Voir mon panier d'articles
+					commandés <a href="/imt.association/commande"><button
+							type="button" class="btn btn-info">Là</button></a></li>
+			</ul>
 		</div>
+
 		<br />
+
 	</div>
 	<%@ include file="/WEB-INF/jspf/footer.jspf"%>
 </body>

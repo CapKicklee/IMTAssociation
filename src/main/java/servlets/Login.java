@@ -45,7 +45,7 @@ public class Login extends HttpServlet {
 			throws ServletException, IOException {
 		if (request.getSession().getAttribute("user") != null) {
 			request.getSession().setAttribute("panier", new HashMap<ArticleBean, Integer>());
-			response.sendRedirect("/imt.association/accueil");
+			response.sendRedirect("/imt.association/home");
 		} else {
 			process(request, response);
 		}
@@ -68,7 +68,7 @@ public class Login extends HttpServlet {
 						request.getSession().setAttribute("user", (AdherentBean) res.getMapped().get());
 						request.getSession().setAttribute("panier", new HashMap<ArticleBean, Integer>());
 						System.out.println("connected");
-						response.sendRedirect("/imt.association/accueil");
+						response.sendRedirect("/imt.association/home");
 					} else {
 						System.out.println("wrong password");
 					}

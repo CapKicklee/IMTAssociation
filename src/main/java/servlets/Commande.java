@@ -3,6 +3,7 @@ package servlets;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import db.mapper.BeanDaoMapper;
-
+import db.mapper.Mappable;
 import db.bean.ArticleBean;
 import db.dao.ArticleDAO;
 import db.services.persistence.JPAPersistence;
@@ -44,7 +45,15 @@ public class Commande extends HttpServlet {
 			System.out.println("Code : "+code);
 			if(code.length()==3){
 				HashMap<String,Integer> panier = (HashMap<String, Integer>) request.getSession().getAttribute("panier");
-				if(false){//Avec le +1 ça depasse le stock
+				
+				Optional<Mappable> map = BeanDaoMapper.mapDAOToBean(articleJPA.load(code))
+						.getMapped();
+				ArticleBean article = null;
+				if (map.isPresent()) {
+					article = (ArticleBean) map.get();
+				}
+				
+				if(article.getStock()-panier.get(code)-1 <0){//Avec le +1 ça depasse le stock
 					//Ne rien faire sur la quantite
 					//Avertir l'utilisateur
 				}else{
