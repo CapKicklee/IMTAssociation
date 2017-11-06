@@ -16,6 +16,7 @@ public class ArticleBean implements Bean {
     public ArticleBean(String code, String nom, String description, Double prix, Integer stock, String image) {
         this.code = code;
         this.nom = nom;
+        this.description=description;
         this.prix = prix;
         this.stock = stock;
         this.image = image;

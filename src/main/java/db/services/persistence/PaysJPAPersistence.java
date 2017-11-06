@@ -13,7 +13,6 @@ import javax.persistence.Query;
 import db.dao.PaysDAO;
 import db.services.jpa.JPAService;
 import db.services.jpa.JPAOperation;
-import db.services.interfaces.PaysPersistence;
 
 /**
  * JPA implementation for basic persistence operations ( entity "PaysBean" )

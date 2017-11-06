@@ -13,7 +13,6 @@ import javax.persistence.Query;
 import db.dao.AdresseDAO;
 import db.services.jpa.JPAService;
 import db.services.jpa.JPAOperation;
-import db.services.interfaces.AdressePersistence;
 
 /**
  * JPA implementation for basic persistence operations ( entity "AdresseBean" )
