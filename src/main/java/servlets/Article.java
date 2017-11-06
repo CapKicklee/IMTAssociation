@@ -1,25 +1,23 @@
 package servlets;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Map;
 import java.util.Optional;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import db.dao.AdherentDAO;
+import db.dao.ArticleDAO;
 import db.mapper.BeanDaoMapper;
 import db.bean.ArticleBean;
 import db.mapper.Mappable;
-import db.mapper.MapperResult;
-import db.services.interfaces.AdherentPersistence;
-import db.services.interfaces.ArticlePersistence;
-import db.services.persistenceJPA.AdherentPersistenceJPA;
-import db.services.persistenceJPA.ArticlePersistenceJPA;
+import db.services.persistence.JPAPersistence;
+import db.services.persistence.AdherentJPAPersistence;
+import db.services.persistence.ArticleJPAPersistence;
 
 /**
  * Servlet implementation class Commande
@@ -28,8 +26,8 @@ import db.services.persistenceJPA.ArticlePersistenceJPA;
 public class Article extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	private ArticlePersistence articleJPA = new ArticlePersistenceJPA();
-	private AdherentPersistence adherentJPA = new AdherentPersistenceJPA();
+	private JPAPersistence<ArticleDAO, String> articleJPA = new ArticleJPAPersistence();
+	private JPAPersistence<AdherentDAO, String> adherentJPA = new AdherentJPAPersistence();
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse

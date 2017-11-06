@@ -21,12 +21,10 @@ import db.dao.AdresseDAO;
 import db.dao.PaysDAO;
 import db.mapper.BeanDaoMapper;
 import db.mapper.MapperResult;
-import db.services.interfaces.AdherentPersistence;
-import db.services.interfaces.AdressePersistence;
-import db.services.interfaces.PaysPersistence;
-import db.services.persistenceJPA.AdherentPersistenceJPA;
-import db.services.persistenceJPA.AdressePersistenceJPA;
-import db.services.persistenceJPA.PaysPersistenceJPA;
+import db.services.persistence.JPAPersistence;
+import db.services.persistence.AdherentJPAPersistence;
+import db.services.persistence.AdresseJPAPersistence;
+import db.services.persistence.PaysJPAPersistence;
 
 /**
  * Servlet implementation class Login
@@ -35,9 +33,9 @@ import db.services.persistenceJPA.PaysPersistenceJPA;
 public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	private AdherentPersistence adherentJPA = new AdherentPersistenceJPA();
-	private AdressePersistence adresseJPA = new AdressePersistenceJPA();
-	private PaysPersistence paysJPA = new PaysPersistenceJPA();
+	private JPAPersistence<AdherentDAO, String> adherentJPA = new AdherentJPAPersistence();
+	private JPAPersistence<AdresseDAO, Integer> adresseJPA = new AdresseJPAPersistence();
+	private JPAPersistence<PaysDAO, String> paysJPA = new PaysJPAPersistence();
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse

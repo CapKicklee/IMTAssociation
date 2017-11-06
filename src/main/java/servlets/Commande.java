@@ -1,11 +1,7 @@
 package servlets;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,14 +9,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import db.bean.ArticleBean;
 import db.dao.ArticleDAO;
-import db.mapper.BeanDaoMapper;
-import db.mapper.Mappable;
-import db.services.interfaces.ArticlePersistence;
-import db.services.persistenceJPA.ArticlePersistenceJPA;
+import db.services.persistence.JPAPersistence;
+import db.services.persistence.ArticleJPAPersistence;
 
 /**
  * Servlet implementation class Commande
@@ -29,7 +22,7 @@ import db.services.persistenceJPA.ArticlePersistenceJPA;
 public class Commande extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	private ArticlePersistence articleJPA = new ArticlePersistenceJPA();
+	private JPAPersistence<ArticleDAO, String> articleJPA = new ArticleJPAPersistence();
        
 
 	/**

@@ -6,10 +6,9 @@ import db.dao.ArticleDAO;
 import db.dao.PaysDAO;
 import db.mapper.BeanDaoMapper;
 import db.mapper.MapperResult;
-import db.services.persistenceJPA.AdherentPersistenceJPA;
-import db.services.persistenceJPA.AdressePersistenceJPA;
-import db.services.persistenceJPA.ArticlePersistenceJPA;
-import db.services.persistenceJPA.PaysPersistenceJPA;
+import db.services.persistence.*;
+import db.services.persistence.AdherentJPAPersistence;
+import db.services.persistence.AdresseJPAPersistence;
 import db.services.results.JPAResult;
 
 import java.util.ArrayList;
@@ -21,10 +20,10 @@ import java.util.Optional;
  */
 public class DataBaseManager {
 
-	public static final AdherentPersistenceJPA jpaAdherent = new AdherentPersistenceJPA();
-	public static final AdressePersistenceJPA jpaAdresse = new AdressePersistenceJPA();
-	public static final ArticlePersistenceJPA jpaArticle = new ArticlePersistenceJPA();
-	public static final PaysPersistenceJPA jpaPays = new PaysPersistenceJPA();
+	public static final AdherentJPAPersistence jpaAdherent = new AdherentJPAPersistence();
+	public static final AdresseJPAPersistence jpaAdresse = new AdresseJPAPersistence();
+	public static final ArticleJPAPersistence jpaArticle = new ArticleJPAPersistence();
+	public static final PaysJPAPersistence jpaPays = new PaysJPAPersistence();
 
 
 	//====================================================================

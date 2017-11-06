@@ -1,28 +1,24 @@
-package db.services.persistenceJPA;
-
-import java.util.List;
-import java.util.Map;
+package db.services.persistence;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 
 import db.dao.ArticleDAO;
-import db.services.commons.GenericJpaService;
-import db.services.commons.JpaOperation;
-import db.services.interfaces.ArticlePersistence;
+import db.services.jpa.JPAService;
+import db.services.jpa.JPAOperation;
 
 /**
  * JPA implementation for basic persistence operations ( entity "AdherentBean" )
  * 
  *
  */
-public class ArticlePersistenceJPA  extends GenericJpaService<ArticleDAO, String> implements ArticlePersistence {
+public class ArticleJPAPersistence extends JPAService<ArticleDAO, String> implements JPAPersistence<ArticleDAO, String> {
 
 	/**
 	 * Constructor
 	 */
-	public ArticlePersistenceJPA() {
+	public ArticleJPAPersistence() {
 		super(ArticleDAO.class);
 	}
 
@@ -47,7 +43,7 @@ public class ArticlePersistenceJPA  extends GenericJpaService<ArticleDAO, String
 	@Override
 	public long countAll() {
 		// JPA operation definition 
-		JpaOperation operation = new JpaOperation() {
+		JPAOperation operation = new JPAOperation() {
 			@Override
 			public Object exectue(EntityManager em) throws PersistenceException {
 				Query query = em.createNamedQuery("ArticleDAO.countAll");

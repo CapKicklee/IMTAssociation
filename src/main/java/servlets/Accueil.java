@@ -1,7 +1,6 @@
 package servlets;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -17,25 +16,23 @@ import db.dao.ArticleDAO;
 import db.bean.ArticleBean;
 import db.mapper.BeanDaoMapper;
 import db.mapper.Mappable;
-import db.services.interfaces.AdressePersistence;
-import db.services.interfaces.ArticlePersistence;
-import db.services.persistenceJPA.AdressePersistenceJPA;
-import db.services.persistenceJPA.ArticlePersistenceJPA;
+import db.services.persistence.JPAPersistence;
+import db.services.persistence.ArticleJPAPersistence;
 
 /**
  * Servlet implementation class Accueil
  */
 @WebServlet({"/accueil", "/accueil/*"})
 public class Accueil extends HttpServlet {
+
 	private static final long serialVersionUID = 1L;
        
-	private ArticlePersistence articleJPA = new ArticlePersistenceJPA();
+	private JPAPersistence<ArticleDAO, String> articleJPA = new ArticleJPAPersistence();
 	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		process(request,response);
 	}
 

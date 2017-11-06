@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class AdresseBeanPersistenceTest {
+public class ArticleJPAPersistenceTest {
 
 	@Test
 	public void test() {
