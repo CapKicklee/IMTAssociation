@@ -24,7 +24,7 @@ public interface JPAPersistence<T extends DAO, G> {
      * @param pays
      * @return true if found and deleted, false if not found
      */
-    public boolean delete(T pays) ;
+     boolean delete(T pays) ;
 
     /**
      * Deletes the entity by its Primary Key <br>
@@ -32,27 +32,27 @@ public interface JPAPersistence<T extends DAO, G> {
      * @param code - identifiant unique
      * @return true if found and deleted, false if not found
      */
-    public boolean delete(G code) ;
+    boolean delete(G code) ;
 
     /**
      * Inserts the given entity and commit <br>
      * Transactional operation ( begin transaction and commit )
      * @param pays
      */
-    public void insert(T pays) ;
+    void insert(T pays) ;
 
     /**
      * Loads the entity for the given Primary Key <br>
      * @param code
      * @return the entity loaded (or null if not found)
      */
-    public T load(G code) ;
+    T load(G code) ;
 
     /**
      * Loads ALL the entities (use with caution)
      * @return
      */
-    public List<T> loadAll() ;
+    List<T> loadAll() ;
 
 
 
@@ -62,7 +62,7 @@ public interface JPAPersistence<T extends DAO, G> {
      * @param pays
      * @return
      */
-    public T save(T pays) ;
+    T save(T pays) ;
 
 
 
@@ -70,6 +70,6 @@ public interface JPAPersistence<T extends DAO, G> {
      * Count all the occurrences
      * @return
      */
-    public long countAll();
+    long countAll();
 
 }
