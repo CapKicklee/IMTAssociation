@@ -15,9 +15,6 @@
 	href="webjars/bootstrap/4.0.0-beta-1/css/bootstrap.min.css">
 <link rel="stylesheet"
 	href="webjars/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
 <script src="webjars/jquery/3.2.1/jquery.min.js"></script>
 <script src="webjars/popper.js/1.12.3/dist/umd/popper.min.js"></script>
 <script src="webjars/bootstrap/4.0.0-beta-1/js/bootstrap.min.js"></script>
@@ -26,56 +23,61 @@
 
 <body>
 	<%@ include file="/WEB-INF/jspf/header.jspf"%>
+	<br />
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-md-9 offset-md-1">
-				<h3>Bienvenue à l'IMTAssociation</h3>
-				<p class="text-muted">Vous trouverez ici une sélection de
-					produits proposés par l'association pour subvenir à tous vos
-					besoins de membre de l'IMTA</p>
+			<div class="offset-md-2 col-md-8">
+				<h3 class="text-center">Bienvenue à l'IMTAssociation</h3>
+				<p class="text-center text-muted">Vous trouverez ici une
+					sélection d'articles pour embellir votre vie à l'IMT Atlantique</p>
+			</div>
+		</div>
 				<c:forEach var="art" begin="0" end="${taille}" varStatus="i"
 					items="${articles}">
 					<c:if test="${i.index %3==0 && i.index == 0}">
+					<div class="row justify-content-md-center">
+			<div class="offset-md-1 col-md-9 ">
 						<div class="card-deck">
 							<form method="POST" action="article/${art.code }">
 								<div class="card article">
-									<img class="card-img-top" src="img/${art.image }"
+									<img class="card-img-top" src="${art.image }"
 										alt="Card image cap">
 									<div class="card-body">
 										<h4 class="card-title">${art.nom }</h4>
 										<p class="card-text">${art.description }</p>
 									</div>
 									<div class="card-footer">
-										<p>
-											${art.prix } € <a href="#"><button
-													class="btn connect ajout" type="submit">
-													Ajouter au panier <span class="fa fa-cart-plus"></span>
-												</button> </a>
-										</p>
+										<span class="col-md-3">${art.prix } € </span> <a href="#"
+											class="col-md-8"><button class="btn connect ajout"
+												type="submit">
+												Ajouter au panier <span class="fa fa-cart-plus"></span>
+											</button> </a>
 									</div>
 								</div>
 							</form>
 					</c:if>
 
 					<c:if test="${i.index %3==0 && i.index > 0}">
+			</div> 
+			</div>
 			</div>
 			<br />
+			<div class="row justify-content-md-center">
+			<div class="offset-md-1 col-md-9">
 			<div class="card-deck">
 				<form method="POST" action="article/${art.code }">
 					<div class="card article">
-						<img class="card-img-top" src="img/${art.image }"
-							alt="Card image cap">
+						<img class="card-img-top" src="${art.image }" alt="Card image cap">
 						<div class="card-body">
 							<h4 class="card-title">${art.nom }</h4>
 							<p class="card-text">${art.description }</p>
 						</div>
 						<div class="card-footer">
-							<p>
-								${art.prix } € <a href="#"><button class="btn connect ajout"
-										type="submit">
-										Ajouter au panier <span class="fa fa-cart-plus"></span>
-									</button></a> </a>
-							</p>
+							<span class="col-md-3">${art.prix } € </span> <a href="#"
+								class="col-md-8"><button class="btn connect ajout"
+									type="submit">
+									Ajouter au panier <span class="fa fa-cart-plus"></span>
+								</button> </a>
 						</div>
 					</div>
 				</form>
@@ -83,31 +85,31 @@
 				<c:if test="${i.index %3!=0}">
 					<form method="POST" action="article/${art.code }">
 						<div class="card article">
-							<img class="card-img-top" src="img/${art.image }"
+							<img class="card-img-top" src="${art.image }"
 								alt="Card image cap">
 							<div class="card-body">
 								<h4 class="card-title">${art.nom }</h4>
 								<p class="card-text">${art.description }</p>
 							</div>
 							<div class="card-footer">
-								<p>
-									${art.prix } € <a href="#"><button
-											class="btn connect ajout" type="submit">
-											Ajouter au panier <span class="fa fa-cart-plus"></span>
-										</button></a> </a>
-								</p>
+								<span class="col-md-3">${art.prix } € </span> <a href="#"
+									class="col-md-8"><button class="btn connect ajout"
+										type="submit">
+										Ajouter au panier <span class="fa fa-cart-plus"></span>
+									</button> </a>
 							</div>
 						</div>
 					</form>
 				</c:if>
 				<c:if test="${i.index %3 !=0 && i.index == taille -1 }">
 			</div>
+			</div>
+			</div>
 			<br />
 			</c:if>
 			</c:forEach>
 		</div>
-	</div>
-	</div>
+		<br/>
 	<%@ include file="/WEB-INF/jspf/footer.jspf"%>
 </body>
 
