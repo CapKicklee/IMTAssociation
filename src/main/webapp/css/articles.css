@@ -11,13 +11,11 @@
 
 .card-body {
 	margin: auto;
-	max-width: 300px;
-	max-heidth: 300px;
 }
 
 .article img {
-	max-heigth: 200px;
-	max-width: 300px;
-	margin: auto;
+    height: 200px;
+    max-width: 250px;
+    margin: auto;
 }
 
