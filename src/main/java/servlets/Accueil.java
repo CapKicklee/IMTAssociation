@@ -42,34 +42,38 @@ public class Accueil extends HttpServlet {
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (request.getRequestURI().contains("accueil/article")) {
-            request.setAttribute("article", request.getRequestURI().substring(request.getRequestURI().lastIndexOf('/') + 1));
-            response.sendRedirect("/imt.association/article/" + request.getRequestURI().substring(request.getRequestURI().lastIndexOf('/') + 1));
+            request.setAttribute("article",
+                    request.getRequestURI().substring(request.getRequestURI().lastIndexOf('/') + 1));
+            response.sendRedirect("/imt.association/article/"
+                    + request.getRequestURI().substring(request.getRequestURI().lastIndexOf('/') + 1));
         } else {
             process(request, response);
         }
     }
 
     private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        if (request.getSession().getAttribute("user") != null) {
+            Optional<List<ArticleBean>> articlesOp = DataBaseManager.loadAllArticles(response);
+            if (articlesOp.isPresent()) {
+                List<ArticleBean> articleBeanList = articlesOp.get();
+                request.setAttribute("articles", articleBeanList);
 
-        Optional<List<ArticleBean>> articlesOp = DataBaseManager.loadAllArticles(response);
-        if(articlesOp.isPresent()) {
-            List<ArticleBean> articleBeanList = articlesOp.get();
-            request.setAttribute("articles", articleBeanList);
+                Optional<Long> nbArticleOp = DataBaseManager.callAllArticles(response);
+                if (nbArticleOp.isPresent()) {
 
-            Optional<Long> nbArticleOp = DataBaseManager.callAllArticles(response);
-            if(nbArticleOp.isPresent()) {
+                    Long nbArticle = nbArticleOp.get();
+                    request.setAttribute("taille", nbArticle);
 
-                Long nbArticle = nbArticleOp.get();
-                request.setAttribute("taille", nbArticle);
+                    RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/articles.jsp");
+                    rd.forward(request, response);
 
-                RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/articles.jsp");
-                rd.forward(request, response);
+                }
 
             }
-
+        } else {
+            response.sendRedirect("/imt.association/login");
         }
 
     }
-
 
 }

@@ -9,8 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
-
 /**
  * Servlet implementation class Home
  */
@@ -18,7 +16,6 @@ import javax.servlet.http.HttpServletResponse;
 public class Home extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
@@ -40,9 +37,12 @@ public class Home extends HttpServlet {
 
 	private void process(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
-		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/home.jsp");
-		rd.forward(request, response);
+		if (request.getSession().getAttribute("user") != null) {
+			RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/home.jsp");
+			rd.forward(request, response);
+		} else {
+			response.sendRedirect("/imt.association/login");
+		}
 	}
 
 }

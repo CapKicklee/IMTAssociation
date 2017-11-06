@@ -95,9 +95,9 @@ public abstract class JPAService<T, PK extends java.io.Serializable> {
         JPAResult jpaResult = new JPAResult();
         try {
             List<T> res = (List<T>) execute(operation);
-            jpaResult.setResult(Optional.of(res));
+            jpaResult.setResult(Optional.ofNullable(res));
         } catch (PersistenceException e) {
-            saveError(jpaResult, e, "load()");
+            saveError(jpaResult, e, "load");
         }
 
         // JPA operation execution
@@ -126,7 +126,7 @@ public abstract class JPAService<T, PK extends java.io.Serializable> {
         JPAResult jpaResult = new JPAResult();
         try {
             List<T> res = (List<T>) execute(operation);
-            jpaResult.setResult(Optional.of(res));
+            jpaResult.setResult(Optional.ofNullable(res));
         } catch (PersistenceException e) {
             saveError(jpaResult, e, "loadAll()");
         }
@@ -153,7 +153,7 @@ public abstract class JPAService<T, PK extends java.io.Serializable> {
         JPAResult jpaResult = new JPAResult();
         try {
             Object res = execute(operation, TRANSACTIONAL);
-            jpaResult.setResult(Optional.of(res));
+            jpaResult.setResult(Optional.ofNullable(res));
         } catch (PersistenceException e) {
             saveError(jpaResult, e, "insert()");
         }
@@ -182,7 +182,7 @@ public abstract class JPAService<T, PK extends java.io.Serializable> {
         JPAResult jpaResult = new JPAResult();
         try {
             T res = (T) execute(operation, TRANSACTIONAL);
-            jpaResult.setResult(Optional.of(res));
+            jpaResult.setResult(Optional.ofNullable(res));
         } catch (PersistenceException e) {
             saveError(jpaResult, e, "save()");
         }
@@ -213,7 +213,7 @@ public abstract class JPAService<T, PK extends java.io.Serializable> {
         JPAResult jpaResult = new JPAResult();
         try {
             Boolean res = (Boolean) execute(operation, TRANSACTIONAL);
-            jpaResult.setResult(Optional.of(res));
+            jpaResult.setResult(Optional.ofNullable(res));
         } catch (PersistenceException e) {
             saveError(jpaResult, e, "delete()");
         }

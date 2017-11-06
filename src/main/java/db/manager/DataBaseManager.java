@@ -227,7 +227,7 @@ public class DataBaseManager {
         if(jpaResCount.hasErrors()) {
             response.sendRedirect("/imt.association/erreurDB");
         } else {
-            return Optional.of(jpaResCount.getResult().get());
+            return Optional.ofNullable(jpaResCount.getResult().get());
         }
         return Optional.empty();
     }
@@ -282,12 +282,14 @@ public class DataBaseManager {
         if(jpaResultat.hasErrors()) {
             response.sendRedirect("/imt.association/erreurDB");
         } else {
-            article = jpaResultat.getResult().get();
-            MapperResult resMap = BeanDaoMapper.mapDAOToBean(article);
-            if (resMap.hasErrors()) {
-                response.sendRedirect("/imt.association/erreurDB");
-            } else {
-                articlebean = Optional.of((ArticleBean) resMap.getMapped().get());
+            if (jpaResultat.getResult().isPresent()) {
+                article = jpaResultat.getResult().get();
+                MapperResult resMap = BeanDaoMapper.mapDAOToBean(article);
+                if (resMap.hasErrors()) {
+                    response.sendRedirect("/imt.association/erreurDB");
+                } else {
+                    articlebean = Optional.ofNullable((ArticleBean) resMap.getMapped().get());
+                }
             }
         }
 		return articlebean;
@@ -304,12 +306,14 @@ public class DataBaseManager {
         if(jpaResultat.hasErrors()) {
             response.sendRedirect("/imt.association/erreurDB");
         } else {
-            adherentDAO = jpaResultat.getResult().get();
-            MapperResult resMap = BeanDaoMapper.mapDAOToBean(adherentDAO);
-            if (resMap.hasErrors()) {
-                response.sendRedirect("/imt.association/erreurDB");
-            } else {
-                adherentBean = Optional.of((AdherentBean) resMap.getMapped().get());
+            if (jpaResultat.getResult().isPresent()) {
+                adherentDAO = jpaResultat.getResult().get();
+                MapperResult resMap = BeanDaoMapper.mapDAOToBean(adherentDAO);
+                if (resMap.hasErrors()) {
+                    response.sendRedirect("/imt.association/erreurDB");
+                } else {
+                    adherentBean = Optional.ofNullable((AdherentBean) resMap.getMapped().get());
+                }
             }
         }
         return adherentBean;
@@ -326,12 +330,14 @@ public class DataBaseManager {
         if(jpaResultat.hasErrors()) {
             response.sendRedirect("/imt.association/erreurDB");
         } else {
-            paysDAO = jpaResultat.getResult().get();
-            MapperResult resMap = BeanDaoMapper.mapDAOToBean(paysDAO);
-            if (resMap.hasErrors()) {
-                response.sendRedirect("/imt.association/erreurDB");
-            } else {
-                paysBean = Optional.of((PaysBean) resMap.getMapped().get());
+            if (jpaResultat.getResult().isPresent()) {
+                paysDAO = jpaResultat.getResult().get();
+                MapperResult resMap = BeanDaoMapper.mapDAOToBean(paysDAO);
+                if (resMap.hasErrors()) {
+                    response.sendRedirect("/imt.association/erreurDB");
+                } else {
+                    paysBean = Optional.ofNullable((PaysBean) resMap.getMapped().get());
+                }
             }
         }
         return paysBean;

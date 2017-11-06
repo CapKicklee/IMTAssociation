@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.TreeMap;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -38,60 +39,66 @@ public class Commande extends HttpServlet {
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (request.getRequestURI().contains("commande/plus")) {
-            String code = request.getRequestURI().substring(request.getRequestURI().lastIndexOf('/') + 1);
-            System.out.println("Code : " + code);
-            if (code.length() == 3) {
-                HashMap<String, Integer> panier = (HashMap<String, Integer>) request.getSession().getAttribute("panier");
-                if (false) {//Avec le +1 ça depasse le stock
-                    //Ne rien faire sur la quantite
-                    //Avertir l'utilisateur
-                } else {
-                    panier.put(code, panier.get(code) + 1);
+        if (request.getSession().getAttribute("user") != null) {
+            if (request.getRequestURI().contains("commande/plus")) {
+                String code = request.getRequestURI().substring(request.getRequestURI().lastIndexOf('/') + 1);
+                System.out.println("Code : " + code);
+                if (code.length() == 3) {
+                    Map<String, Integer> panier = (TreeMap<String, Integer>) request.getSession().getAttribute("panier");
+                    if (false) {//Avec le +1 ça depasse le stock
+                        //Ne rien faire sur la quantite
+                        //Avertir l'utilisateur
+                    } else {
+                        panier.put(code, panier.get(code) + 1);
+                    }
+                    request.getSession().setAttribute("panier", panier);
+                    response.sendRedirect("/imt.association/commande");
+
                 }
-                request.getSession().setAttribute("panier", panier);
-                response.sendRedirect("/imt.association/commande");
 
             }
 
-        }
+            if (request.getRequestURI().contains("commande/minus")) {
+                String code = request.getRequestURI().substring(request.getRequestURI().lastIndexOf('/') + 1);
+                System.out.println("Code : " + code);
+                if (code.length() == 3) {
+                    Map<String, Integer> panier = (TreeMap<String, Integer>) request.getSession().getAttribute("panier");
+                    if (panier.get(code) - 1 == 0) {
+                        panier.remove(code);
+                    } else {
+                        panier.put(code, panier.get(code) - 1);
+                    }
 
-        if (request.getRequestURI().contains("commande/minus")) {
-            String code = request.getRequestURI().substring(request.getRequestURI().lastIndexOf('/') + 1);
-            System.out.println("Code : " + code);
-            if (code.length() == 3) {
-                HashMap<String, Integer> panier = (HashMap<String, Integer>) request.getSession().getAttribute("panier");
-                if (panier.get(code) - 1 == 0) {
+                    request.getSession().setAttribute("panier", panier);
+                    response.sendRedirect("/imt.association/commande");
+                }
+            }
+
+            if (request.getRequestURI().contains("commande/remove")) {
+                String code = request.getRequestURI().substring(request.getRequestURI().lastIndexOf('/') + 1);
+                System.out.println("Code : " + code);
+                if (code.length() == 3) {
+                    Map<String, Integer> panier = (TreeMap<String, Integer>) request.getSession().getAttribute("panier");
                     panier.remove(code);
-                } else {
-                    panier.put(code, panier.get(code) - 1);
+
+                    request.getSession().setAttribute("panier", panier);
+                    response.sendRedirect("/imt.association/commande");
                 }
-
-                request.getSession().setAttribute("panier", panier);
-                response.sendRedirect("/imt.association/commande");
+            } else {
+                response.sendRedirect("/imt.association/erreur404");
             }
-        }
-
-        if (request.getRequestURI().contains("commande/remove")) {
-            String code = request.getRequestURI().substring(request.getRequestURI().lastIndexOf('/') + 1);
-            System.out.println("Code : " + code);
-            if (code.length() == 3) {
-                HashMap<String, Integer> panier = (HashMap<String, Integer>) request.getSession().getAttribute("panier");
-                panier.remove(code);
-
-                request.getSession().setAttribute("panier", panier);
-                response.sendRedirect("/imt.association/commande");
-            }
+        } else {
+            response.sendRedirect("/imt.association/login");
         }
     }
 
     private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if ((HashMap) request.getSession().getAttribute("panier") == null) {
+        if ((TreeMap) request.getSession().getAttribute("panier") == null) {
             System.out.println("Panier null");
         }
-        HashMap<String, Integer> panier = (HashMap) request.getSession().getAttribute("panier");
+        Map<String, Integer> panier = (TreeMap) request.getSession().getAttribute("panier");
 
-        HashMap<ArticleBean, Integer> panierValue = new HashMap<ArticleBean, Integer>();
+        Map<ArticleBean, Integer> panierValue = new TreeMap<ArticleBean, Integer>();
         for (Map.Entry<String, Integer> entry : panier.entrySet()) {
 
             String key = entry.getKey();
@@ -105,7 +112,7 @@ public class Commande extends HttpServlet {
                 panierValue.put(articleBean, value);
 
                 request.getSession().setAttribute("panierValue", panierValue);
-                request.getSession().setAttribute("taillePanier", ((HashMap) request.getSession().getAttribute("panier")).size());
+                request.getSession().setAttribute("taillePanier", ((TreeMap) request.getSession().getAttribute("panier")).size());
                 RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/commande.jsp");
                 rd.forward(request, response);
 

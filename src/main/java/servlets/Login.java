@@ -5,8 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
-
-import javax.jnlp.IntegrationService;
+import java.util.TreeMap;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -32,58 +31,64 @@ import db.services.persistence.PaysJPAPersistence;
 /**
  * Servlet implementation class Login
  */
-@WebServlet({ "/login", "/login/*" })
+@WebServlet({"/login", "/login/*"})
 public class Login extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		if (request.getSession().getAttribute("user") != null) {
-			request.getSession().setAttribute("panier", new HashMap<ArticleBean, Integer>());
-			response.sendRedirect("/imt.association/accueil");
-		} else {
-			process(request, response);
-		}
-	}
+    /**
+     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+     * response)
+     */
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        if (request.getSession().getAttribute("user") != null) {
+            request.getSession().setAttribute("panier", new TreeMap<String, Integer>());
+            response.sendRedirect("/imt.association/home");
+        } else {
+            process(request, response);
+        }
+    }
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		if (request.getRequestURI().contains("auth")) {
-			String login = request.getParameter("login");
+    /**
+     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+     * response)
+     */
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        if (request.getRequestURI().contains("auth")) {
+            String login = request.getParameter("login");
 
             Optional<AdherentBean> adherentBeanOp = DataBaseManager.loadAdherent(login, response);
 
-			if (adherentBeanOp.isPresent()) {
-			    AdherentBean adherentBean = adherentBeanOp.get();
-					String password = request.getParameter("password");
-					if (password.equals(adherentBean.getMotDePasse())) {
-						request.getSession().setAttribute("user", adherentBean);
-						request.getSession().setAttribute("panier", new HashMap<ArticleBean, Integer>());
-						System.out.println("connected");
-						response.sendRedirect("/imt.association/accueil");
-					} else {
-						System.out.println("wrong password");
-					}
-			} else {
-				response.sendRedirect("/imt.association/login");
-			}
-		} else if (request.getRequestURI().contains("create")) {
-			create(request, response);
-			response.sendRedirect("/imt.association/login");
-		}
+            if (adherentBeanOp.isPresent()) {
+                AdherentBean adherentBean = adherentBeanOp.get();
+                String password = request.getParameter("password");
+                if (password.equals(adherentBean.getMotDePasse())) {
+                    request.getSession().setAttribute("user", adherentBean);
+                    request.getSession().setAttribute("panier", new TreeMap<String, Integer>());
+                    System.out.println("connected");
+                    response.sendRedirect("/imt.association/home");
+                } else {
+                    System.out.println("wrong password");
+                    request.getSession().setAttribute("erreur", "Le nom d'utilisateur ou le mot de passe est erroné");
+                    response.sendRedirect("/imt.association/login");
+                }
+            } else {
+                request.getSession().setAttribute("erreur", "Le nom d'utilisateur ou le mot de passe est erroné");
+                response.sendRedirect("/imt.association/login");
+            }
+        } else if (request.getRequestURI().contains("create")) {
+            if (create(request, response)) {
+                response.sendRedirect("/imt.association/home");
+            } else {
+                response.sendRedirect("/imt.association/login");
+            }
+        }
 
-	}
+    }
 
-	private void process(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+    private void process(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
         Optional<List<PaysBean>> paysList = DataBaseManager.loadAllPays(response);
         if (paysList.isPresent()) {
@@ -93,43 +98,43 @@ public class Login extends HttpServlet {
             rd.forward(request, response);
         }
 
-	}
+    }
 
-	private boolean create(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private boolean create(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
 
-	    String login = (String) request.getParameter("login");
+        String login = (String) request.getParameter("login");
 
         Optional<AdherentBean> adherentOp = DataBaseManager.loadAdherent(login, response);
 
-		if (adherentOp.isPresent()) {
-			System.out.println("user already existing");
-			return false;
-		} else {
-			String password = request.getParameter("password");
-			String password2 = request.getParameter("password2");
-			String nom = request.getParameter("nom");
-			String prenom = request.getParameter("prenom");
-			if (!password.equals(password2)) {
-				System.out.println("different passwords");
-				return false;
-			}
-			AdresseBean adresseBean = null;
-			String rue = request.getParameter("rue");
-			if (!"".equals(rue)) {
+        if (adherentOp.isPresent()) {
+            System.out.println("user already existing");
+            return false;
+        } else {
+            String password = request.getParameter("password");
+            String password2 = request.getParameter("password2");
+            String nom = request.getParameter("nom");
+            String prenom = request.getParameter("prenom");
+            if (!password.equals(password2)) {
+                System.out.println("different passwords");
+                return false;
+            }
+            AdresseBean adresseBean = null;
+            String rue = request.getParameter("rue");
+            if (!"".equals(rue)) {
 
-				Integer cp = Integer.getInteger(request.getParameter("cp"));
-				String ville = request.getParameter("ville");
+                Integer cp = Integer.getInteger(request.getParameter("cp"));
+                String ville = request.getParameter("ville");
 
-				Optional<PaysBean> paysBeanOp = DataBaseManager.loadPays(request.getParameter("paysBean"), response);
+                Optional<PaysBean> paysBeanOp = DataBaseManager.loadPays(request.getParameter("paysBean"), response);
 
-				if (paysBeanOp.isPresent()) {
+                if (paysBeanOp.isPresent()) {
 
-				    PaysBean paysBean = paysBeanOp.get();
+                    PaysBean paysBean = paysBeanOp.get();
 
-				    Optional<Long> idOp = DataBaseManager.callAllAdresse(response);
+                    Optional<Long> idOp = DataBaseManager.callAllAdresse(response);
 
-				    if (idOp.isPresent()) {
+                    if (idOp.isPresent()) {
 
                         Integer id = ((int) (long) idOp.get()) + 1;
 
@@ -146,19 +151,18 @@ public class Login extends HttpServlet {
 
                     }
                 }
-
-			}
-			AdherentBean newAdh = new AdherentBean(login, password, nom, prenom, adresseBean);
-			MapperResult adhRes = BeanDaoMapper.mapBeanToDAO(newAdh);
-			if (adhRes.getMapped().isPresent()) {
+            }
+            AdherentBean newAdh = new AdherentBean(login, password, nom, prenom, adresseBean);
+            MapperResult adhRes = BeanDaoMapper.mapBeanToDAO(newAdh);
+            if (adhRes.getMapped().isPresent()) {
                 DataBaseManager.insertAdherent((AdherentDAO) adhRes.getMapped().get(), response);
-				System.out.println("user created");
-			} else {
-				System.out.println("error while creating user");
-				return false;
-			}
-			return true;
-		}
-	}
+                System.out.println("user created");
+            } else {
+                System.out.println("error while creating user");
+                return false;
+            }
+            return true;
+        }
+    }
 
 }

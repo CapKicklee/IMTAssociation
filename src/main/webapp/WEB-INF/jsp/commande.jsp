@@ -15,8 +15,6 @@
 	href="webjars/bootstrap/4.0.0-beta-1/css/bootstrap.min.css">
 <link rel="stylesheet"
 	href="webjars/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="webjars/jquery/3.2.1/jquery.min.js"></script>
 <script src="webjars/popper.js/1.12.3/dist/umd/popper.min.js"></script>
 <script src="webjars/bootstrap/4.0.0-beta-1/js/bootstrap.min.js"></script>
@@ -25,6 +23,7 @@
 
 <body>
 	<%@ include file="/WEB-INF/jspf/header.jspf"%>
+	<br />
 	<div class="container-fluid">
 		<nav class="breadcrumb"> <a class="breadcrumb-item"
 			href="/imt.association/home">Home </a> <span
@@ -34,6 +33,7 @@
 				<tr>
 					<th>#</th>
 					<th>Nom Article</th>
+					<th>En stock</th>
 					<th>Prix Total</th>
 					<th>Quantité</th>
 					<th></th>
@@ -46,7 +46,8 @@
 					<tr>
 						<th scope="row">${artPanier.key.code}</th>
 						<td>${artPanier.key.nom}</td>
-						<td>${artPanier.key.prix}€</td>
+						<td>${artPanier.key.stock}</td>
+						<td>${artPanier.key.prix * artPanier.value}€</td>
 						<td>${artPanier.value}</td>
 						<td>
 							<div class="btn-toolbar" role="toolbar"

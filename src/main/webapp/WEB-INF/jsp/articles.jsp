@@ -25,6 +25,9 @@
 	<%@ include file="/WEB-INF/jspf/header.jspf"%>
 	<br />
 	<div class="container-fluid">
+		<nav class="breadcrumb"> <a class="breadcrumb-item"
+			href="/imt.association/home">Home </a> <span
+			class="breadcrumb-item active">Articles </span> </nav>
 		<div class="row justify-content-md-center">
 			<div class="col-md-10">
 				<h3 class="text-center">Bienvenue à l'IMTAssociation</h3>
@@ -38,15 +41,16 @@
 				<div class="row justify-content-md-center">
 					<div class="col-md-10">
 						<div class="card-deck">
-							<form method="POST" action="article/${art.code }">
-								<div class="card article">
-									<img class="card-img-top" src="img/${art.image }"
-										alt="Card image cap">
-									<div class="card-body">
-										<h4 class="card-title">${art.nom }</h4>
-										<p class="card-text">${art.description }</p>
-									</div>
-									<div class="card-footer">
+
+							<div class="card article">
+								<img class="card-img-top" src="img/${art.image }"
+									alt="Card image cap">
+								<div class="card-body">
+									<h4 class="card-title">${art.nom }</h4>
+									<p class="card-text">${art.description }</p>
+								</div>
+								<div class="card-footer">
+									<form method="POST" action="article/${art.code }">
 										<span class="col-md-3">${art.prix } € </span> <a href="#"
 											class="col-md-8"><button class="btn connect ajout"
 												type="submit">
@@ -65,26 +69,15 @@
 	<div class="row justify-content-md-center">
 		<div class="col-md-10">
 			<div class="card-deck">
-<<<<<<< HEAD
-				<form method="POST" action="article/${art.code }">
-					<div class="card article">
-						<img class="card-img-top" src="img/${art.image }" alt="Card image cap">
-						<div class="card-body">
-							<h4 class="card-title">${art.nom }</h4>
-							<p class="card-text">${art.description }</p>
-						</div>
-						<div class="card-footer">
-=======
 				<div class="card article">
-					<img class="card-img-top" src="img/${art.image }" alt="Card image cap">
+					<img class="card-img-top" src="img/${art.image }"
+						alt="Card image cap">
 					<div class="card-body">
 						<h4 class="card-title">${art.nom }</h4>
 						<p class="card-text">${art.description }</p>
 					</div>
 					<div class="card-footer">
 						<form method="POST" action="article/${art.code }">
-
->>>>>>> c10ccf0b66bdf8ee181abfcea05b96f5c9706856
 							<span class="col-md-3">${art.prix } € </span> <a href="#"
 								class="col-md-8"><button class="btn connect ajout"
 									type="submit">
@@ -96,27 +89,15 @@
 				</div>
 				</c:if>
 				<c:if test="${i.index %3!=0}">
-<<<<<<< HEAD
-					<form method="POST" action="article/${art.code }">
-						<div class="card article">
-							<img class="card-img-top" src="img/${art.image }"
-								alt="Card image cap">
-							<div class="card-body">
-								<h4 class="card-title">${art.nom }</h4>
-								<p class="card-text">${art.description }</p>
-							</div>
-							<div class="card-footer">
-=======
 					<div class="card article">
-						<img class="card-img-top" src="img/${art.image }" alt="Card image cap">
+						<img class="card-img-top" src="img/${art.image }"
+							alt="Card image cap">
 						<div class="card-body">
 							<h4 class="card-title">${art.nom }</h4>
 							<p class="card-text">${art.description }</p>
 						</div>
 						<div class="card-footer">
 							<form method="POST" action="article/${art.code }">
-
->>>>>>> c10ccf0b66bdf8ee181abfcea05b96f5c9706856
 								<span class="col-md-3">${art.prix } € </span> <a href="#"
 									class="col-md-8"><button class="btn connect ajout"
 										type="submit">

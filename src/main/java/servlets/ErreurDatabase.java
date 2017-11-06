@@ -45,7 +45,6 @@ public class ErreurDatabase extends HttpServlet {
 
     private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //response.sendRedirect("");
-        System.out.println("HEYHEYEYEEJDUEGFUGFUGEUFGGg");
+        System.out.println("Erreur database");
     }
-
 }
