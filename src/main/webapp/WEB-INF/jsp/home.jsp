@@ -23,9 +23,14 @@
 <body>
 	<%@ include file="/WEB-INF/jspf/header.jspf"%>
 	<div class="container-fluid">
-		<nav class="breadcrumb"> <a class="breadcrumb-item active"
-			href="/imt.association/accueil">Home </a>  </nav>
-		
+		<nav class="breadcrumb">  <span
+			class="breadcrumb-item active">Home </span> </nav>
+		<br />
+		<div class="d-flex justify-content-center">
+			<img class="logo center-block" src="img/logo.png"
+				alt="Logo de l'IMTAssociation" />
+		</div>
+		<br />
 	</div>
 	<%@ include file="/WEB-INF/jspf/footer.jspf"%>
 </body>
