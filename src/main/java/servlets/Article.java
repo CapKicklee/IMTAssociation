@@ -50,23 +50,29 @@ public class Article extends HttpServlet {
 
 	private void process(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println(request.getAttribute("article"));
-		Map<String, Integer> panier = (Map<String, Integer>) request.getSession().getAttribute("panier");
-		System.out.println(panier.isEmpty());
-		Optional<Mappable> map = BeanDaoMapper.mapDAOToBean(articleJPA.load(request.getRequestURI().substring(request.getRequestURI().lastIndexOf('/')+1)))
-				.getMapped();
-		ArticleBean article = null;
-		if (map.isPresent()) {
-			article = (ArticleBean) map.get();
-			System.out.println(article.getCode());
-			if (panier.containsKey(article.getCode())) {
-				panier.put(article.getCode(), panier.get(article.getCode()) + 1);
-			} else {
-				panier.put(article.getCode(), 1);
+		if (request.getSession().getAttribute("user") != null) {
+			System.out.println(request.getAttribute("article"));
+			Map<String, Integer> panier = (Map<String, Integer>) request.getSession().getAttribute("panier");
+			System.out.println(panier.isEmpty());
+			Optional<Mappable> map = BeanDaoMapper
+					.mapDAOToBean(articleJPA
+							.load(request.getRequestURI().substring(request.getRequestURI().lastIndexOf('/') + 1)))
+					.getMapped();
+			ArticleBean article = null;
+			if (map.isPresent()) {
+				article = (ArticleBean) map.get();
+				System.out.println(article.getCode());
+				if (panier.containsKey(article.getCode())) {
+					panier.put(article.getCode(), panier.get(article.getCode()) + 1);
+				} else {
+					panier.put(article.getCode(), 1);
+				}
 			}
+			request.getSession().setAttribute("panier", panier);
+			response.sendRedirect("/imt.association/accueil");
+		} else {
+			response.sendRedirect("/imt.association/login");
 		}
-		request.getSession().setAttribute("panier", panier);
-		response.sendRedirect("/imt.association/accueil");
 	}
 
 }

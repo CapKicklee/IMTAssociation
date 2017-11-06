@@ -25,7 +25,7 @@
 	<%@ include file="/WEB-INF/jspf/header.jspf"%>
 	<br />
 	<div class="container-fluid">
-			<nav class="breadcrumb"> <a class="breadcrumb-item"
+		<nav class="breadcrumb"> <a class="breadcrumb-item"
 			href="/imt.association/home">Home </a> <span
 			class="breadcrumb-item active">Articles </span> </nav>
 		<div class="row justify-content-md-center">
@@ -41,23 +41,24 @@
 				<div class="row justify-content-md-center">
 					<div class="col-md-10">
 						<div class="card-deck">
-							<div class="card article"> <img class="card-img-top"
-								src="img/${art.image }" alt="Card image cap">
-							<div class="card-body">
-								<h4 class="card-title">${art.nom }</h4>
-								<p class="card-text">${art.description }</p>
-							</div>
-							<div class="card-footer">
-								<form method="POST" action="article/${art.code }">
 
-									<span class="col-md-3">${art.prix } € </span> <a href="#"
-										class="col-md-8"><button class="btn connect ajout"
-											type="submit">
-											Ajouter au panier <span class="fa fa-cart-plus"></span>
-										</button> </a>
-								</form>
+							<div class="card article">
+								<img class="card-img-top" src="img/${art.image }"
+									alt="Card image cap">
+								<div class="card-body">
+									<h4 class="card-title">${art.nom }</h4>
+									<p class="card-text">${art.description }</p>
+								</div>
+								<div class="card-footer">
+									<form method="POST" action="article/${art.code }">
+										<span class="col-md-3">${art.prix } € </span> <a href="#"
+											class="col-md-8"><button class="btn connect ajout"
+												type="submit">
+												Ajouter au panier <span class="fa fa-cart-plus"></span>
+											</button> </a>
+									</form>
+								</div>
 							</div>
-						</div>
 			</c:if>
 
 			<c:if test="${i.index %3==0 && i.index > 0}">
@@ -68,7 +69,6 @@
 	<div class="row justify-content-md-center">
 		<div class="col-md-10">
 			<div class="card-deck">
-
 				<div class="card article">
 					<img class="card-img-top" src="img/${art.image }"
 						alt="Card image cap">
@@ -78,7 +78,6 @@
 					</div>
 					<div class="card-footer">
 						<form method="POST" action="article/${art.code }">
-
 							<span class="col-md-3">${art.prix } € </span> <a href="#"
 								class="col-md-8"><button class="btn connect ajout"
 									type="submit">
@@ -90,7 +89,6 @@
 				</div>
 				</c:if>
 				<c:if test="${i.index %3!=0}">
-
 					<div class="card article">
 						<img class="card-img-top" src="img/${art.image }"
 							alt="Card image cap">
@@ -100,8 +98,6 @@
 						</div>
 						<div class="card-footer">
 							<form method="POST" action="article/${art.code }">
-
-
 								<span class="col-md-3">${art.prix } € </span> <a href="#"
 									class="col-md-8"><button class="btn connect ajout"
 										type="submit">

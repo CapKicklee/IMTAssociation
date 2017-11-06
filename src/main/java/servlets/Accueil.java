@@ -22,44 +22,55 @@ import db.services.persistence.ArticleJPAPersistence;
 /**
  * Servlet implementation class Accueil
  */
-@WebServlet({"/accueil", "/accueil/*"})
+@WebServlet({ "/accueil", "/accueil/*" })
 public class Accueil extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-       
+
 	private JPAPersistence<ArticleDAO, String> articleJPA = new ArticleJPAPersistence();
-	
+
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		process(request,response);
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		process(request, response);
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		if (request.getRequestURI().contains("accueil/article")) {
-			request.setAttribute("article", request.getRequestURI().substring(request.getRequestURI().lastIndexOf('/')+1));
-			response.sendRedirect("/imt.association/article/" + request.getRequestURI().substring(request.getRequestURI().lastIndexOf('/')+1));
+			request.setAttribute("article",
+					request.getRequestURI().substring(request.getRequestURI().lastIndexOf('/') + 1));
+			response.sendRedirect("/imt.association/article/"
+					+ request.getRequestURI().substring(request.getRequestURI().lastIndexOf('/') + 1));
 		} else {
 			process(request, response);
 		}
 	}
-	
-	private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<ArticleBean> articles = new ArrayList<>();
-		for (ArticleDAO dao : articleJPA.loadAll()) {
-			Optional<Mappable> map = BeanDaoMapper.mapDAOToBean(dao).getMapped();
-			if (map.isPresent()) {
-				articles.add((ArticleBean) map.get()); 
+
+	private void process(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		if (request.getSession().getAttribute("user") != null) {
+			List<ArticleBean> articles = new ArrayList<>();
+			for (ArticleDAO dao : articleJPA.loadAll()) {
+				Optional<Mappable> map = BeanDaoMapper.mapDAOToBean(dao).getMapped();
+				if (map.isPresent()) {
+					articles.add((ArticleBean) map.get());
+				}
 			}
+			request.setAttribute("articles", articles);
+			request.setAttribute("taille", (int) articleJPA.countAll());
+			RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/articles.jsp");
+			rd.forward(request, response);
+		} else {
+			response.sendRedirect("/imt.association/login");
 		}
-		request.setAttribute("articles", articles);
-		request.setAttribute("taille", (int) articleJPA.countAll()); 
-		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/articles.jsp");
-		rd.forward(request, response);
 	}
 
 }

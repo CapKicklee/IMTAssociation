@@ -21,7 +21,7 @@
 		</ul>
 		<ul class="navbar-nav my-lg-2">
 			<li class="nav-item active inactive">
-			<a class="nav-link"	href="/imt.association/login">S'inscrire <i class="fa fa-sign-in" aria-hidden="true"></i>
+			<a class="nav-link"	href="/imt.association/deconnexion">Se déconnecter <i class="fa fa-sign-out" aria-hidden="true"></i>
 				</a></li>
 			<li class="nav-item active inactive"><a class="nav-link"
 				href="/imt.association/commande">Mon panier <i class="fa fa-shopping-cart"

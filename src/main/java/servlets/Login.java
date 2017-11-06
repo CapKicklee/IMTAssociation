@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.TreeMap;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -44,7 +45,7 @@ public class Login extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		if (request.getSession().getAttribute("user") != null) {
-			request.getSession().setAttribute("panier", new HashMap<ArticleBean, Integer>());
+			request.getSession().setAttribute("panier", new TreeMap<String, Integer>());
 			response.sendRedirect("/imt.association/home");
 		} else {
 			process(request, response);
@@ -66,21 +67,28 @@ public class Login extends HttpServlet {
 					String password = request.getParameter("password");
 					if (password.equals(((AdherentBean) (res.getMapped().get())).getMotDePasse())) {
 						request.getSession().setAttribute("user", (AdherentBean) res.getMapped().get());
-						request.getSession().setAttribute("panier", new HashMap<ArticleBean, Integer>());
+						request.getSession().setAttribute("panier", new TreeMap<String, Integer>());
 						System.out.println("connected");
 						response.sendRedirect("/imt.association/home");
 					} else {
 						System.out.println("wrong password");
+						request.getSession().setAttribute("erreur", "Le nom d'utilisateur ou le mot de passe est erroné");
+						response.sendRedirect("/imt.association/login");
 					}
 				} else {
-					System.out.println("empty");
+					request.getSession().setAttribute("erreur", "Le nom d'utilisateur ou le mot de passe est erroné");
+					response.sendRedirect("/imt.association/login");
 				}
 			} else {
+				request.getSession().setAttribute("erreur", "Le nom d'utilisateur ou le mot de passe est erroné");
 				response.sendRedirect("/imt.association/login");
 			}
 		} else if (request.getRequestURI().contains("create")) {
-			create(request);
-			response.sendRedirect("/imt.association/login");
+			if (create(request)) {
+				response.sendRedirect("/imt.association/home");
+			} else {
+				response.sendRedirect("/imt.association/login");
+			}
 		}
 
 		// process(request, response);
@@ -120,8 +128,8 @@ public class Login extends HttpServlet {
 			if (!"".equals(rue)) {
 				Integer cp = Integer.getInteger(request.getParameter("cp"));
 				String ville = request.getParameter("ville");
-				PaysBean paysBean = (PaysBean) BeanDaoMapper.mapDAOToBean(paysJPA.load(request.getParameter("paysBean"))).getMapped()
-						.get();
+				PaysBean paysBean = (PaysBean) BeanDaoMapper
+						.mapDAOToBean(paysJPA.load(request.getParameter("paysBean"))).getMapped().get();
 				Integer id = (int) (adresseJPA.countAll()) + 1;
 				adresseBean = new AdresseBean(id, rue, cp, ville, paysBean);
 				MapperResult res = BeanDaoMapper.mapBeanToDAO(adresseBean);

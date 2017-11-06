@@ -19,9 +19,9 @@
 <script src="webjars/popper.js/1.12.3/dist/umd/popper.min.js"></script>
 <script src="webjars/bootstrap/4.0.0-beta-1/js/bootstrap.min.js"></script>
 <script>
-$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-	  e.target // newly activated tab
-	  e.relatedTarget // previous active tab
+	$('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+		e.target // newly activated tab
+		e.relatedTarget // previous active tab
 	})
 </script>
 <title>IMTAssociation</title>
@@ -36,6 +36,9 @@ $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 				alt="Logo de l'IMTAssociation" />
 		</div>
 		<br />
+		<c:if test="${erreur != null }">
+			<div class="alert alert-danger" role="alert">${erreur }</div>
+		</c:if>
 		<div class="card text-center">
 			<div class="card-header">
 				<ul id="myTab" role="tablist" class="nav nav-tabs card-header-tabs">
@@ -60,10 +63,12 @@ $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 							<div class="form-group col-md-auto">
 								<input class="form-control" type="text"
 									placeholder="Nom d'utilisateur" name="login" /> <br /> <input
-									class="form-control" type="password" placeholder="Mot de passe" name="password"/>
+									class="form-control" type="password" placeholder="Mot de passe"
+									name="password" />
 							</div>
 							<div class="form-group d-flex justify-content-end">
-								<a href="#"><button class="btn connect" type="submit">Se connecter</button></a>
+								<a href="#"><button class="btn connect" type="submit">Se
+										connecter</button></a>
 							</div>
 						</form>
 					</div>
@@ -98,7 +103,8 @@ $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 							</label>
 							<div class="col-sm-9">
 								<input type="password" class="form-control" id="password2"
-									placeholder="Confirmez votre mot de passe" name="password2" required>
+									placeholder="Confirmez votre mot de passe" name="password2"
+									required>
 							</div>
 						</div>
 						<div class="form-group row">

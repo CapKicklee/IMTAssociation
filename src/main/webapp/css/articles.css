@@ -7,6 +7,7 @@
 .ajout:hover {
 	background-color: #ddd;
 	color: black;
+	cursor: pointer;
 }
 
 .card-body {
