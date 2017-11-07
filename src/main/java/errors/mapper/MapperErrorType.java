@@ -1,10 +1,10 @@
-package db.mapper;
+package errors.mapper;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-enum MapperErrorType {
+public enum MapperErrorType {
 
     SECURITY_EXCEPTION("SECURITY_EXCEPTION"),
     ILLEGAL_ARGUMENT_EXCEPTION("Mauvais types de paramètre fourni au constructeur"),

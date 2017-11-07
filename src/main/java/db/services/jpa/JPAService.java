@@ -4,12 +4,9 @@
  */
 package db.services.jpa;
 
-import db.services.persistence.PersistenceConfig;
-import db.services.results.JPAError;
-import db.services.results.JPAErrorTypes;
-import db.services.results.JPAResult;
+import db.services.environment.JPAEnvironment;
+import db.services.environment.JPAEnvironments;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,6 +14,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 import javax.persistence.criteria.Predicate;
+
+import static errors.ErrorManagerUtils.manageJPAError;
 
 /**
  * Generic JPA service operations <br>
@@ -54,7 +53,7 @@ public abstract class JPAService<T, PK extends java.io.Serializable> {
      * @return result
      * @throws PersistenceException
      */
-    protected final Object execute(JPAOperation operation) throws PersistenceException {
+    public final Object execute(JPAOperation operation) throws PersistenceException {
         return execute(operation, false);
     }
 
@@ -92,12 +91,12 @@ public abstract class JPAService<T, PK extends java.io.Serializable> {
             }
         };
 
-        JPAResult jpaResult = new JPAResult();
+        JPAResult<T> jpaResult = new JPAResult();
         try {
-            List<T> res = (List<T>) execute(operation);
+            T res = (T) execute(operation);
             jpaResult.setResult(Optional.ofNullable(res));
         } catch (PersistenceException e) {
-            saveError(jpaResult, e, "load");
+            manageJPAError(jpaResult, e, "load");
         }
 
         // JPA operation execution
@@ -128,7 +127,7 @@ public abstract class JPAService<T, PK extends java.io.Serializable> {
             List<T> res = (List<T>) execute(operation);
             jpaResult.setResult(Optional.ofNullable(res));
         } catch (PersistenceException e) {
-            saveError(jpaResult, e, "loadAll()");
+            manageJPAError(jpaResult, e, "loadAll()");
         }
         // JPA operation execution
         return jpaResult;
@@ -150,12 +149,12 @@ public abstract class JPAService<T, PK extends java.io.Serializable> {
             }
         };
 
-        JPAResult jpaResult = new JPAResult();
+        JPAResult<Object> jpaResult = new JPAResult();
         try {
             Object res = execute(operation, TRANSACTIONAL);
             jpaResult.setResult(Optional.ofNullable(res));
         } catch (PersistenceException e) {
-            saveError(jpaResult, e, "insert()");
+            manageJPAError(jpaResult, e, "insert()");
         }
         // JPA operation execution
         return jpaResult;
@@ -179,12 +178,12 @@ public abstract class JPAService<T, PK extends java.io.Serializable> {
             }
         };
 
-        JPAResult jpaResult = new JPAResult();
+        JPAResult<T> jpaResult = new JPAResult();
         try {
             T res = (T) execute(operation, TRANSACTIONAL);
             jpaResult.setResult(Optional.ofNullable(res));
         } catch (PersistenceException e) {
-            saveError(jpaResult, e, "save()");
+            manageJPAError(jpaResult, e, "save()");
         }
         // JPA operation execution
         return jpaResult;
@@ -210,26 +209,38 @@ public abstract class JPAService<T, PK extends java.io.Serializable> {
             }
         };
 
-        JPAResult jpaResult = new JPAResult();
+        JPAResult<Boolean> jpaResult = new JPAResult();
         try {
             Boolean res = (Boolean) execute(operation, TRANSACTIONAL);
             jpaResult.setResult(Optional.ofNullable(res));
         } catch (PersistenceException e) {
-            saveError(jpaResult, e, "delete()");
+            manageJPAError(jpaResult, e, "delete()");
         }
 
         // JPA operation execution
         return jpaResult;
     }
 
+    public JPAResult<Long> countAll(String nameQuery, String erSrcMsg) {
+        // JPA operation definition
+        JPAOperation operation = new JPAOperation() {
+            @Override
+            public Object exectue(EntityManager em) throws PersistenceException {
+                Query query = em.createNamedQuery(nameQuery);
+                return query.getSingleResult();
+            }
+        };
 
-    public static void saveError(JPAResult jpaResult, PersistenceException e, String srcException) {
-        jpaResult.setResult(Optional.empty());
-        JPAError jpaError = new JPAError(JPAErrorTypes.PERSISTENCE_EXCEPTION);
-        jpaError.addComplement("Source : " + srcException);
-        jpaError.addComplement(e.getMessage());
-        jpaResult.addJPAError(jpaError);
-        e.printStackTrace();
+        JPAResult<Long> jpaResult = new JPAResult();
+        try {
+            Long res = (Long) execute(operation);
+            jpaResult.setResult(Optional.of(res));
+        } catch (PersistenceException e) {
+            manageJPAError(jpaResult, e, erSrcMsg);
+        }
+
+        // JPA operation execution
+        return jpaResult;
     }
 
 }

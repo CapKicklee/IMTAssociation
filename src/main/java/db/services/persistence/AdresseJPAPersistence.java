@@ -13,9 +13,12 @@ import javax.persistence.Query;
 import db.dao.AdresseDAO;
 import db.services.jpa.JPAService;
 import db.services.jpa.JPAOperation;
-import db.services.results.JPAResult;
+import db.services.jpa.JPAResult;
+import errors.ErrorManagerUtils;
 
 import java.util.Optional;
+
+import static errors.ErrorManagerUtils.manageJPAError;
 
 /**
  * JPA implementation for basic persistence operations ( entity "AdresseBean" )
@@ -52,23 +55,7 @@ public class AdresseJPAPersistence extends JPAService<AdresseDAO, Integer> imple
 
 	@Override
 	public JPAResult<Long> countAll() {
-		// JPA operation definition 
-		JPAOperation operation = new JPAOperation() {
-			@Override
-			public Object exectue(EntityManager em) throws PersistenceException {
-				Query query = em.createNamedQuery("AdresseDAO.countAll");
-				return query.getSingleResult() ;
-			}
-		} ;
-
-        JPAResult jpaResult = new JPAResult();
-        try {
-            Long res = (Long) execute(operation);
-            jpaResult.setResult(Optional.of(res));
-        } catch (PersistenceException e) {
-            JPAService.saveError(jpaResult, e, "countAll() AdresseJPA");
-        }
-        return jpaResult;
+        return super.countAll("AdresseDAO.countAll", "countAll() AdresseJPA");
 	}
 
 }

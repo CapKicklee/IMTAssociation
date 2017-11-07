@@ -7,9 +7,11 @@ import javax.persistence.Query;
 import db.dao.ArticleDAO;
 import db.services.jpa.JPAService;
 import db.services.jpa.JPAOperation;
-import db.services.results.JPAResult;
+import db.services.jpa.JPAResult;
 
 import java.util.Optional;
+
+import static errors.ErrorManagerUtils.manageJPAError;
 
 /**
  * JPA implementation for basic persistence operations ( entity "AdherentBean" )
@@ -45,25 +47,7 @@ public class ArticleJPAPersistence extends JPAService<ArticleDAO, String> implem
 
 	@Override
 	public JPAResult<Long> countAll() {
-		// JPA operation definition 
-		JPAOperation operation = new JPAOperation() {
-			@Override
-			public Object exectue(EntityManager em) throws PersistenceException {
-				Query query = em.createNamedQuery("ArticleDAO.countAll");
-				return query.getSingleResult() ;
-			}
-		} ;
-
-        JPAResult jpaResult = new JPAResult();
-        try {
-            Long res = (Long) execute(operation);
-            jpaResult.setResult(Optional.of(res));
-        } catch (PersistenceException e) {
-            JPAService.saveError(jpaResult, e, "countAll() ArticleJPA");
-        }
-
-		// JPA operation execution 
-		return jpaResult;
+        return super.countAll("ArticleDAO.countAll", "countAll ArticleJPA");
 	}
 
 

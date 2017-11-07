@@ -1,4 +1,6 @@
-package db.services.results;
+package db.services.jpa;
+
+import errors.jpa.JPAError;
 
 import java.util.ArrayList;
 import java.util.List;

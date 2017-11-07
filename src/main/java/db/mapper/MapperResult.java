@@ -1,5 +1,8 @@
 package db.mapper;
 
+import errors.mapper.MapperError;
+import errors.mapper.MapperErrorType;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;

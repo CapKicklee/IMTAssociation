@@ -5,9 +5,18 @@
 package db.services.persistence;
 
 import java.util.List;
+import java.util.Optional;
 
 import db.dao.DAO;
-import db.services.results.JPAResult;
+import db.services.jpa.JPAOperation;
+import db.services.jpa.JPAResult;
+import db.services.jpa.JPAService;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceException;
+import javax.persistence.Query;
+
+import static errors.ErrorManagerUtils.manageJPAError;
 
 /**
  * Basic persistence operations for entity "PaysBean"

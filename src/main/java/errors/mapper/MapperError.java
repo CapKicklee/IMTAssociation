@@ -1,20 +1,20 @@
-package db.services.results;
+package errors.mapper;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class JPAError {
+public class MapperError {
 
-    private JPAErrorTypes jpaErrorType;
+    private MapperErrorType mapperErrorType;
     private List<String> complements;
 
-    public JPAError(JPAErrorTypes jpaErrorType) {
-        this.jpaErrorType = jpaErrorType;
+    public MapperError(MapperErrorType mapperErrorType) {
+        this.mapperErrorType = mapperErrorType;
         complements = new ArrayList<>();
     }
 
-    public JPAErrorTypes getJpaErrorType() {
-        return jpaErrorType;
+    public MapperErrorType getMapperErrorType() {
+        return mapperErrorType;
     }
 
     public void addComplement(String complement) {
@@ -23,10 +23,9 @@ public class JPAError {
 
     @Override
     public String toString() {
-        return "JPAError{" +
-                "jpaErrorType=" + jpaErrorType +
+        return "MapperError{" +
+                "mapperErrorType=" + mapperErrorType +
                 ", complements=" + complements +
                 '}';
     }
-
 }

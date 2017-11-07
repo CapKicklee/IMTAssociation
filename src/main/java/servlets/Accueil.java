@@ -1,7 +1,6 @@
 package servlets;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,15 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import db.dao.ArticleDAO;
 import db.bean.ArticleBean;
 import db.manager.DataBaseManager;
-import db.mapper.BeanDaoMapper;
-import db.mapper.Mappable;
-import db.mapper.MapperResult;
-import db.services.persistence.JPAPersistence;
-import db.services.persistence.ArticleJPAPersistence;
-import db.services.results.JPAResult;
 
 /**
  * Servlet implementation class Accueil

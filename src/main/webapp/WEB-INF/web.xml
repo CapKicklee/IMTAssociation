@@ -22,7 +22,7 @@
 	<!-- Déclaration de la servlet Hello -->
 	<servlet>
 		<servlet-name>Hello</servlet-name>
-		<!-- <description>Servlet de test Hello</description> -->
+		<!-- <description>Servlet de loadAll Hello</description> -->
 		<servlet-class>td.servlet.Hello</servlet-class>
 	</servlet>
 

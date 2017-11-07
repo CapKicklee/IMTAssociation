@@ -13,9 +13,12 @@ import javax.persistence.Query;
 import db.dao.AdherentDAO;
 import db.services.jpa.JPAService;
 import db.services.jpa.JPAOperation;
-import db.services.results.JPAResult;
+import db.services.jpa.JPAResult;
+import errors.ErrorManagerUtils;
 
 import java.util.Optional;
+
+import static errors.ErrorManagerUtils.manageJPAError;
 
 /**
  * JPA implementation for basic persistence operations ( entity "AdherentBean" )
@@ -51,25 +54,7 @@ public class AdherentJPAPersistence extends JPAService<AdherentDAO, String> impl
 
     @Override
     public JPAResult<Long> countAll() {
-        // JPA operation definition
-        JPAOperation operation = new JPAOperation() {
-            @Override
-            public Object exectue(EntityManager em) throws PersistenceException {
-                Query query = em.createNamedQuery("AdherentDAO.countAll");
-                return query.getSingleResult();
-            }
-        };
-
-        JPAResult jpaResult = new JPAResult();
-        try {
-            Long res = (Long) execute(operation);
-            jpaResult.setResult(Optional.of(res));
-        } catch (PersistenceException e) {
-            JPAService.saveError(jpaResult, e, "countAll Adherent");
-        }
-
-        // JPA operation execution
-        return jpaResult;
+        return super.countAll("AdherentDAO.countAll", "countAll AdherentJPA");
     }
 
 

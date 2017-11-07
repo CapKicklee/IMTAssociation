@@ -13,9 +13,11 @@ import javax.persistence.Query;
 import db.dao.PaysDAO;
 import db.services.jpa.JPAService;
 import db.services.jpa.JPAOperation;
-import db.services.results.JPAResult;
+import db.services.jpa.JPAResult;
 
 import java.util.Optional;
+
+import static errors.ErrorManagerUtils.manageJPAError;
 
 /**
  * JPA implementation for basic persistence operations ( entity "PaysBean" )
@@ -51,25 +53,7 @@ public class PaysJPAPersistence extends JPAService<PaysDAO, String> implements J
 
     @Override
     public JPAResult<Long> countAll() {
-        // JPA operation definition
-        JPAOperation operation = new JPAOperation() {
-            @Override
-            public Object exectue(EntityManager em) throws PersistenceException {
-                Query query = em.createNamedQuery("PaysDAO.countAll");
-                return query.getSingleResult();
-            }
-        };
-
-        JPAResult jpaResult = new JPAResult();
-        try {
-            Long res = (Long) execute(operation);
-            jpaResult.setResult(Optional.of(res));
-        } catch (PersistenceException e) {
-            JPAService.saveError(jpaResult, e, "countAll() Pays");
-        }
-
-        // JPA operation execution
-        return jpaResult;
+        return super.countAll("PaysDAO.countAll", "countAll() PaysJPA");
     }
 
 }
