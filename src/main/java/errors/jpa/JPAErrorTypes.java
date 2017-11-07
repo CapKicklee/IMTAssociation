@@ -4,6 +4,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Enumération listant les erreurs base de données.
+ * @author Juliette FRETAY, Kendall FOREST, Chloé GUILBAUD
+ */
 public enum JPAErrorTypes {
 
     PERSISTENCE_EXCEPTION("Erreur liée à la base de données");

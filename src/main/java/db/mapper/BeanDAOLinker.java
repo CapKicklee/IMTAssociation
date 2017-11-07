@@ -11,7 +11,6 @@ import java.util.Optional;
 
 /**
  * Enumération liant les {@link Bean} à leur {@link DAO} et inversement
- *
  * @author Juliette FRETAY, Kendall FOREST, Chloé GUILBAUD
  */
 enum BeanDAOLinker {

@@ -10,6 +10,8 @@ import java.io.IOException;
 
 /**
  * Servlet d'erreur 404
+ *
+ * @author Juliette FRETAY, Kendall FOREST, Chloé GUILBAUD
  */
 @WebServlet({"/erreur404", "/erreur404/*"})
 public class Erreur404 extends HttpServlet {

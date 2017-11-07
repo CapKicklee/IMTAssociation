@@ -10,18 +10,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import db.dao.AdherentDAO;
-import db.dao.ArticleDAO;
 import db.manager.DataBaseManager;
-import db.mapper.BeanDaoMapper;
 import db.bean.ArticleBean;
-import db.mapper.Mappable;
-import db.services.persistence.JPAPersistence;
-import db.services.persistence.AdherentJPAPersistence;
-import db.services.persistence.ArticleJPAPersistence;
 
 /**
- * Servlet implementation class Commande
+ * Servlet permettant la gestion des ajouts au panier
+ *
+ * @author Juliette FRETAY, Kendall FOREST, Chloé GUILBAUD
  */
 @WebServlet({"/article", "/article/*"})
 public class Article extends HttpServlet {

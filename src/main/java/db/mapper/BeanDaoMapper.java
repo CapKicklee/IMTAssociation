@@ -14,13 +14,12 @@ import static errors.ErrorManagerUtils.manageMapperError;
 /**
  * Classe utilitaire
  * Mapper permettant de passer objet {@link DAO} à un {@link Bean} et inversement
- *
  * @author Juliette FRETAY, Kendall FOREST, Chloé GUILBAUD
  */
 public class BeanDaoMapper {
 
     /**
-     * Permet l'instanciation d'un dao à partir d'un {@link Bean}
+     * Permet l'instanciation d'un {@link DAO} à partir d'un {@link Bean}
      *
      * @param bean le {@link Bean} à partir duquel on veux créer un {@link DAO}
      * @return un résultat de mapping comprenant le {@link DAO} résultat et les éventuelles erreurs de traitement
@@ -50,7 +49,7 @@ public class BeanDaoMapper {
     }
 
     /**
-     * Permet l'instanciation d'un db.bean à partir d'un {@link DAO}
+     * Permet l'instanciation d'un {@link Bean} à partir d'un {@link DAO}
      *
      * @param dao le dao à partir duquel on veux créer un {@link Bean}
      * @return un résultat de mapping comprenant le {@link Bean} résultat et les éventuelles erreurs de traitement
@@ -80,6 +79,13 @@ public class BeanDaoMapper {
 
     }
 
+    /**
+     * Permet l'instanciation d'un objet automatiquement
+     * @param classe la classe à instancier
+     * @param constructorTypes les types des paramètres du constructeur
+     * @param params les paramètre à fournir au constructeur
+     * @return un {@link MapperResult}
+     */
     protected static MapperResult instantiate(Class<?> classe, Class[] constructorTypes, Object[] params) {
 
         Optional<Mappable> op = Optional.empty();

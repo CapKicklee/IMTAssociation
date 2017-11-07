@@ -3,6 +3,11 @@ package errors.jpa;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Objet enregistrant les erreurs lié aux traitements en base de données
+ * avec le type d'erreur ainsi qu'une description
+ * @author Juliette FRETAY, Kendall FOREST, Chloé GUILBAUD
+ */
 public class JPAError {
 
     private JPAErrorTypes jpaErrorType;

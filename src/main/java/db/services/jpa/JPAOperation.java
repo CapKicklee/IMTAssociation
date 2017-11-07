@@ -8,18 +8,20 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceException;
 
 /**
- * JPA operation interface
- * Provided by Telosys Tools for JPA testing
+ * Interface d'opération JPA
+ *
+ * @author Inspired by Telosys Tools for JPA testing
+ * @author Juliette FRETAY, Kendall FOREST, Chloé GUILBAUD
  *
  */
 public interface JPAOperation {
 
 	/**
-	 * Executes a JPA operation using the given EntityManager
-	 * @param em the EntityManager to be used
-	 * @return
-	 * @throws PersistenceException
+	 * Exécute une opération JPA à partir du {@link EntityManager} fourni
+	 * @param em l'{@link EntityManager}
+	 * @return le résultat de la requête à la base de données
+	 * @throws PersistenceException erreur de base de données
 	 */
-	public Object exectue(EntityManager em) throws PersistenceException;
+	Object exectue(EntityManager em) throws PersistenceException;
 	
 }

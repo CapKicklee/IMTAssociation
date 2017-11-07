@@ -6,24 +6,17 @@
 package db.services.persistence;
 
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceException;
-import javax.persistence.Query;
-
 import db.dao.AdresseDAO;
 import db.services.jpa.JPAService;
-import db.services.jpa.JPAOperation;
 import db.services.jpa.JPAResult;
-import errors.ErrorManagerUtils;
 
 import java.util.Optional;
 
-import static errors.ErrorManagerUtils.manageJPAError;
-
 /**
  * JPA implementation for basic persistence operations ( entity "AdresseBean" )
- * 
- * @author Telosys Tools Generator
+ *
+ * @author Inspired by Telosys Tools for JPA testing
+ * @author Juliette FRETAY, Kendall FOREST, Chloé GUILBAUD
  *
  */
 public class AdresseJPAPersistence extends JPAService<AdresseDAO, Integer> implements JPAPersistence<AdresseDAO, Integer> {

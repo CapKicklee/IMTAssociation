@@ -6,8 +6,8 @@ package db.services.jpa;
 
 /**
  * JPAPersistence configuration
- * 
- * @author Telosys Tools
+ *
+ * @author Inspired by Telosys Tools for JPA testing
  *
  */
 public class PersistenceConfig {

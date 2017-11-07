@@ -23,7 +23,8 @@ import static errors.ErrorManagerUtils.manageJPAError;
 /**
  * JPA implementation for basic persistence operations ( entity "AdherentBean" )
  *
- * @author Telosys Tools Generator
+ * @author Inspired by Telosys Tools for JPA testing
+ * @author Juliette FRETAY, Kendall FOREST, Chloé GUILBAUD
  */
 public class AdherentJPAPersistence extends JPAService<AdherentDAO, String> implements JPAPersistence<AdherentDAO, String> {
 

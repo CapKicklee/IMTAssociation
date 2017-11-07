@@ -7,6 +7,12 @@ package db.services.environment;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Environnements JPA pour les opérations de base de données
+ *
+ * @author Inspired by Telosys Tools for JPA testing
+ * @author Juliette FRETAY, Kendall FOREST, Chloé GUILBAUD
+ */
 public class JPAEnvironments {
 
 	private final static JPAEnvironments singleInstance = new JPAEnvironments();
@@ -17,7 +23,11 @@ public class JPAEnvironments {
 		super();
 		this.environments = new HashMap<String,JPAEnvironment>();
 	}
-	
+
+    /**
+     * Accès à l'environnement JPA
+     * @return un environnement JPA
+     */
 	public final static JPAEnvironments getInstance() {
 		return singleInstance ;
 	}
@@ -30,6 +40,11 @@ public class JPAEnvironments {
 		return env ;
 	}
 
+    /**
+     * Création d'un environnement JPA.
+     * @param peristanceUnitName unité de persistence
+     * @return un environnement JPA
+     */
 	private synchronized JPAEnvironment createNewJpaEnvironment(final String peristanceUnitName ) {
 		JPAEnvironment env = environments.get(peristanceUnitName) ; // double check
 		if ( env == null ) {

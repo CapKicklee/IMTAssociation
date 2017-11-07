@@ -13,7 +13,6 @@ import java.util.Optional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
-import javax.persistence.criteria.Predicate;
 
 import static errors.ErrorManagerUtils.manageJPAError;
 
@@ -23,13 +22,15 @@ import static errors.ErrorManagerUtils.manageJPAError;
  *
  * @param <T>  Entity type
  * @param <PK> Primary key type
+ *
+ * @author Inspired by Telosys Tools for JPA testing
+ * @author Juliette FRETAY, Kendall FOREST, Chloé GUILBAUD
+ *
  */
 @SuppressWarnings("unchecked")
 public abstract class JPAService<T, PK extends java.io.Serializable> {
 
     private static final boolean TRANSACTIONAL = true;
-
-    private static final Predicate[] VOID_PREDICATE_ARRAY = {};
 
     /**
      * The class of the entity managed by the concrete service

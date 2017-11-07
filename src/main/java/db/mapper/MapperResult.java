@@ -8,7 +8,8 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Classe représentant le résultat de map.
+ * Classe représentant le résultat de map contenant le résultat du map
+ * ainsi que les éventuelles erreurs rencontrées
  * @author Juliette FRETAY, Kendall FOREST, Chloé GUILBAUD
  */
 public class MapperResult {
@@ -39,10 +40,6 @@ public class MapperResult {
 
     public void addMapError(MapperError mapperError) {
         this.mapperErrors.add(mapperError);
-    }
-
-    public void removeMapError(MapperErrorType mapperError) {
-        this.mapperErrors.remove(mapperError);
     }
 
     @Override

@@ -5,9 +5,6 @@ import db.mapper.BeanDaoMapper;
 
 import java.io.Serializable;
 
-//import javax.validation.constraints.* ;
-//import org.hibernate.validator.constraints.* ;
-
 import javax.persistence.*;
 
 /**

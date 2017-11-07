@@ -6,6 +6,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Classe représentant le résultat de requête à la base de données
+ * ainsi que les éventuelles erreurs rencontrées
+ *
+ * @author Juliette FRETAY, Kendall FOREST, Chloé GUILBAUD
+ * @param <R> le type de l'objet retourné par la requête faite à la base de données
+ */
 public class JPAResult<R> {
 
     private Optional<R> result;
