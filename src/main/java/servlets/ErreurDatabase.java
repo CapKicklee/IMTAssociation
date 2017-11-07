@@ -18,7 +18,7 @@ import db.services.persistence.ArticleJPAPersistence;
  *
  * @author Juliette FRETAY, Kendall FOREST, Chloé GUILBAUD
  */
-@WebServlet({"/erreurDB", "/erreurDB/*"})
+@WebServlet({"/erreurDB"})
 public class ErreurDatabase extends HttpServlet {
 
     private static final long serialVersionUID = 1L;

@@ -7,7 +7,6 @@ package db.services.jpa;
 import db.services.environment.JPAEnvironment;
 import db.services.environment.JPAEnvironments;
 
-import java.nio.file.OpenOption;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,7 +14,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 
-import static errors.ErrorManagerUtils.manageJPAError;
+import static errors.Handler.manageJPAError;
 
 /**
  * Generic JPA service operations <br>
