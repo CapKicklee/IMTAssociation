@@ -5,79 +5,73 @@
 package db.services.persistence;
 
 import java.util.List;
-import java.util.Optional;
 
 import db.dao.DAO;
-import db.services.jpa.JPAOperation;
 import db.services.jpa.JPAResult;
-import db.services.jpa.JPAService;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceException;
-import javax.persistence.Query;
-
-import static errors.ErrorManagerUtils.manageJPAError;
 
 /**
- * Basic persistence operations for entity "PaysBean"
+ * Interface de persistence JPA
  *
- * This database.bean has a basic Primary Key : String
- *
- * @author Telosys Tools Generator
- *
+ * @author Inspired by Telosys Tools for JPA testing
+ * @author Juliette FRETAY, Kendall FOREST, Chloé GUILBAUD
  */
 public interface JPAPersistence<T extends DAO, G> {
 
     /**
      * Deletes the given entity <br>
      * Transactional operation ( begin transaction and commit )
+     *
      * @param pays
      * @return true if found and deleted, false if not found
      */
-     JPAResult<Boolean> delete(T pays) ;
+    JPAResult<Boolean> delete(T pays);
 
     /**
      * Deletes the entity by its Primary Key <br>
      * Transactional operation ( begin transaction and commit )
+     *
      * @param code - identifiant unique
      * @return true if found and deleted, false if not found
      */
-    JPAResult<Boolean> delete(G code) ;
+    JPAResult<Boolean> delete(G code);
 
     /**
      * Inserts the given entity and commit <br>
      * Transactional operation ( begin transaction and commit )
+     *
      * @param pays
      */
-    JPAResult insert(T pays) ;
+    JPAResult insert(T pays);
 
     /**
      * Loads the entity for the given Primary Key <br>
+     *
      * @param code
      * @return the entity loaded (or null if not found)
      */
-    JPAResult<T> load(G code) ;
+    JPAResult<T> load(G code);
 
     /**
      * Loads ALL the entities (use with caution)
+     *
      * @return
      */
-    JPAResult<List<T>> loadAll() ;
-
+    JPAResult<List<T>> loadAll();
 
 
     /**
      * Saves (create or update) the given entity <br>
      * Transactional operation ( begin transaction and commit )
+     *
      * @param pays
      * @return
      */
-    JPAResult<T> save(T pays) ;
-
+    JPAResult<T> save(T pays);
 
 
     /**
      * Count all the occurrences
+     *
      * @return
      */
     JPAResult<Long> countAll();

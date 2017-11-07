@@ -1,4 +1,4 @@
-package db.mapper.classes;
+package db.utils.mapper;
 
 import db.bean.Bean;
 

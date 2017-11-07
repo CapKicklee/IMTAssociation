@@ -11,11 +11,12 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
-import static db.manager.DataBaseManagerUnits.*;
+import static db.manager.DataBaseManagerUtils.*;
 
 
 /**
  * Classe utilitaire donnant d'accès à la base de données.
+ *
  * @author Juliette FRETAY, Kendall FOREST, Chloé GUILBAUD
  */
 public class DataBaseManager {
@@ -33,8 +34,8 @@ public class DataBaseManager {
         insert(adherent, jpaAdherent, response);
     }
 
-    public static Optional<Long> callAllAdherent(HttpServletResponse response) throws IOException {
-        return callAll(jpaAdherent, response);
+    public static Optional<Long> countAllAdherent(HttpServletResponse response) throws IOException {
+        return countAll(jpaAdherent, response);
     }
 
     public static Optional<AdherentBean> loadAdherent(String login, HttpServletResponse response) throws IOException {
@@ -49,8 +50,8 @@ public class DataBaseManager {
         throw new RuntimeException("Not implemented");
     }
 
-    public static Optional<Boolean> saveAdherent(AdherentDAO adherent) {
-        throw new RuntimeException("Not implemented");
+    public static Optional<AdherentBean> saveAdherent(AdherentDAO adherent, HttpServletResponse response) throws IOException {
+        return save(adherent, jpaAdresse, response);
     }
 
     public static Optional<Long> countAllAdherent() {
@@ -66,8 +67,8 @@ public class DataBaseManager {
         insert(adresseDAO, jpaAdresse, response);
     }
 
-    public static Optional<Long> callAllAdresse(HttpServletResponse response) throws IOException {
-        return callAll(jpaAdresse, response);
+    public static Optional<Long> countAllAdresse(HttpServletResponse response) throws IOException {
+        return countAll(jpaAdresse, response);
     }
 
     public static Optional<Boolean> deleteAdresse(AdresseDAO adresse) {
@@ -88,8 +89,8 @@ public class DataBaseManager {
 
     }
 
-    public static Optional<Boolean> saveAdresse(AdresseDAO adresse) {
-        throw new RuntimeException("Not implemented");
+    public static Optional<AdresseBean> saveAdresse(AdresseDAO adresse, HttpServletResponse response) throws IOException {
+        return save(adresse, jpaAdresse, response);
     }
 
     public static Optional<Long> countAllAdresse() {
@@ -104,8 +105,8 @@ public class DataBaseManager {
         return loadAll(jpaArticle, response);
     }
 
-    public static Optional<Long> callAllArticles(HttpServletResponse response) throws IOException {
-        return callAll(jpaArticle, response);
+    public static Optional<Long> countAllArticles(HttpServletResponse response) throws IOException {
+        return countAll(jpaArticle, response);
     }
 
     public static Optional<ArticleBean> loadArticle(String code, HttpServletResponse response) throws IOException {
@@ -125,8 +126,8 @@ public class DataBaseManager {
         throw new RuntimeException("Not implemented");
     }
 
-    public static Optional<Boolean> saveArticle(ArticleDAO article) {
-        throw new RuntimeException("Not implemented");
+    public static Optional<ArticleBean> saveArticle(ArticleDAO article, HttpServletResponse response) throws IOException {
+        return save(article, jpaArticle, response);
     }
 
     public static Optional<Long> countAllArticle() {
@@ -141,8 +142,8 @@ public class DataBaseManager {
         return loadAll(jpaPays, response);
     }
 
-    public static Optional<Long> callAllPays(HttpServletResponse response) throws IOException {
-        return callAll(jpaPays, response);
+    public static Optional<Long> countAllPays(HttpServletResponse response) throws IOException {
+        return countAll(jpaPays, response);
     }
 
     public static Optional<PaysBean> loadPays(String login, HttpServletResponse response) throws IOException {
@@ -165,8 +166,8 @@ public class DataBaseManager {
         throw new RuntimeException("Not implemented");
     }
 
-    public static Optional<Boolean> savePays(PaysDAO pays) {
-        throw new RuntimeException("Not implemented");
+    public static Optional<PaysBean> savePays(PaysDAO pays, HttpServletResponse response) throws IOException {
+        return save(pays, jpaPays, response);
     }
 
     public static Optional<Long> countAllPays() {

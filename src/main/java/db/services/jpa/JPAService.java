@@ -7,6 +7,7 @@ package db.services.jpa;
 import db.services.environment.JPAEnvironment;
 import db.services.environment.JPAEnvironments;
 
+import java.nio.file.OpenOption;
 import java.util.List;
 import java.util.Optional;
 
@@ -152,8 +153,8 @@ public abstract class JPAService<T, PK extends java.io.Serializable> {
 
         JPAResult<Object> jpaResult = new JPAResult();
         try {
-            Object res = execute(operation, TRANSACTIONAL);
-            jpaResult.setResult(Optional.ofNullable(res));
+            execute(operation, TRANSACTIONAL);
+            jpaResult.setResult(Optional.of(true));
         } catch (PersistenceException e) {
             manageJPAError(jpaResult, e, "insert()");
         }

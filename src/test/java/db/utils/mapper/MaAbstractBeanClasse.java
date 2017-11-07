@@ -1,4 +1,4 @@
-package db.mapper.classes;
+package db.utils.mapper;
 
 public abstract class MaAbstractBeanClasse extends MaBeanClasse {
 

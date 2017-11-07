@@ -2,9 +2,9 @@ package db.mapper;
 
 import db.bean.*;
 import db.dao.*;
-import db.mapper.classes.MaAbstractBeanClasse;
-import db.mapper.classes.MaBeanClasse;
-import db.mapper.classes.MaExceptionContructorBeanClasse;
+import db.utils.mapper.MaAbstractBeanClasse;
+import db.utils.mapper.MaBeanClasse;
+import db.utils.mapper.MaExceptionContructorBeanClasse;
 import errors.mapper.MapperErrorType;
 import org.junit.Assert;
 import org.junit.Test;
@@ -20,8 +20,8 @@ public class BeanDaoMapperTest {
     private final AdherentBean adherentBeanBean = new AdherentBean("unLog", "unMdp", "unName", "unPrenom", adresseBeanBean);
     private final AdherentDAO adherentDAO = new AdherentDAO("unLog", "unMdp", "unName", "unPrenom", adresseDAO);
 
-    private final ArticleBean articleBean = new ArticleBean("unCode", "unNom", "uneDescription", new Double(4578), 78, null);
-    private final ArticleDAO articleDAO = new ArticleDAO("unCode", "unNom", "uneDescription",new Double(4578), 78, null);
+    private final ArticleBean articleBean = new ArticleBean("unCode", "unNom", "uneDescription", new Double(4578), 78, "casquette.jpg");
+    private final ArticleDAO articleDAO = new ArticleDAO("unCode", "unNom", "uneDescription",new Double(4578), 78, "casquette.jpg");
 
     @Test
     public void mapBeanToDAO_Pays() {
@@ -54,6 +54,7 @@ public class BeanDaoMapperTest {
     public void mapBeanToDAO_Article() {
 
         MapperResult arMapRes = BeanDaoMapper.mapBeanToDAO(articleBean);
+        System.out.println(arMapRes.getMapped());
         Assert.assertEquals(articleDAO, arMapRes.getMapped().get());
         Assert.assertTrue(arMapRes.getMapperErrors().isEmpty());
 

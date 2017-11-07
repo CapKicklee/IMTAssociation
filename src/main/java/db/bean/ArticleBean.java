@@ -87,19 +87,19 @@ public class ArticleBean implements Bean{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        ArticleBean article = (ArticleBean) o;
+        ArticleBean that = (ArticleBean) o;
 
-        if (code != null ? !code.equals(article.code) : article.code != null) return false;
-        if (nom != null ? !nom.equals(article.nom) : article.nom != null) return false;
-        if (description != null ? !nom.equals(article.description) : article.description != null) return false;
-        if (prix != null ? !prix.equals(article.prix) : article.prix != null) return false;
-        if (stock != null ? !stock.equals(article.stock) : article.stock != null) return false;
-        return image != null ? image.equals(article.image) : article.image == null;
+        if (code != null ? !code.equals(that.code) : that.code != null) return false;
+        if (nom != null ? !nom.equals(that.nom) : that.nom != null) return false;
+        if (description != null ? !description.equals(that.description) : that.description != null) return false;
+        if (prix != null ? !prix.equals(that.prix) : that.prix != null) return false;
+        if (stock != null ? !stock.equals(that.stock) : that.stock != null) return false;
+        return image != null ? image.equals(that.image) : that.image == null;
     }
 
     @Override
     public Object[] getObjectValues() {
-        return new Object[]{getCode(), getNom(), getPrix(), getStock(), getImage()};
+        return new Object[]{getCode(), getNom(), getDescription(), getPrix(), getStock(), getImage()};
     }
 
 
