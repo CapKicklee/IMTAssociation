@@ -18,13 +18,40 @@
 <script src="webjars/jquery/3.2.1/jquery.min.js"></script>
 <script src="webjars/popper.js/1.12.3/dist/umd/popper.min.js"></script>
 <script src="webjars/bootstrap/4.0.0-beta-1/js/bootstrap.min.js"></script>
-<title>IMTAssociation - Inscription</title>
+<title>IMTAssociation - Achats</title>
 </head>
 
 <body>
 	<%@ include file="/WEB-INF/jspf/header.jspf"%>
 	<br />
 	<div class="container-fluid">
+		<c:if test="${erreur != null }">
+			<div class="alert alert-danger alert-dismissible fade show"
+				role="alert">${erreur }
+				<button type="button" class="close" data-dismiss="alert"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+		</c:if>
+		<c:if test="${message != null }">
+			<div class="alert alert-warning alert-dismissible fade show"
+				role="alert">${message }
+				<button type="button" class="close" data-dismiss="alert"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+		</c:if>
+		<c:if test="${succes != null }">
+			<div class="alert alert-success alert-dismissible fade show"
+				role="alert">${succes }
+				<button type="button" class="close" data-dismiss="alert"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+		</c:if>
 		<nav class="breadcrumb"> <a class="breadcrumb-item"
 			href="/imt.association/home">Home </a> <span
 			class="breadcrumb-item active">Articles </span> </nav>

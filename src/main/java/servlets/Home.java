@@ -41,6 +41,7 @@ public class Home extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/home.jsp");
 			rd.forward(request, response);
 		} else {
+			request.getSession().setAttribute("erreur", "Veuillez vous authentifier d'abord");
 			response.sendRedirect("/imt.association/login");
 		}
 	}

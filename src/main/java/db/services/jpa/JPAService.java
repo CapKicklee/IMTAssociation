@@ -94,7 +94,7 @@ public abstract class JPAService<T, PK extends java.io.Serializable> {
 
         JPAResult jpaResult = new JPAResult();
         try {
-            List<T> res = (List<T>) execute(operation);
+            T res = (T) execute(operation);
             jpaResult.setResult(Optional.ofNullable(res));
         } catch (PersistenceException e) {
             saveError(jpaResult, e, "load");

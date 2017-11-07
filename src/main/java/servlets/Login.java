@@ -42,9 +42,11 @@ public class Login extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         if (request.getSession().getAttribute("user") != null) {
+        	request.getSession().removeAttribute("erreur");
             request.getSession().setAttribute("panier", new TreeMap<String, Integer>());
             response.sendRedirect("/imt.association/home");
         } else {
+        	//request.getSession().setAttribute("erreur", "Veuillez vous authentifier d'abord");
             process(request, response);
         }
     }
@@ -67,6 +69,7 @@ public class Login extends HttpServlet {
                     request.getSession().setAttribute("user", adherentBean);
                     request.getSession().setAttribute("panier", new TreeMap<String, Integer>());
                     System.out.println("connected");
+                    //request.getSession().removeAttribute("erreur");
                     response.sendRedirect("/imt.association/home");
                 } else {
                     System.out.println("wrong password");
@@ -79,10 +82,13 @@ public class Login extends HttpServlet {
             }
         } else if (request.getRequestURI().contains("create")) {
             if (create(request, response)) {
+            	//request.getSession().setAttribute("erreur", null);
                 response.sendRedirect("/imt.association/home");
             } else {
                 response.sendRedirect("/imt.association/login");
             }
+        } else {
+        	response.sendRedirect("/imt.association/erreur404");
         }
 
     }
@@ -94,6 +100,7 @@ public class Login extends HttpServlet {
         if (paysList.isPresent()) {
             request.getSession().setAttribute("paysListe", paysList.get());
             request.getSession().setAttribute("adherent", new AdherentBean());
+            //request.getSession().removeAttribute("erreur");
             RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/login.jsp");
             rd.forward(request, response);
         }
@@ -108,6 +115,7 @@ public class Login extends HttpServlet {
         Optional<AdherentBean> adherentOp = DataBaseManager.loadAdherent(login, response);
 
         if (adherentOp.isPresent()) {
+        	request.setAttribute("erreur", "Ce nom d'utilisateur existe déjà");
             System.out.println("user already existing");
             return false;
         } else {
@@ -116,6 +124,7 @@ public class Login extends HttpServlet {
             String nom = request.getParameter("nom");
             String prenom = request.getParameter("prenom");
             if (!password.equals(password2)) {
+            	request.setAttribute("erreur", "Les mots de passe sont différents");
                 System.out.println("different passwords");
                 return false;
             }
@@ -145,6 +154,7 @@ public class Login extends HttpServlet {
                             DataBaseManager.insertAdresse((AdresseDAO) res.getMapped().get(), response);
                             System.out.println("address created");
                         } else {
+                        	request.setAttribute("erreur", "L'adresse n'a pas pu être créée, veuillez vérifier les informations");
                             System.out.println("error while creating address");
                             return false;
                         }
@@ -157,7 +167,9 @@ public class Login extends HttpServlet {
             if (adhRes.getMapped().isPresent()) {
                 DataBaseManager.insertAdherent((AdherentDAO) adhRes.getMapped().get(), response);
                 System.out.println("user created");
+                request.setAttribute("succes", "Il n'y a plus d'articles à afficher, désolé...");
             } else {
+            	request.setAttribute("erreur", "L'utilisateur n'a pas pu être créé, une erreur est survenue");
                 System.out.println("error while creating user");
                 return false;
             }

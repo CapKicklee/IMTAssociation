@@ -53,6 +53,7 @@ public class Accueil extends HttpServlet {
 
     private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (request.getSession().getAttribute("user") != null) {
+        	request.getSession().removeAttribute("erreur");
             Optional<List<ArticleBean>> articlesOp = DataBaseManager.loadAllArticles(response);
             if (articlesOp.isPresent()) {
                 List<ArticleBean> articleBeanList = articlesOp.get();
@@ -69,8 +70,11 @@ public class Accueil extends HttpServlet {
 
                 }
 
+            } else {
+            	request.getSession().setAttribute("message", "Il n'y a plus d'articles à afficher, désolé...");
             }
         } else {
+        	request.getSession().setAttribute("erreur", "Veuillez vous authentifier d'abord");
             response.sendRedirect("/imt.association/login");
         }
 
