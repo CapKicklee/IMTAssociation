@@ -14,8 +14,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import db.manager.DataBaseManager;
-
+import db.mapper.BeanDaoMapper;
+import db.mapper.MapperResult;
 import db.bean.ArticleBean;
+import db.dao.ArticleDAO;
+import db.dao.DAO;
 
 /**
  * Servlet permettant la gestion des commandes
@@ -49,8 +52,8 @@ public class Commande extends HttpServlet {
 							.getAttribute("panier");
 					panier.remove(code);
 					request.getSession().setAttribute("panier", panier);
-					
-					
+					System.out.println(request.getSession().getAttribute("panier"));
+
 					response.sendRedirect("/imt.association/commande");
 				}
 			} else if(request.getRequestURI().contains("commande/quantity")){
@@ -74,6 +77,21 @@ public class Commande extends HttpServlet {
 					request.getSession().setAttribute("panier", panier);
 					response.sendRedirect("/imt.association/commande");
 				}
+			}else if(request.getRequestURI().contains("commande/valider")){
+				
+					Map<ArticleBean, Integer> panierValue = (HashMap<ArticleBean, Integer>) request.getSession()
+							.getAttribute("panierValue");
+					Map<String, Integer> panier = (TreeMap<String, Integer>) request.getSession()
+							.getAttribute("panier");
+					
+					for (Map.Entry<ArticleBean, Integer> entry : panierValue.entrySet()) {
+						entry.getKey().setStock(entry.getKey().getStock() - entry.getValue());
+						DataBaseManager.saveArticle((ArticleDAO)(BeanDaoMapper.mapBeanToDAO(entry.getKey()).getMapped().get()), response);
+					}
+					panier = new TreeMap<String,Integer>();
+					request.getSession().setAttribute("panier", panier);
+					response.sendRedirect("/imt.association/commande");
+				
 			}else {
 				response.sendRedirect("/imt.association/erreur404");
 			}
@@ -84,32 +102,36 @@ public class Commande extends HttpServlet {
 
 	private void process(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		if ((TreeMap) request.getSession().getAttribute("panier") == null) {
-			System.out.println("Panier null");
-		}
-		Map<String, Integer> panier = (TreeMap) request.getSession().getAttribute("panier");
-
-		Map<ArticleBean, Integer> panierValue = new HashMap<ArticleBean, Integer>();
-		for (Map.Entry<String, Integer> entry : panier.entrySet()) {
-
-			String key = entry.getKey();
-
-			Optional<ArticleBean> articlebeanOp = DataBaseManager.loadArticle(key, response);
-			if (articlebeanOp.isPresent()) {
-				request.getSession().removeAttribute("message");
-				request.getSession().removeAttribute("succes");
-				ArticleBean articleBean = articlebeanOp.get();
-				Integer value = entry.getValue();
-				panierValue.put(articleBean, value);
-				request.getSession().setAttribute("panierValue", panierValue);
-				request.getSession().setAttribute("taillePanier",
-						((TreeMap) request.getSession().getAttribute("panier")).size());
+		if (request.getSession().getAttribute("user") != null) {
+			if ((TreeMap) request.getSession().getAttribute("panier") == null) {
+				System.out.println("Panier null");
 			}
-		}
-		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/commande.jsp");
-		rd.forward(request, response);
+			Map<String, Integer> panier = (TreeMap) request.getSession().getAttribute("panier");
 
+			Map<ArticleBean, Integer> panierValue = new HashMap<ArticleBean, Integer>();
+			for (Map.Entry<String, Integer> entry : panier.entrySet()) {
+
+				String key = entry.getKey();
+
+				Optional<ArticleBean> articlebeanOp = DataBaseManager.loadArticle(key, response);
+				if (articlebeanOp.isPresent()) {
+					request.getSession().removeAttribute("message");
+					request.getSession().removeAttribute("succes");
+					ArticleBean articleBean = articlebeanOp.get();
+					Integer value = entry.getValue();
+					panierValue.put(articleBean, value);
+				}
+			}
+			request.getSession().setAttribute("panierValue", panierValue);
+			request.getSession().setAttribute("taillePanier",
+					((TreeMap) request.getSession().getAttribute("panier")).size());
+
+
+			RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/commande.jsp");
+			rd.forward(request, response);
+		} else {
+			response.sendRedirect("/imt.association/login");
+		}
 	}
 
 }
