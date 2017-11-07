@@ -86,6 +86,7 @@ public class Commande extends HttpServlet {
 					
 					for (Map.Entry<ArticleBean, Integer> entry : panierValue.entrySet()) {
 						entry.getKey().setStock(entry.getKey().getStock() - entry.getValue());
+						
 						DataBaseManager.saveArticle((ArticleDAO)(BeanDaoMapper.mapBeanToDAO(entry.getKey()).getMapped().get()), response);
 					}
 					panier = new TreeMap<String,Integer>();
