@@ -48,7 +48,14 @@
 						<td>${artPanier.key.nom}</td>
 						<td>${artPanier.key.stock}</td>
 						<td>${artPanier.key.prix * artPanier.value}€</td>
-						<td>${artPanier.value}</td>
+						<td><div>
+								<input type="number" value="${artPanier.value}" min="1"
+									max="${artPanier.key.stock}"></input>
+								<form method="POST"
+									action="commande/quantity/${artPanier.key.code}">
+									<button type="submit" class="btn btn-info">OK</button>
+								</form>
+							</div></td>
 						<td>
 							<div class="btn-toolbar" role="toolbar"
 								aria-label="Toolbar with button groups">

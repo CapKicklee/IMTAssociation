@@ -38,7 +38,7 @@ public class Login extends HttpServlet {
         if (request.getSession().getAttribute("user") != null) {
         	request.getSession().removeAttribute("erreur");
             request.getSession().setAttribute("panier", new TreeMap<String, Integer>());
-            response.sendRedirect("/imt.association/home");
+            response.sendRedirect("/imt.association/");
         } else {
         	//request.getSession().setAttribute("erreur", "Veuillez vous authentifier d'abord");
             process(request, response);
@@ -64,7 +64,7 @@ public class Login extends HttpServlet {
                     request.getSession().setAttribute("panier", new TreeMap<String, Integer>());
                     System.out.println("connected");
                     //request.getSession().removeAttribute("erreur");
-                    response.sendRedirect("/imt.association/home");
+                    response.sendRedirect("/imt.association/");
                 } else {
                     System.out.println("wrong password");
                     request.getSession().setAttribute("erreur", "Le nom d'utilisateur ou le mot de passe est erroné");
@@ -77,7 +77,7 @@ public class Login extends HttpServlet {
         } else if (request.getRequestURI().contains("create")) {
             if (create(request, response)) {
             	//request.getSession().setAttribute("erreur", null);
-                response.sendRedirect("/imt.association/home");
+                response.sendRedirect("/imt.association/");
             } else {
                 response.sendRedirect("/imt.association/login");
             }
@@ -146,10 +146,8 @@ public class Login extends HttpServlet {
 
                         if (res.getMapped().isPresent()) {
                             DataBaseManager.insertAdresse((AdresseDAO) res.getMapped().get(), response);
-                            System.out.println("address created");
                         } else {
                         	request.setAttribute("erreur", "L'adresse n'a pas pu être créée, veuillez vérifier les informations");
-                            System.out.println("error while creating address");
                             return false;
                         }
 
@@ -164,7 +162,6 @@ public class Login extends HttpServlet {
                 request.setAttribute("succes", "Il n'y a plus d'articles à afficher, désolé...");
             } else {
             	request.setAttribute("erreur", "L'utilisateur n'a pas pu être créé, une erreur est survenue");
-                System.out.println("error while creating user");
                 return false;
             }
             return true;

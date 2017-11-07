@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Juliette FRETAY, Kendall FOREST, Chloé GUILBAUD
  */
-@WebServlet({ "/home", "/home/*" })
+@WebServlet({ "/"})
 public class Home extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

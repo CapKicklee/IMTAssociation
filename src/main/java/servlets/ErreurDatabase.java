@@ -2,6 +2,7 @@ package servlets;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -40,6 +41,7 @@ public class ErreurDatabase extends HttpServlet {
 
     private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //response.sendRedirect("");
-        System.out.println("Erreur database");
+    	RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/erreurDb.jsp");
+		rd.forward(request, response);
     }
 }

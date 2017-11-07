@@ -4,7 +4,7 @@ package db.bean;
  * Représentation objet de la table ARTICLE de la base de données.
  * @author Juliette FRETAY, Kendall FOREST, Chloé GUILBAUD
  */
-public class ArticleBean implements Bean {
+public class ArticleBean implements Bean{
 
     private String code;
     private String nom;
@@ -101,5 +101,6 @@ public class ArticleBean implements Bean {
     public Object[] getObjectValues() {
         return new Object[]{getCode(), getNom(), getPrix(), getStock(), getImage()};
     }
+
 
 }

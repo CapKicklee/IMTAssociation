@@ -1,9 +1,9 @@
 package servlets;
 
 import java.io.IOException;
+import java.util.TreeMap;
 import java.util.Map;
 import java.util.Optional;
-import java.util.TreeMap;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -45,6 +45,7 @@ public class Commande extends HttpServlet {
 				String code = request.getRequestURI().substring(request.getRequestURI().lastIndexOf('/') + 1);
 				System.out.println("Code : " + code);
 				if (code.length() == 3) {
+
 					Map<String, Integer> panier = (TreeMap<String, Integer>) request.getSession()
 							.getAttribute("panier");
 					if (false) {// Avec le +1 ça depasse le stock
@@ -60,10 +61,11 @@ public class Commande extends HttpServlet {
 
 			}
 
-			if (request.getRequestURI().contains("commande/minus")) {
+			else if (request.getRequestURI().contains("commande/minus")) {
 				String code = request.getRequestURI().substring(request.getRequestURI().lastIndexOf('/') + 1);
 				System.out.println("Code : " + code);
 				if (code.length() == 3) {
+
 					Map<String, Integer> panier = (TreeMap<String, Integer>) request.getSession()
 							.getAttribute("panier");
 					if (panier.get(code) - 1 == 0) {
@@ -77,10 +79,11 @@ public class Commande extends HttpServlet {
 				}
 			}
 
-			if (request.getRequestURI().contains("commande/remove")) {
+			else if (request.getRequestURI().contains("commande/remove")) {
 				String code = request.getRequestURI().substring(request.getRequestURI().lastIndexOf('/') + 1);
 				System.out.println("Code : " + code);
 				if (code.length() == 3) {
+
 					Map<String, Integer> panier = (TreeMap<String, Integer>) request.getSession()
 							.getAttribute("panier");
 					panier.remove(code);
@@ -98,6 +101,7 @@ public class Commande extends HttpServlet {
 
 	private void process(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
 		if ((TreeMap) request.getSession().getAttribute("panier") == null) {
 			System.out.println("Panier null");
 		}
@@ -113,14 +117,11 @@ public class Commande extends HttpServlet {
 
 				ArticleBean articleBean = articlebeanOp.get();
 				Integer value = entry.getValue();
-				System.out.println("Création du panier : " + articleBean + " " + value);
 				panierValue.put(articleBean, value);
-
 				request.getSession().setAttribute("panierValue", panierValue);
 				request.getSession().setAttribute("taillePanier",
 						((TreeMap) request.getSession().getAttribute("panier")).size());
 			}
-
 		}
 		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/commande.jsp");
 		rd.forward(request, response);
