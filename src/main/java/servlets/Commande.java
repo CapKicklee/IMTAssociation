@@ -83,15 +83,22 @@ public class Commande extends HttpServlet {
 							.getAttribute("panierValue");
 					Map<String, Integer> panier = (TreeMap<String, Integer>) request.getSession()
 							.getAttribute("panier");
-					
+					boolean Erreurpresent = false;
 					for (Map.Entry<ArticleBean, Integer> entry : panierValue.entrySet()) {
 						entry.getKey().setStock(entry.getKey().getStock() - entry.getValue());
 						
-						DataBaseManager.saveArticle((ArticleDAO)(BeanDaoMapper.mapBeanToDAO(entry.getKey()).getMapped().get()), response);
+						Optional<ArticleBean> res = DataBaseManager.saveArticle(entry.getKey(), response);
+						if (!res.isPresent()){
+							Erreurpresent=true;
+						}
 					}
 					panier = new TreeMap<String,Integer>();
-					request.getSession().setAttribute("panier", panier);
-					response.sendRedirect("/imt.association/commande");
+					if(!Erreurpresent){
+						request.getSession().setAttribute("panier", panier);
+						response.sendRedirect("/imt.association/commande");
+					}
+					
+					
 				
 			}else {
 				response.sendRedirect("/imt.association/erreur404");
