@@ -75,17 +75,17 @@ public class DataBaseManagerUtilsTest {
 
     @Test
     public void testSave() throws Exception {
-        PaysDAO paysDAO = new PaysDAO("AT", "AUTRISHE");
+        PaysBean paysBean = new PaysBean("AT", "AUTRISHE");
         try {
 
-            Optional<PaysBean> res = DataBaseManagerUtils.save(paysDAO, PrepareDataBase.paysJPAPersistence, null);
+            Optional<PaysBean> res = DataBaseManagerUtils.save(paysBean, PrepareDataBase.paysJPAPersistence, null);
             Assert.assertTrue(res.isPresent());
-            Assert.assertEquals(res.get(), BeanDaoMapper.mapDAOToBean(paysDAO).getMapped().get());
+            Assert.assertEquals(res.get(), paysBean);
 
             res = DataBaseManagerUtils.load("AT", PrepareDataBase.paysJPAPersistence, null);
             Assert.assertTrue(res.isPresent());
-            Assert.assertEquals(res.get().getCode(), ((PaysBean) BeanDaoMapper.mapDAOToBean(paysDAO).getMapped().get()).getCode());
-            Assert.assertEquals(res.get().getNom(), ((PaysBean) BeanDaoMapper.mapDAOToBean(paysDAO).getMapped().get()).getNom());
+            Assert.assertEquals(res.get().getCode(), paysBean.getCode());
+            Assert.assertEquals(res.get().getNom(), paysBean.getNom());
 
         } catch (NullPointerException ex) {
             fail("Erreur base de données");
