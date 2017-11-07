@@ -7,6 +7,11 @@ import javax.persistence.Query;
 import db.dao.ArticleDAO;
 import db.services.jpa.JPAService;
 import db.services.jpa.JPAOperation;
+import db.services.jpa.JPAResult;
+
+import java.util.Optional;
+
+import static errors.ErrorManagerUtils.manageJPAError;
 
 /**
  * JPA implementation for basic persistence operations ( entity "AdherentBean" )
@@ -23,35 +28,26 @@ public class ArticleJPAPersistence extends JPAService<ArticleDAO, String> implem
 	}
 
 	@Override
-	public ArticleDAO load( String login ) {
+	public JPAResult<ArticleDAO> load(String login ) {
 		return super.load( login );
 	}
 
 	@Override
-	public boolean delete( String login ) {
+	public JPAResult<Boolean> delete( String login ) {
 		return super.delete( login );
 	}
 
 	@Override
-	public boolean delete(ArticleDAO entity) {
+	public JPAResult<Boolean> delete(ArticleDAO entity) {
 		if ( entity != null ) {
 			return super.delete( entity.getCode() );
 		}
-		return false ;
+        return new JPAResult<>(Optional.of(false));
 	}
 
 	@Override
-	public long countAll() {
-		// JPA operation definition 
-		JPAOperation operation = new JPAOperation() {
-			@Override
-			public Object exectue(EntityManager em) throws PersistenceException {
-				Query query = em.createNamedQuery("ArticleDAO.countAll");
-				return query.getSingleResult() ;
-			}
-		} ;
-		// JPA operation execution 
-		return (Long) execute(operation);
+	public JPAResult<Long> countAll() {
+        return super.countAll("ArticleDAO.countAll", "countAll ArticleJPA");
 	}
 
 

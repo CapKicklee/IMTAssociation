@@ -2,10 +2,14 @@ package db.mapper;
 
 import db.bean.Bean;
 import db.dao.DAO;
+import errors.mapper.MapperError;
+import errors.mapper.MapperErrorType;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Optional;
+
+import static errors.ErrorManagerUtils.manageMapperError;
 
 /**
  * Classe utilitaire
@@ -92,37 +96,21 @@ public class BeanDaoMapper {
             op = Optional.of(object);
 
         } catch (SecurityException e) {
-            MapperError mapperError = new MapperError(MapperErrorType.SECURITY_EXCEPTION);
-            mapperError.addComplement(e.getMessage());
-            mapperResult.addMapError(mapperError);
+            manageMapperError(mapperResult, MapperErrorType.SECURITY_EXCEPTION, "Erreur de sécurité" + classe, e);
         } catch (IllegalArgumentException e) {
-            MapperError mapperError = new MapperError(MapperErrorType.ILLEGAL_ARGUMENT_EXCEPTION);
-            mapperError.addComplement("Erreur dans l'utilisation du constructeur de la classe " + classe);
-            mapperError.addComplement(e.getMessage());
-            mapperResult.addMapError(mapperError);
+            manageMapperError(mapperResult, MapperErrorType.ILLEGAL_ARGUMENT_EXCEPTION, "Erreur dans l'utilisation du constructeur de la classe " + classe, e);
         } catch (InstantiationException e) {
-            MapperError mapperError = new MapperError(MapperErrorType.INSTANTIATION_EXCEPTION);
-            mapperError.addComplement("Classe concernée " + classe);
-            mapperError.addComplement(e.getMessage());
-            mapperResult.addMapError(mapperError);
+            manageMapperError(mapperResult, MapperErrorType.INSTANTIATION_EXCEPTION, "Classe concernée " + classe, e);
         } catch (IllegalAccessException e) {
-            MapperError mapperError = new MapperError(MapperErrorType.ILLEGAL_ACCESS_EXCEPTION);
-            mapperError.addComplement("Classe concernée " + classe);
-            mapperError.addComplement(e.getMessage());
-            mapperResult.addMapError(mapperError);
+            manageMapperError(mapperResult, MapperErrorType.ILLEGAL_ACCESS_EXCEPTION, "Classe concernée " + classe, e);
         } catch (NoSuchMethodException e) {
-            MapperError mapperError = new MapperError(MapperErrorType.NO_SUCH_METHOD_EXCEPTION);
-            mapperError.addComplement("La classe " + classe + " n'a pas le constructeur recherché (avec les paramètres " + constructorTypes + ")");
-            mapperError.addComplement(e.getMessage());
-            mapperResult.addMapError(mapperError);
+            manageMapperError(mapperResult, MapperErrorType.NO_SUCH_METHOD_EXCEPTION, "La classe " + classe + " n'a pas le constructeur recherché (avec les paramètres " + constructorTypes + ")", e);
         } catch (InvocationTargetException e) {
-            MapperError mapperError = new MapperError(MapperErrorType.INVOCATION_TARGET_EXCEPTION);
-            mapperError.addComplement("Classe concernée " + classe);
-            mapperError.addComplement(e.getMessage());
-            mapperResult.addMapError(mapperError);
+            manageMapperError(mapperResult, MapperErrorType.INVOCATION_TARGET_EXCEPTION, "Classe concernée " + classe, e);
         }
 
         mapperResult.setMapped(op);
         return mapperResult;
     }
+
 }

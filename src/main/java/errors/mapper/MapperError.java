@@ -1,9 +1,9 @@
-package db.mapper;
+package errors.mapper;
 
 import java.util.ArrayList;
 import java.util.List;
 
-class MapperError {
+public class MapperError {
 
     private MapperErrorType mapperErrorType;
     private List<String> complements;

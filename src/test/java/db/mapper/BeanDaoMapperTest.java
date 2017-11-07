@@ -5,6 +5,7 @@ import db.dao.*;
 import db.mapper.classes.MaAbstractBeanClasse;
 import db.mapper.classes.MaBeanClasse;
 import db.mapper.classes.MaExceptionContructorBeanClasse;
+import errors.mapper.MapperErrorType;
 import org.junit.Assert;
 import org.junit.Test;
 

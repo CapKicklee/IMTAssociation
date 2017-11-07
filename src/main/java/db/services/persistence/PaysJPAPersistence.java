@@ -13,52 +13,47 @@ import javax.persistence.Query;
 import db.dao.PaysDAO;
 import db.services.jpa.JPAService;
 import db.services.jpa.JPAOperation;
+import db.services.jpa.JPAResult;
+
+import java.util.Optional;
+
+import static errors.ErrorManagerUtils.manageJPAError;
 
 /**
  * JPA implementation for basic persistence operations ( entity "PaysBean" )
- * 
- * @author Telosys Tools Generator
  *
+ * @author Telosys Tools Generator
  */
 public class PaysJPAPersistence extends JPAService<PaysDAO, String> implements JPAPersistence<PaysDAO, String> {
 
-	/**
-	 * Constructor
-	 */
-	public PaysJPAPersistence() {
-		super(PaysDAO.class);
-	}
+    /**
+     * Constructor
+     */
+    public PaysJPAPersistence() {
+        super(PaysDAO.class);
+    }
 
-	@Override
-	public PaysDAO load( String code ) {
-		return super.load( code );
-	}
+    @Override
+    public JPAResult<PaysDAO> load(String code) {
+        return super.load(code);
+    }
 
-	@Override
-	public boolean delete( String code ) {
-		return super.delete( code );
-	}
+    @Override
+    public JPAResult<Boolean> delete(String code) {
+        return super.delete(code);
+    }
 
-	@Override
-	public boolean delete(PaysDAO entity) {
-		if ( entity != null ) {
-			return super.delete( entity.getCode() );
-		}
-		return false ;
-	}
+    @Override
+    public JPAResult<Boolean> delete(PaysDAO entity) {
+        if (entity != null) {
+            return super.delete(entity.getCode());
+        }
+        return new JPAResult<>(Optional.of(false));
+    }
 
-	@Override
-	public long countAll() {
-		// JPA operation definition 
-		JPAOperation operation = new JPAOperation() {
-			@Override
-			public Object exectue(EntityManager em) throws PersistenceException {
-				Query query = em.createNamedQuery("PaysDAO.countAll");
-				return query.getSingleResult() ;
-			}
-		} ;
-		// JPA operation execution 
-		return (Long) execute(operation);
-	}
+    @Override
+    public JPAResult<Long> countAll() {
+        return super.countAll("PaysDAO.countAll", "countAll() PaysJPA");
+    }
 
 }

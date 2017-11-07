@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class Home
  */
-@WebServlet({ "/home", "/home/*" })
+@WebServlet({ "/"})
 public class Home extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -41,6 +41,7 @@ public class Home extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/home.jsp");
 			rd.forward(request, response);
 		} else {
+			request.getSession().setAttribute("erreur", "Veuillez vous authentifier d'abord");
 			response.sendRedirect("/imt.association/login");
 		}
 	}

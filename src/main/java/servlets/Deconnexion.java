@@ -32,6 +32,7 @@ public class Deconnexion extends HttpServlet {
 		if (request.getSession().getAttribute("user") != null) {
 			request.getSession().setAttribute("user", null);
 			request.getSession().setAttribute("panier", null);
+			request.getSession().removeAttribute("erreur");
 		}
 		response.sendRedirect("/imt.association/login");
 	}

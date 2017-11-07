@@ -5,8 +5,18 @@
 package db.services.persistence;
 
 import java.util.List;
+import java.util.Optional;
 
 import db.dao.DAO;
+import db.services.jpa.JPAOperation;
+import db.services.jpa.JPAResult;
+import db.services.jpa.JPAService;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceException;
+import javax.persistence.Query;
+
+import static errors.ErrorManagerUtils.manageJPAError;
 
 /**
  * Basic persistence operations for entity "PaysBean"
@@ -24,7 +34,7 @@ public interface JPAPersistence<T extends DAO, G> {
      * @param pays
      * @return true if found and deleted, false if not found
      */
-     boolean delete(T pays) ;
+     JPAResult<Boolean> delete(T pays) ;
 
     /**
      * Deletes the entity by its Primary Key <br>
@@ -32,27 +42,27 @@ public interface JPAPersistence<T extends DAO, G> {
      * @param code - identifiant unique
      * @return true if found and deleted, false if not found
      */
-    boolean delete(G code) ;
+    JPAResult<Boolean> delete(G code) ;
 
     /**
      * Inserts the given entity and commit <br>
      * Transactional operation ( begin transaction and commit )
      * @param pays
      */
-    void insert(T pays) ;
+    JPAResult insert(T pays) ;
 
     /**
      * Loads the entity for the given Primary Key <br>
      * @param code
      * @return the entity loaded (or null if not found)
      */
-    T load(G code) ;
+    JPAResult<T> load(G code) ;
 
     /**
      * Loads ALL the entities (use with caution)
      * @return
      */
-    List<T> loadAll() ;
+    JPAResult<List<T>> loadAll() ;
 
 
 
@@ -62,7 +72,7 @@ public interface JPAPersistence<T extends DAO, G> {
      * @param pays
      * @return
      */
-    T save(T pays) ;
+    JPAResult<T> save(T pays) ;
 
 
 
@@ -70,6 +80,6 @@ public interface JPAPersistence<T extends DAO, G> {
      * Count all the occurrences
      * @return
      */
-    long countAll();
+    JPAResult<Long> countAll();
 
 }

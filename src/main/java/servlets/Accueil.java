@@ -1,7 +1,6 @@
 package servlets;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,65 +11,65 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import db.dao.ArticleDAO;
 import db.bean.ArticleBean;
-import db.mapper.BeanDaoMapper;
-import db.mapper.Mappable;
-import db.services.persistence.JPAPersistence;
-import db.services.persistence.ArticleJPAPersistence;
+import db.manager.DataBaseManager;
 
 /**
  * Servlet implementation class Accueil
  */
-@WebServlet({ "/accueil", "/accueil/*" })
+@WebServlet({"/accueil", "/accueil/*"})
 public class Accueil extends HttpServlet {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	private JPAPersistence<ArticleDAO, String> articleJPA = new ArticleJPAPersistence();
+    /**
+     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+     */
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        process(request, response);
+    }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		process(request, response);
-	}
+    /**
+     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+     */
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        if (request.getRequestURI().contains("accueil/article")) {
+            request.setAttribute("article",
+                    request.getRequestURI().substring(request.getRequestURI().lastIndexOf('/') + 1));
+            response.sendRedirect("/imt.association/article/"
+                    + request.getRequestURI().substring(request.getRequestURI().lastIndexOf('/') + 1));
+        } else {
+            process(request, response);
+        }
+    }
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		if (request.getRequestURI().contains("accueil/article")) {
-			request.setAttribute("article",
-					request.getRequestURI().substring(request.getRequestURI().lastIndexOf('/') + 1));
-			response.sendRedirect("/imt.association/article/"
-					+ request.getRequestURI().substring(request.getRequestURI().lastIndexOf('/') + 1));
-		} else {
-			process(request, response);
-		}
-	}
+    private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        if (request.getSession().getAttribute("user") != null) {
+        	request.getSession().removeAttribute("erreur");
+            Optional<List<ArticleBean>> articlesOp = DataBaseManager.loadAllArticles(response);
+            if (articlesOp.isPresent()) {
+                List<ArticleBean> articleBeanList = articlesOp.get();
+                request.setAttribute("articles", articleBeanList);
 
-	private void process(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		if (request.getSession().getAttribute("user") != null) {
-			List<ArticleBean> articles = new ArrayList<>();
-			for (ArticleDAO dao : articleJPA.loadAll()) {
-				Optional<Mappable> map = BeanDaoMapper.mapDAOToBean(dao).getMapped();
-				if (map.isPresent()) {
-					articles.add((ArticleBean) map.get());
-				}
-			}
-			request.setAttribute("articles", articles);
-			request.setAttribute("taille", (int) articleJPA.countAll());
-			RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/articles.jsp");
-			rd.forward(request, response);
-		} else {
-			response.sendRedirect("/imt.association/login");
-		}
-	}
+                Optional<Long> nbArticleOp = DataBaseManager.callAllArticles(response);
+                if (nbArticleOp.isPresent()) {
+
+                    Long nbArticle = nbArticleOp.get();
+                    request.setAttribute("taille", nbArticle);
+
+                    RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/articles.jsp");
+                    rd.forward(request, response);
+
+                }
+
+            } else {
+            	request.getSession().setAttribute("message", "Il n'y a plus d'articles à afficher, désolé...");
+            }
+        } else {
+        	request.getSession().setAttribute("erreur", "Veuillez vous authentifier d'abord");
+            response.sendRedirect("/imt.association/login");
+        }
+
+    }
 
 }
