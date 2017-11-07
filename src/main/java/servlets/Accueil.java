@@ -55,7 +55,7 @@ public class Accueil extends HttpServlet {
 
                 Optional<Long> nbArticleOp = DataBaseManager.countAllArticles(response);
                 if (nbArticleOp.isPresent()) {
-
+                	request.getSession().removeAttribute("message");
                     Long nbArticle = nbArticleOp.get();
                     request.setAttribute("taille", nbArticle);
 
