@@ -1,6 +1,7 @@
 package servlets;
 
 import java.io.IOException;
+import java.util.TreeMap;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -48,7 +49,7 @@ public class Commande extends HttpServlet {
 				String code = request.getRequestURI().substring(request.getRequestURI().lastIndexOf('/') + 1);
 				System.out.println("Code : " + code);
 				if (code.length() == 3) {
-					HashMap<String, Integer> panier = (HashMap<String, Integer>) request.getSession()
+					TreeMap<String, Integer> panier = (TreeMap<String, Integer>) request.getSession()
 							.getAttribute("panier");
 					if (false) {// Avec le +1 ça depasse le stock
 						// Ne rien faire sur la quantite
@@ -63,11 +64,11 @@ public class Commande extends HttpServlet {
 
 			}
 
-			if (request.getRequestURI().contains("commande/minus")) {
+			else if (request.getRequestURI().contains("commande/minus")) {
 				String code = request.getRequestURI().substring(request.getRequestURI().lastIndexOf('/') + 1);
 				System.out.println("Code : " + code);
 				if (code.length() == 3) {
-					HashMap<String, Integer> panier = (HashMap<String, Integer>) request.getSession()
+					TreeMap<String, Integer> panier = (TreeMap<String, Integer>) request.getSession()
 							.getAttribute("panier");
 					if (panier.get(code) - 1 == 0) {
 						panier.remove(code);
@@ -80,11 +81,11 @@ public class Commande extends HttpServlet {
 				}
 			}
 
-			if (request.getRequestURI().contains("commande/remove")) {
+			else if (request.getRequestURI().contains("commande/remove")) {
 				String code = request.getRequestURI().substring(request.getRequestURI().lastIndexOf('/') + 1);
 				System.out.println("Code : " + code);
 				if (code.length() == 3) {
-					HashMap<String, Integer> panier = (HashMap<String, Integer>) request.getSession()
+					TreeMap<String, Integer> panier = (TreeMap<String, Integer>) request.getSession()
 							.getAttribute("panier");
 					panier.remove(code);
 
@@ -102,25 +103,25 @@ public class Commande extends HttpServlet {
 	private void process(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		if (request.getSession().getAttribute("user") != null) {
-			if ((HashMap) request.getSession().getAttribute("panier") == null) {
+			if ((TreeMap) request.getSession().getAttribute("panier") == null) {
 				System.out.println("Panier null");
 			}
-			HashMap<String, Integer> panier = (HashMap) request.getSession().getAttribute("panier");
-
-			HashMap<ArticleBean, Integer> panierValue = new HashMap<ArticleBean, Integer>();
+			TreeMap<String, Integer> panier = (TreeMap) request.getSession().getAttribute("panier");
+			System.out.println("Panier trié : "+panier);
+			Map<ArticleBean, Integer> panierValue = new HashMap<ArticleBean, Integer>();
 			for (Map.Entry<String, Integer> entry : panier.entrySet()) {
 				String key = entry.getKey();
 				ArticleDAO article = (ArticleDAO) articleJPA.load(key);
 				ArticleBean articlebean = (ArticleBean) BeanDaoMapper.mapDAOToBean(article).getMapped().get();
 
 				Integer value = entry.getValue();
-				System.out.println("Création du panier : " + articlebean + " " + value);
 				panierValue.put(articlebean, value);
 
 			}
+			System.out.println("Panier envoyé : "+panierValue);
 			request.getSession().setAttribute("panierValue", panierValue);
 			request.getSession().setAttribute("taillePanier",
-					((HashMap) request.getSession().getAttribute("panier")).size());
+					((TreeMap) request.getSession().getAttribute("panier")).size());
 			RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/commande.jsp");
 			rd.forward(request, response);
 		} else {
