@@ -1,0 +1,15 @@
+db
+db.bean
+db.dao
+db.manager
+db.mapper
+db.persistence
+db.services.environment
+db.services.jpa
+db.services.persistence
+db.utils.manager
+db.utils.mapper
+errors
+errors.jpa
+errors.mapper
+servlets
