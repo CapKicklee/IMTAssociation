@@ -50,9 +50,7 @@
 				</h5>
 			</ul>
 		</div>
-
 		<img class="card-img-top" src="img/articles.png" alt="Card image cap">
-
 	</div>
 	<%@ include file="/WEB-INF/jspf/footer.jspf"%>
 </body>
