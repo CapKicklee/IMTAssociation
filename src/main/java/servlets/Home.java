@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class Home
+ * Servlet implementation de la page Home
+ *
+ * @author Juliette FRETAY, Kendall FOREST, Chloé GUILBAUD
  */
 @WebServlet({ "/"})
 public class Home extends HttpServlet {

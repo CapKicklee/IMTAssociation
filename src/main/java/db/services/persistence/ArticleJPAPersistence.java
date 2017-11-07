@@ -1,22 +1,17 @@
 package db.services.persistence;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceException;
-import javax.persistence.Query;
 
 import db.dao.ArticleDAO;
 import db.services.jpa.JPAService;
-import db.services.jpa.JPAOperation;
 import db.services.jpa.JPAResult;
 
 import java.util.Optional;
 
-import static errors.ErrorManagerUtils.manageJPAError;
-
 /**
  * JPA implementation for basic persistence operations ( entity "AdherentBean" )
- * 
  *
+ * @author Inspired by Telosys Tools for JPA testing
+ * @author Juliette FRETAY, Kendall FOREST, Chloé GUILBAUD
  */
 public class ArticleJPAPersistence extends JPAService<ArticleDAO, String> implements JPAPersistence<ArticleDAO, String> {
 

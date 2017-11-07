@@ -13,8 +13,10 @@ import javax.persistence.Persistence;
 import javax.persistence.PersistenceException;
 
 /**
- * JPA environment for JPA operations execution <br>
- * Provided by Telosys Tools for JPA testing
+ * Environnement JPA pour les opérations de base de données
+ *
+ * @author Inspired by Telosys Tools for JPA testing
+ * @author Juliette FRETAY, Kendall FOREST, Chloé GUILBAUD
  * 
  */
 public class JPAEnvironment {

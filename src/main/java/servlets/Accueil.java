@@ -15,7 +15,9 @@ import db.bean.ArticleBean;
 import db.manager.DataBaseManager;
 
 /**
- * Servlet implementation class Accueil
+ * Servlet permettant la gestion de la page d'accueil
+ *
+ * @author Juliette FRETAY, Kendall FOREST, Chloé GUILBAUD
  */
 @WebServlet({"/accueil", "/accueil/*"})
 public class Accueil extends HttpServlet {

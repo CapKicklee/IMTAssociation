@@ -2,10 +2,8 @@ package servlets;
 
 import java.io.IOException;
 import java.util.TreeMap;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-import java.util.TreeMap;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,15 +13,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import db.manager.DataBaseManager;
-import db.mapper.BeanDaoMapper;
 
 import db.bean.ArticleBean;
-import db.dao.ArticleDAO;
-import db.services.persistence.JPAPersistence;
-import db.services.persistence.ArticleJPAPersistence;
 
 /**
- * Servlet implementation class Commande
+ * Servlet permettant la gestion des commandes
+ *
+ * @author Juliette FRETAY, Kendall FOREST, Chloé GUILBAUD
  */
 @WebServlet({ "/commande", "/commande/*" })
 public class Commande extends HttpServlet {

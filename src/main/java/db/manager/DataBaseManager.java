@@ -15,7 +15,8 @@ import static db.manager.DataBaseManagerUnits.*;
 
 
 /**
- * Classe utilitaire donnant accès à la base de données.
+ * Classe utilitaire donnant d'accès à la base de données.
+ * @author Juliette FRETAY, Kendall FOREST, Chloé GUILBAUD
  */
 public class DataBaseManager {
 

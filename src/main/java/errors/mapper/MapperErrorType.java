@@ -1,9 +1,16 @@
 package errors.mapper;
 
+import db.bean.Bean;
+import db.dao.DAO;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Enumération listant les erreurs de map entre les objets {@link DAO} et {@link Bean}
+ * @author Juliette FRETAY, Kendall FOREST, Chloé GUILBAUD
+ */
 public enum MapperErrorType {
 
     SECURITY_EXCEPTION("SECURITY_EXCEPTION"),

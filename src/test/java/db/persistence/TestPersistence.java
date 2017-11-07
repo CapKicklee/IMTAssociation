@@ -19,7 +19,7 @@ public class TestPersistence {
         Optional<String> strOp = Optional.ofNullable(test);
         System.out.println("hey - " + strOp);
 
-        /*AdherentJPAPersistence jpa = new AdherentJPAPersistence();
+        AdherentJPAPersistence jpa = new AdherentJPAPersistence();
         try {
             System.out.println(jpa.loadAll().toString());
         } catch (JDBCConnectionException ex) {
@@ -31,11 +31,11 @@ public class TestPersistence {
             System.out.println("PERSISTENCE_EXCEPTION");
         }
 
-	    /*AdherentJPAPersistence jpa = new AdherentJPAPersistence();
-		System.out.println(jpa.loadAll().toString());
-		System.out.println(jpa.countAll());*/
+	    AdherentJPAPersistence jpa1 = new AdherentJPAPersistence();
+		System.out.println(jpa1.loadAll().toString());
+		System.out.println(jpa1.countAll());
 		
-		/*ArticleJPAPersistence jpa2 = new ArticleJPAPersistence();
+		ArticleJPAPersistence jpa2 = new ArticleJPAPersistence();
 		System.out.println(jpa2.loadAll().toString());
 		System.out.println(jpa2.countAll());
 		
@@ -45,7 +45,8 @@ public class TestPersistence {
 		
 		PaysJPAPersistence jpa4 = new PaysJPAPersistence();
 		System.out.println(jpa4.loadAll().toString());
-		System.out.println(jpa4.countAll());*/
+		System.out.println(jpa4.countAll());
+
 	}
 
 }

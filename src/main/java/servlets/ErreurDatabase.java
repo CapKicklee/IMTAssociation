@@ -1,9 +1,6 @@
 package servlets;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,14 +10,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import db.dao.ArticleDAO;
-import db.bean.ArticleBean;
-import db.mapper.BeanDaoMapper;
-import db.mapper.Mappable;
 import db.services.persistence.JPAPersistence;
 import db.services.persistence.ArticleJPAPersistence;
 
 /**
- * Servlet implementation class Accueil
+ * Servlet d'erreurs liées à la base de données
+ *
+ * @author Juliette FRETAY, Kendall FOREST, Chloé GUILBAUD
  */
 @WebServlet({"/erreurDB", "/erreurDB/*"})
 public class ErreurDatabase extends HttpServlet {

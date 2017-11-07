@@ -1,8 +1,6 @@
 package servlets;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.TreeMap;
@@ -15,21 +13,17 @@ import javax.servlet.http.HttpServletResponse;
 
 import db.bean.AdherentBean;
 import db.bean.AdresseBean;
-import db.bean.ArticleBean;
 import db.bean.PaysBean;
 import db.dao.AdherentDAO;
 import db.dao.AdresseDAO;
-import db.dao.PaysDAO;
 import db.manager.DataBaseManager;
 import db.mapper.BeanDaoMapper;
 import db.mapper.MapperResult;
-import db.services.persistence.JPAPersistence;
-import db.services.persistence.AdherentJPAPersistence;
-import db.services.persistence.AdresseJPAPersistence;
-import db.services.persistence.PaysJPAPersistence;
 
 /**
- * Servlet implementation class Login
+ * Servlet de gestion de l'authentification et d'inscription
+ *
+ * @author Juliette FRETAY, Kendall FOREST, Chloé GUILBAUD
  */
 @WebServlet({"/login", "/login/*"})
 public class Login extends HttpServlet {

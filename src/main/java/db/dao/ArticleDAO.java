@@ -2,8 +2,6 @@ package db.dao;
 
 import java.io.Serializable;
 
-import java.sql.Blob;
-
 import javax.persistence.*;
 
 /**

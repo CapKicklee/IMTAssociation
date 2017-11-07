@@ -6,23 +6,17 @@
 package db.services.persistence;
 
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceException;
-import javax.persistence.Query;
-
 import db.dao.PaysDAO;
 import db.services.jpa.JPAService;
-import db.services.jpa.JPAOperation;
 import db.services.jpa.JPAResult;
 
 import java.util.Optional;
 
-import static errors.ErrorManagerUtils.manageJPAError;
-
 /**
  * JPA implementation for basic persistence operations ( entity "PaysBean" )
  *
- * @author Telosys Tools Generator
+ * @author Inspired by Telosys Tools for JPA testing
+ * @author Juliette FRETAY, Kendall FOREST, Chloé GUILBAUD
  */
 public class PaysJPAPersistence extends JPAService<PaysDAO, String> implements JPAPersistence<PaysDAO, String> {
 

@@ -8,7 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet de déconnexion
+ * Servlet permettant la gestion de la déconnexion
+ *
+ * @author Juliette FRETAY, Kendall FOREST, Chloé GUILBAUD
  */
 @WebServlet("/deconnexion")
 public class Deconnexion extends HttpServlet {

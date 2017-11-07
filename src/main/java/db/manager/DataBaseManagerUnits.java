@@ -14,6 +14,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Classe utilitaire décrivant les méthodes générique d'accès à la base de données.
+ * @author Juliette FRETAY, Kendall FOREST, Chloé GUILBAUD
+ */
 class DataBaseManagerUnits {
 
     protected static <B extends Bean, D extends DAO> Optional<List<B>> loadAll(JPAPersistence jpaPersistence, HttpServletResponse response) throws IOException {
