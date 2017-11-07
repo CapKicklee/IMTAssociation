@@ -53,7 +53,7 @@ public class Accueil extends HttpServlet {
                 List<ArticleBean> articleBeanList = articlesOp.get();
                 request.setAttribute("articles", articleBeanList);
 
-                Optional<Long> nbArticleOp = DataBaseManager.callAllArticles(response);
+                Optional<Long> nbArticleOp = DataBaseManager.countAllArticles(response);
                 if (nbArticleOp.isPresent()) {
 
                     Long nbArticle = nbArticleOp.get();

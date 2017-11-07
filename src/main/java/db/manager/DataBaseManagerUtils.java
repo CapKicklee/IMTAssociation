@@ -16,9 +16,10 @@ import java.util.Optional;
 
 /**
  * Classe utilitaire décrivant les méthodes générique d'accès à la base de données.
+ *
  * @author Juliette FRETAY, Kendall FOREST, Chloé GUILBAUD
  */
-class DataBaseManagerUnits {
+class DataBaseManagerUtils {
 
     protected static <B extends Bean, D extends DAO> Optional<List<B>> loadAll(JPAPersistence jpaPersistence, HttpServletResponse response) throws IOException {
         List<B> beanList = null;
@@ -42,9 +43,36 @@ class DataBaseManagerUnits {
 
     protected static <B extends Bean, D extends DAO> Optional<B> load(String key, JPAPersistence jpaPersistence, HttpServletResponse response) throws IOException {
         JPAResult<D> jpaResultat = jpaPersistence.load(key);
-
         Optional<B> bean = Optional.empty();
+        bean = manageDaoToBean(response, jpaResultat, bean);
+        return bean;
+    }
 
+    protected static void insert(DAO dao, JPAPersistence jpaPersistence, HttpServletResponse response) throws IOException {
+        JPAResult<Object> res = jpaPersistence.insert(dao);
+        if (!res.getResult().isPresent()) {
+            response.sendRedirect("/imt.association/erreurDB");
+        }
+    }
+
+    protected static Optional<Long> countAll(JPAPersistence jpaPersistence, HttpServletResponse response) throws IOException {
+        JPAResult<Long> jpaResult = jpaPersistence.countAll();
+        if (jpaResult.hasErrors()) {
+            response.sendRedirect("/imt.association/erreurDB");
+        } else {
+            return Optional.ofNullable(jpaResult.getResult().get());
+        }
+        return Optional.empty();
+    }
+
+    protected static <B extends Bean, D extends DAO> Optional<B> save(DAO daoToSave, JPAPersistence jpaPersistence, HttpServletResponse response) throws IOException {
+        JPAResult<D> jpaResultat = jpaPersistence.save(daoToSave);
+        Optional<B> bean = Optional.empty();
+        bean = manageDaoToBean(response, jpaResultat, bean);
+        return bean;
+    }
+
+    private static <B extends Bean, D extends DAO> Optional<B> manageDaoToBean(HttpServletResponse response, JPAResult<D> jpaResultat, Optional<B> bean) throws IOException {
         D dao;
         if (jpaResultat.hasErrors()) {
             response.sendRedirect("/imt.association/erreurDB");
@@ -60,23 +88,6 @@ class DataBaseManagerUnits {
             }
         }
         return bean;
-    }
-
-    protected static void insert(DAO dao, JPAPersistence jpaPersistence, HttpServletResponse response) throws IOException {
-        JPAResult<Object> res = jpaPersistence.insert(dao);
-        if (!res.getResult().isPresent()) {
-            response.sendRedirect("/imt.association/erreurDB");
-        }
-    }
-
-    protected static Optional<Long> callAll(JPAPersistence jpaPersistence, HttpServletResponse response) throws IOException {
-        JPAResult<Long> jpaResult = jpaPersistence.countAll();
-        if (jpaResult.hasErrors()) {
-            response.sendRedirect("/imt.association/erreurDB");
-        } else {
-            return Optional.ofNullable(jpaResult.getResult().get());
-        }
-        return Optional.empty();
     }
 
 }
