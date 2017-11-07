@@ -24,7 +24,7 @@
 		e.relatedTarget // previous active tab
 	})
 </script>
-<title>IMTAssociation</title>
+<title>IMTAssociation - Connexion</title>
 </head>
 
 <body>
@@ -37,7 +37,13 @@
 		</div>
 		<br />
 		<c:if test="${erreur != null }">
-			<div class="alert alert-danger" role="alert">${erreur }</div>
+			<div class="alert alert-danger alert-dismissible fade show"
+				role="alert">${erreur }
+				<button type="button" class="close" data-dismiss="alert"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
 		</c:if>
 		<div class="card text-center">
 			<div class="card-header">
