@@ -13,7 +13,7 @@
 <link rel="stylesheet"
 	href="webjars/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="webjars/jquery/3.2.1/jquery.min.js"></script>
-<script src="webjars/popper.js/1.12.3/dist/umd/popper.min.js"></script>
+<script src="webjars/popper.js/1.12.5/dist/umd/popper.min.js"></script>
 <script src="webjars/bootstrap/4.0.0-beta-1/js/bootstrap.min.js"></script>
 <title>IMTAssociation - Home</title>
 </head>

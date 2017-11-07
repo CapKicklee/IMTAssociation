@@ -73,6 +73,12 @@
 			<version>4.7.0</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.webjars.npm</groupId>
+			<artifactId>popper.js</artifactId>
+			<version>1.12.5</version>
+		</dependency>
+
 
 	</dependencies>
 

@@ -13,7 +13,7 @@ import java.io.IOException;
  *
  * @author Juliette FRETAY, Kendall FOREST, Chloé GUILBAUD
  */
-@WebServlet({"/erreur404", "/erreur404/*"})
+@WebServlet({"/erreur404"})
 public class Erreur404 extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
