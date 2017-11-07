@@ -42,64 +42,34 @@ public class Commande extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		if (request.getSession().getAttribute("user") != null) {
-			if (request.getRequestURI().contains("commande/plus")) {
+			if (request.getRequestURI().contains("commande/remove")) {
 				String code = request.getRequestURI().substring(request.getRequestURI().lastIndexOf('/') + 1);
-				System.out.println("Code : " + code);
 				if (code.length() == 3) {
-
-					Map<String, Integer> panier = (TreeMap<String, Integer>) request.getSession()
-							.getAttribute("panier");
-					if (false) {// Avec le +1 ça depasse le stock
-						// Ne rien faire sur la quantite
-						// Avertir l'utilisateur
-					} else {
-						panier.put(code, panier.get(code) + 1);
-					}
-					request.getSession().setAttribute("panier", panier);
-					response.sendRedirect("/imt.association/commande");
-
-				}
-
-			}
-
-			else if (request.getRequestURI().contains("commande/minus")) {
-				String code = request.getRequestURI().substring(request.getRequestURI().lastIndexOf('/') + 1);
-				System.out.println("Code : " + code);
-				if (code.length() == 3) {
-
-					Map<String, Integer> panier = (TreeMap<String, Integer>) request.getSession()
-							.getAttribute("panier");
-					if (panier.get(code) - 1 == 0) {
-						panier.remove(code);
-					} else {
-						panier.put(code, panier.get(code) - 1);
-					}
-
-					request.getSession().setAttribute("panier", panier);
-					response.sendRedirect("/imt.association/commande");
-				}
-			}
-
-			else if (request.getRequestURI().contains("commande/remove")) {
-				String code = request.getRequestURI().substring(request.getRequestURI().lastIndexOf('/') + 1);
-				System.out.println("Code : " + code);
-				if (code.length() == 3) {
-
 					Map<String, Integer> panier = (TreeMap<String, Integer>) request.getSession()
 							.getAttribute("panier");
 					panier.remove(code);
-
 					request.getSession().setAttribute("panier", panier);
+					
+					
 					response.sendRedirect("/imt.association/commande");
 				}
 			} else if(request.getRequestURI().contains("commande/quantity")){
 				String code = request.getRequestURI().substring(request.getRequestURI().lastIndexOf('/') + 1);
-				System.out.println("Code : " + code);
+				Integer newQuantity = Integer.valueOf(request.getParameter("inputQuantity"));
 				if (code.length() == 3) {
 
 					Map<String, Integer> panier = (TreeMap<String, Integer>) request.getSession()
 							.getAttribute("panier");
-
+					Optional<ArticleBean> articlebeanOp = DataBaseManager.loadArticle(code, response);
+					ArticleBean articleBean;
+					if (articlebeanOp.isPresent()) {
+						articleBean = articlebeanOp.get();
+						if (newQuantity> articleBean.getStock()) {// Avec le +1 ça depasse le stock
+							panier.put(code, articleBean.getStock());
+						} else {
+							panier.put(code, newQuantity);
+						}
+					}
 
 					request.getSession().setAttribute("panier", panier);
 					response.sendRedirect("/imt.association/commande");

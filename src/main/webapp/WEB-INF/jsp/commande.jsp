@@ -36,8 +36,7 @@
 					<th>En stock</th>
 					<th>Prix Total</th>
 					<th>Quantité</th>
-					<th></th>
-					<th></th>
+					<th>Retirer l'article</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -49,37 +48,14 @@
 						<td>${artPanier.key.stock}</td>
 						<td>${artPanier.key.prix * artPanier.value}€</td>
 						<td><div>
-								<input type="number" value="${artPanier.value}" min="1"
-									max="${artPanier.key.stock}"></input>
-								<form method="POST"
+								
+								<form name="formQuantity" method="POST"
 									action="commande/quantity/${artPanier.key.code}">
+									<input name="inputQuantity" id="inputQuantity" type="number" value="${artPanier.value}" min="1"
+									max="${artPanier.key.stock}"></input>
 									<button type="submit" class="btn btn-info">OK</button>
 								</form>
 							</div></td>
-						<td>
-							<div class="btn-toolbar" role="toolbar"
-								aria-label="Toolbar with button groups">
-
-								<div class="btn-group mr-2" role="group"
-									aria-label="First group">
-									<form method="POST"
-										action="commande/plus/${artPanier.key.code}">
-										<button type="submit" class="btn btn-success">
-											<i class="fa fa-plus"></i>
-										</button>
-									</form>
-								</div>
-								<div class="btn-group mr-2" role="group"
-									aria-label="Second group">
-									<form method="POST"
-										action="commande/minus/${artPanier.key.code}">
-										<button type="submit" class="btn btn-danger">
-											<i class="fa fa-minus"></i>
-										</button>
-									</form>
-								</div>
-							</div>
-						</td>
 						<td>
 							<form method="POST"
 								action="commande/remove/${artPanier.key.code}">
@@ -95,6 +71,9 @@
 		</table>
 	</div>
 	<%@ include file="/WEB-INF/jspf/footer.jspf"%>
+	<script>
+		var input = document.getElementById("inputQuantity").value;
+	</script>
 </body>
 </script>
 </html>
