@@ -48,11 +48,12 @@
 						<td>${artPanier.key.stock}</td>
 						<td>${artPanier.key.prix * artPanier.value}€</td>
 						<td><div>
-								
+
 								<form name="formQuantity" method="POST"
 									action="commande/quantity/${artPanier.key.code}">
-									<input name="inputQuantity" id="inputQuantity" type="number" value="${artPanier.value}" min="1"
-									max="${artPanier.key.stock}"></input>
+									<input name="inputQuantity" id="inputQuantity" type="number"
+										value="${artPanier.value}" min="1"
+										max="${artPanier.key.stock}"></input>
 									<button type="submit" class="btn btn-info">OK</button>
 								</form>
 							</div></td>
@@ -69,11 +70,13 @@
 				</c:forEach>
 			</tbody>
 		</table>
+		<form name="formValiderCommande" method="POST"
+			action="commande/valider">
+			<button type="submit" class="btn btn-warning">Valider la commande</button>
+		</form>
+
 	</div>
 	<%@ include file="/WEB-INF/jspf/footer.jspf"%>
-	<script>
-		var input = document.getElementById("inputQuantity").value;
-	</script>
 </body>
 </script>
 </html>
