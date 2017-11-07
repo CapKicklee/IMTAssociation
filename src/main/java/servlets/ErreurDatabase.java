@@ -45,6 +45,7 @@ public class ErreurDatabase extends HttpServlet {
 
     private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //response.sendRedirect("");
-        System.out.println("Erreur database");
+    	RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/erreurDb.jsp");
+		rd.forward(request, response);
     }
 }
