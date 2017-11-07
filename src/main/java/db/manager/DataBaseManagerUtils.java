@@ -65,10 +65,16 @@ class DataBaseManagerUtils {
         return Optional.empty();
     }
 
-    protected static <B extends Bean, D extends DAO> Optional<B> save(DAO daoToSave, JPAPersistence jpaPersistence, HttpServletResponse response) throws IOException {
-        JPAResult<D> jpaResultat = jpaPersistence.save(daoToSave);
+    protected static <B extends Bean, D extends DAO> Optional<B> save(Bean daoToSave, JPAPersistence jpaPersistence, HttpServletResponse response) throws IOException {
         Optional<B> bean = Optional.empty();
-        bean = manageDaoToBean(response, jpaResultat, bean);
+        MapperResult beanToSaveMapRes = BeanDaoMapper.mapBeanToDAO(daoToSave);
+        if (beanToSaveMapRes.hasErrors()) {
+            response.sendRedirect("/imt.association/erreurDB");
+        } else {
+            DAO beanToSave = (D) beanToSaveMapRes.getMapped().get();
+            JPAResult<D> jpaResultat = jpaPersistence.save(beanToSave);
+            bean = manageDaoToBean(response, jpaResultat, bean);
+        }
         return bean;
     }
 
