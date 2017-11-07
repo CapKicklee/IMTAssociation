@@ -94,6 +94,7 @@ public class Commande extends HttpServlet {
 					}
 					panier = new TreeMap<String,Integer>();
 					if(!Erreurpresent){
+						request.getSession().setAttribute("valider", "Votre commande a bien été validée ! ");
 						request.getSession().setAttribute("panier", panier);
 						response.sendRedirect("/imt.association/commande");
 					}

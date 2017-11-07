@@ -40,6 +40,8 @@ public class Home extends HttpServlet {
 	private void process(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		if (request.getSession().getAttribute("user") != null) {
+			request.getSession().removeAttribute("valider");
+
 			RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/home.jsp");
 			rd.forward(request, response);
 		} else {
