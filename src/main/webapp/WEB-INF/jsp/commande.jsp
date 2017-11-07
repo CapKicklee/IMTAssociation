@@ -25,6 +25,15 @@
 	<%@ include file="/WEB-INF/jspf/header.jspf"%>
 	<br />
 	<div class="container-fluid">
+		<c:if test="${valider != null }">
+			<div class="alert alert-success alert-dismissible fade show"
+				role="alert">${valider }
+				<button type="button" class="close" data-dismiss="alert"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+		</c:if>
 		<nav class="breadcrumb"> <a class="breadcrumb-item"
 			href="/imt.association/home">Home </a> <span
 			class="breadcrumb-item active">Panier </span> </nav>
@@ -72,7 +81,8 @@
 		</table>
 		<form name="formValiderCommande" method="POST"
 			action="commande/valider">
-			<button type="submit" class="btn btn-warning">Valider la commande</button>
+			<button type="submit" class="btn btn-warning">Valider la
+				commande</button>
 		</form>
 
 	</div>

@@ -48,6 +48,7 @@ public class Accueil extends HttpServlet {
     private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (request.getSession().getAttribute("user") != null) {
         	request.getSession().removeAttribute("erreur");
+			request.getSession().removeAttribute("valider");
             Optional<List<ArticleBean>> articlesOp = DataBaseManager.loadAllArticles(response);
             if (articlesOp.isPresent()) {
                 List<ArticleBean> articleBeanList = articlesOp.get();
