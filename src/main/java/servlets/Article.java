@@ -50,6 +50,7 @@ public class Article extends HttpServlet {
         if (request.getSession().getAttribute("user") != null) {
             System.out.println(request.getAttribute("article"));
             request.getSession().removeAttribute("message");
+            request.getSession().removeAttribute("succes");
             Map<String, Integer> panier = (Map<String, Integer>) request.getSession().getAttribute("panier");
             System.out.println(panier.isEmpty());
 
@@ -63,7 +64,7 @@ public class Article extends HttpServlet {
                 } else {
                     panier.put(article.getCode(), 1);
                 }
-                request.getSession().setAttribute("message", "L'article " + article.getNom() + " a bien été ajouté au panier");
+                request.getSession().setAttribute("succes", "L'article " + article.getNom() + " a bien été ajouté au panier");
                 request.getSession().setAttribute("panier", panier);
                 response.sendRedirect("/imt.association/accueil");
             }

@@ -95,7 +95,19 @@ public class Commande extends HttpServlet {
 					request.getSession().setAttribute("panier", panier);
 					response.sendRedirect("/imt.association/commande");
 				}
-			} else {
+			} else if(request.getRequestURI().contains("commande/quantity")){
+				String code = request.getRequestURI().substring(request.getRequestURI().lastIndexOf('/') + 1);
+				System.out.println("Code : " + code);
+				if (code.length() == 3) {
+
+					Map<String, Integer> panier = (TreeMap<String, Integer>) request.getSession()
+							.getAttribute("panier");
+
+
+					request.getSession().setAttribute("panier", panier);
+					response.sendRedirect("/imt.association/commande");
+				}
+			}else {
 				response.sendRedirect("/imt.association/erreur404");
 			}
 		} else {
@@ -111,14 +123,15 @@ public class Commande extends HttpServlet {
 		}
 		Map<String, Integer> panier = (TreeMap) request.getSession().getAttribute("panier");
 
-		Map<ArticleBean, Integer> panierValue = new TreeMap<ArticleBean, Integer>();
+		Map<ArticleBean, Integer> panierValue = new HashMap<ArticleBean, Integer>();
 		for (Map.Entry<String, Integer> entry : panier.entrySet()) {
 
 			String key = entry.getKey();
 
 			Optional<ArticleBean> articlebeanOp = DataBaseManager.loadArticle(key, response);
 			if (articlebeanOp.isPresent()) {
-
+				request.getSession().removeAttribute("message");
+				request.getSession().removeAttribute("succes");
 				ArticleBean articleBean = articlebeanOp.get();
 				Integer value = entry.getValue();
 				panierValue.put(articleBean, value);
