@@ -50,7 +50,7 @@ public class DataBaseManager {
         throw new RuntimeException("Not implemented");
     }
 
-    public static Optional<AdherentBean> saveAdherent(AdherentDAO adherent, HttpServletResponse response) throws IOException {
+    public static Optional<AdherentBean> saveAdherent(AdherentBean adherent, HttpServletResponse response) throws IOException {
         return save(adherent, jpaAdresse, response);
     }
 
@@ -89,7 +89,7 @@ public class DataBaseManager {
 
     }
 
-    public static Optional<AdresseBean> saveAdresse(AdresseDAO adresse, HttpServletResponse response) throws IOException {
+    public static Optional<AdresseBean> saveAdresse(AdresseBean adresse, HttpServletResponse response) throws IOException {
         return save(adresse, jpaAdresse, response);
     }
 
@@ -126,7 +126,7 @@ public class DataBaseManager {
         throw new RuntimeException("Not implemented");
     }
 
-    public static Optional<ArticleBean> saveArticle(ArticleDAO article, HttpServletResponse response) throws IOException {
+    public static Optional<ArticleBean> saveArticle(ArticleBean article, HttpServletResponse response) throws IOException {
         return save(article, jpaArticle, response);
     }
 
@@ -166,7 +166,7 @@ public class DataBaseManager {
         throw new RuntimeException("Not implemented");
     }
 
-    public static Optional<PaysBean> savePays(PaysDAO pays, HttpServletResponse response) throws IOException {
+    public static Optional<PaysBean> savePays(PaysBean pays, HttpServletResponse response) throws IOException {
         return save(pays, jpaPays, response);
     }
 
