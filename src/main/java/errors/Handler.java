@@ -14,7 +14,7 @@ import java.util.Optional;
  * Classe utilitaire permettant l'enregistrement des erreurs liés à la base de données ou au map.
  * @author Juliette FRETAY, Kendall FOREST, Chloé GUILBAUD
  */
-public class ErrorManagerUtils {
+public class Handler {
 
     public static void manageJPAError(JPAResult jpaResult, PersistenceException e, String srcException) {
         jpaResult.setResult(Optional.empty());

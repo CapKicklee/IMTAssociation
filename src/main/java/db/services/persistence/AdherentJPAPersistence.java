@@ -6,19 +6,11 @@
 package db.services.persistence;
 
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceException;
-import javax.persistence.Query;
-
 import db.dao.AdherentDAO;
 import db.services.jpa.JPAService;
-import db.services.jpa.JPAOperation;
 import db.services.jpa.JPAResult;
-import errors.ErrorManagerUtils;
 
 import java.util.Optional;
-
-import static errors.ErrorManagerUtils.manageJPAError;
 
 /**
  * JPA implementation for basic persistence operations ( entity "AdherentBean" )

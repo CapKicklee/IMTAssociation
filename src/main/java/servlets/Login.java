@@ -25,7 +25,7 @@ import db.mapper.MapperResult;
  *
  * @author Juliette FRETAY, Kendall FOREST, Chloé GUILBAUD
  */
-@WebServlet({"/login", "/login/*"})
+@WebServlet("/login")
 public class Login extends HttpServlet {
     private static final long serialVersionUID = 1L;
 

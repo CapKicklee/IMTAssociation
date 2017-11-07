@@ -9,7 +9,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Optional;
 
-import static errors.ErrorManagerUtils.manageMapperError;
+import static errors.Handler.manageMapperError;
 
 /**
  * Classe utilitaire
